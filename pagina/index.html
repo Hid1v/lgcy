@@ -7,113 +7,96 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Segoe UI',sans-serif;background:#f4f6fb;color:#0d1b2a;min-height:100vh}
-
-    /* TOPBAR */
+    body{font-family:'Segoe UI',sans-serif;background:#fff;color:#0d1b2a;min-height:100vh}
     .topbar{background:#0d1b2a;color:#c8d8f0;text-align:center;padding:9px 1rem;font-size:10px;letter-spacing:2.5px;text-transform:uppercase}
-
-    /* HEADER */
-    .header{background:#fff;border-bottom:1px solid #dde4f0;padding:0 2rem;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(13,27,42,0.06)}
+    .header{background:#fff;border-bottom:1px solid #dde4f0;padding:0 1rem;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(13,27,42,0.06)}
     .header-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
     .logo{font-family:Georgia,serif;font-size:22px;font-weight:700;letter-spacing:8px;text-transform:uppercase;color:#0d1b2a;text-decoration:none}
     .logo span{color:#4a7fc1}
-    .header-nav{display:flex;gap:0}
-    .header-nav a{font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:0 14px;color:#555;text-decoration:none;height:60px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all 0.15s;font-weight:500}
+    .header-nav{display:flex;gap:0;overflow-x:auto}
+    .header-nav a{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:0 10px;color:#555;text-decoration:none;height:60px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all 0.15s;font-weight:500;white-space:nowrap}
     .header-nav a:hover{color:#0d1b2a}
     .header-nav a.active{color:#0d1b2a;border-bottom-color:#0d1b2a}
-    .header-right{display:flex;align-items:center;gap:16px}
-    .header-right button{background:none;border:none;cursor:pointer;color:#0d1b2a;font-size:11px;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:5px;transition:color 0.15s;padding:0}
+    .header-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+    .header-right button{background:none;border:none;cursor:pointer;color:#0d1b2a;font-size:11px;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:5px;transition:color 0.15s;padding:0;white-space:nowrap}
     .header-right button:hover{color:#4a7fc1}
     .header-right i{font-size:20px}
-
-    /* LAYOUT */
-    .layout{max-width:1300px;margin:0 auto;display:flex;padding:0 2rem;gap:0}
-
-    /* SIDEBAR */
-    .sidebar{width:220px;flex-shrink:0;padding:24px 24px 24px 0;border-right:1px solid #dde4f0;min-height:calc(100vh - 120px)}
-    .sidebar-section{margin-bottom:28px}
-    .sidebar-title{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0d1b2a;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #dde4f0}
-    .sidebar-item{display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer;font-size:12px;color:#444;transition:color 0.15s;letter-spacing:0.3px}
+    .layout{max-width:1300px;margin:0 auto;display:flex;padding:0 1rem;gap:0}
+    .sidebar{width:200px;flex-shrink:0;padding:20px 20px 20px 0;border-right:1px solid #dde4f0;min-height:calc(100vh - 120px)}
+    .sidebar-section{margin-bottom:24px}
+    .sidebar-title{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0d1b2a;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #dde4f0}
+    .sidebar-item{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:12px;color:#444;transition:color 0.15s}
     .sidebar-item:hover{color:#4a7fc1}
-    .sidebar-item.active{color:#0d1b2a;font-weight:600}
-    .sidebar-item input[type=checkbox]{accent-color:#0d1b2a;width:14px;height:14px;cursor:pointer}
-    .sidebar-item-cat{padding:7px 0;cursor:pointer;font-size:12px;color:#444;transition:color 0.15s;display:flex;align-items:center;justify-content:space-between}
+    .sidebar-item input[type=checkbox]{accent-color:#0d1b2a;width:13px;height:13px;cursor:pointer}
+    .sidebar-item-cat{padding:6px 0;cursor:pointer;font-size:12px;color:#444;transition:color 0.15s;display:flex;align-items:center;justify-content:space-between}
     .sidebar-item-cat:hover{color:#4a7fc1}
     .sidebar-item-cat.active{color:#0d1b2a;font-weight:700}
-    .sidebar-item-cat .cat-emoji{font-size:14px}
     .sidebar-item-cat .cat-count{font-size:10px;color:#9aaec8}
-    .sidebar-clear{font-size:11px;color:#4a7fc1;cursor:pointer;letter-spacing:0.5px;margin-top:4px;display:inline-block}
+    .sidebar-clear{font-size:11px;color:#4a7fc1;cursor:pointer;margin-top:4px;display:inline-block}
     .sidebar-clear:hover{text-decoration:underline}
-
-    /* MAIN */
-    .main{flex:1;padding:24px 0 24px 28px;min-width:0}
-    .main-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
-    .main-top-left h1{font-size:18px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#0d1b2a}
-    .main-top-left p{font-size:12px;color:#9aaec8;margin-top:2px;letter-spacing:0.3px}
+    .main{flex:1;padding:20px 0 20px 24px;min-width:0}
+    .main-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+    .main-top-left h1{font-size:16px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#0d1b2a}
+    .main-top-left p{font-size:12px;color:#9aaec8;margin-top:2px}
     .main-top-right{display:flex;align-items:center;gap:10px}
-    .search-input{background:#fff;border:1px solid #dde4f0;color:#0d1b2a;font-size:12px;border-radius:2px;padding:8px 14px;width:220px;transition:border-color 0.15s}
+    .search-input{background:#fff;border:1px solid #dde4f0;color:#0d1b2a;font-size:12px;border-radius:2px;padding:8px 12px;width:200px;transition:border-color 0.15s}
     .search-input:focus{outline:none;border-color:#4a7fc1}
     .search-input::placeholder{color:#9aaec8}
-    .sort-select{background:#fff;border:1px solid #dde4f0;color:#0d1b2a;font-size:12px;border-radius:2px;padding:8px 12px;cursor:pointer}
-    .sort-select:focus{outline:none}
-
-    /* GRID */
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:#dde4f0}
+    .sort-select{background:#fff;border:1px solid #dde4f0;color:#0d1b2a;font-size:12px;border-radius:2px;padding:8px 10px;cursor:pointer}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;background:#e8e8e8}
     .card{background:#fff;cursor:pointer;position:relative;overflow:hidden;transition:background 0.15s}
     .card:hover .card-img-inner{transform:scale(1.04)}
     .card:hover .card-cta{opacity:1;transform:translateY(0)}
-    .card-img-wrap{overflow:hidden;position:relative;background:#f0f4fb}
-    .card-img-inner{width:100%;height:240px;display:flex;align-items:center;justify-content:center;font-size:72px;transition:transform 0.35s ease}
-    .bg-tenis{background:linear-gradient(160deg,#e8f0fb,#c8d8f0)}
-    .bg-playeras{background:linear-gradient(160deg,#e0eaf8,#b8ccec)}
-    .bg-sudaderas{background:linear-gradient(160deg,#dce6f5,#b0c4e8)}
-    .bg-gorras{background:linear-gradient(160deg,#e4ecf8,#bccee8)}
-    .bg-bolsos{background:linear-gradient(160deg,#f0f4fc,#d0ddf0)}
-    .bg-joyeria{background:linear-gradient(160deg,#e8f0fb,#c8d8f0)}
-    .bg-maquillaje{background:linear-gradient(160deg,#f0e8f8,#d8c0ec)}
-    .bg-perfumes{background:linear-gradient(160deg,#e8f5f8,#b8dce8)}
-    .card-cta{position:absolute;bottom:0;left:0;right:0;background:#0d1b2a;color:#fff;text-align:center;padding:11px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;opacity:0;transform:translateY(4px);transition:all 0.2s}
+    .card-img-wrap{overflow:hidden;position:relative}
+    .card-img-inner{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:60px;transition:transform 0.35s ease}
+    .card-img-inner img{width:100%;height:100%;object-fit:contain;display:block}
+    .bg-tenis{background:#e8eef7}
+.bg-playeras{background:#e8eef7}
+.bg-sudaderas{background:#e8eef7}
+.bg-gorras{background:#e8eef7}
+.bg-bolsos{background:#e8eef7}
+.bg-perfumes{background:#e8eef7}
+    .card-cta{position:absolute;bottom:0;left:0;right:0;background:#0d1b2a;color:#fff;text-align:center;padding:10px;font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:0;transform:translateY(4px);transition:all 0.2s}
     .ribbon{position:absolute;top:10px;left:0;font-size:8px;padding:4px 10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
     .ribbon-low{background:#4a7fc1;color:#fff}
     .ribbon-order{background:#9aaec8;color:#0d1b2a}
-    .card-body{padding:12px 14px 16px}
-    .card-brand{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#9aaec8;margin-bottom:4px;font-weight:500}
-    .card-name{font-size:13px;font-weight:500;color:#0d1b2a;margin-bottom:4px;line-height:1.35}
-    .card-price{font-size:14px;font-weight:600;color:#0d1b2a}
+    .card-body{padding:10px 12px 14px}
+    .card-brand{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#9aaec8;margin-bottom:3px;font-weight:500}
+    .card-name{font-size:12px;font-weight:500;color:#0d1b2a;margin-bottom:3px;line-height:1.3}
     .card-stock{font-size:10px;color:#4a7fc1;margin-top:3px;font-weight:500}
-
     .empty{text-align:center;padding:5rem 1rem;color:#9aaec8;font-size:12px;letter-spacing:2px;text-transform:uppercase;grid-column:1/-1;background:#fff}
-
-    /* MODAL */
+    /* MODAL MÁS GRANDE */
     .modal-bg{display:none;position:fixed;inset:0;background:rgba(13,27,42,0.6);z-index:100;align-items:center;justify-content:center;padding:1rem}
     .modal-bg.open{display:flex}
-    .modal{background:#fff;max-width:640px;width:100%;display:flex;overflow:hidden;position:relative;box-shadow:0 24px 64px rgba(13,27,42,0.18)}
-    .modal-left{width:260px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:90px;min-height:340px}
-    .modal-right{flex:1;padding:2.5rem 2rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;max-height:90vh;border-left:1px solid #eef2f8}
-    .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:#9aaec8;font-size:16px;line-height:1;transition:color 0.15s}
+    .modal{background:#fff;max-width:820px;width:100%;display:flex;overflow:hidden;position:relative;box-shadow:0 24px 64px rgba(13,27,42,0.18);max-height:95vh}
+    .modal-left{width:400px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:90px;min-height:420px;position:relative;overflow:hidden}
+    .carousel{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;min-height:420px}
+    .carousel img{width:100%;height:100%;object-fit:contain}
+    .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,27,42,0.5);color:#fff;border:none;cursor:pointer;font-size:20px;padding:8px 10px;z-index:2}
+    .carousel-prev{left:0}
+    .carousel-next{right:0}
+    .carousel-dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:6px}
+    .carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,0.25);cursor:pointer}
+    .carousel-dot.active{background:#0d1b2a}
+    .modal-right{flex:1;padding:2rem 1.5rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;max-height:95vh;border-left:1px solid #eef2f8}
+    .modal-close{position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;color:#9aaec8;font-size:16px;z-index:10;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,0.1)}
     .modal-close:hover{color:#0d1b2a}
-    .modal-brand{font-size:9px;letter-spacing:3.5px;text-transform:uppercase;color:#9aaec8;margin-bottom:6px}
-    .modal-name{font-size:20px;font-weight:600;color:#0d1b2a;margin-bottom:8px;line-height:1.3;font-family:Georgia,serif}
-    .modal-price{font-size:26px;font-weight:700;color:#0d1b2a;margin-bottom:16px}
-    .modal-divider{height:1px;background:#eef2f8;margin-bottom:16px}
-    .modal-desc{font-size:12px;color:#6a8aaa;line-height:1.8;margin-bottom:18px}
-    .modal-row{display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:1px solid #f0f4fb}
-    .modal-row:last-of-type{border-bottom:none;margin-bottom:20px}
-    .modal-label{color:#9aaec8;letter-spacing:0.3px}
+    .modal-brand{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#9aaec8;margin-bottom:6px}
+    .modal-name{font-size:18px;font-weight:600;color:#0d1b2a;margin-bottom:10px;line-height:1.3;font-family:Georgia,serif}
+    .modal-divider{height:1px;background:#eef2f8;margin-bottom:14px}
+    .modal-row{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid #f0f4fb}
+    .modal-row:last-of-type{border-bottom:none;margin-bottom:16px}
+    .modal-label{color:#9aaec8}
     .modal-val{font-weight:600;color:#0d1b2a}
     .stock-ok{color:#1a7a4a}
     .stock-low{color:#4a7fc1}
     .stock-ord{color:#9aaec8}
-    .modal-btn{width:100%;padding:14px;background:#0d1b2a;color:#fff;border:none;font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s}
-    .modal-btn:hover{background:#4a7fc1}
-    .modal-btn-sec{margin-top:8px;background:#fff;color:#0d1b2a;border:1px solid #dde4f0;font-weight:500}
-    .modal-btn-sec:hover{background:#f4f6fb}
-
-    @media(max-width:700px){
-      .sidebar{display:none}
-      .layout{padding:0 1rem}
-      .main{padding:16px 0}
-    }
+    .wa-title{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9aaec8;margin-bottom:8px}
+    .modal-btn{width:100%;padding:13px;background:#0d1b2a;color:#fff;border:none;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s;margin-bottom:6px}
+    .modal-btn:hover{background:#25d366}
+    .modal-btn-sec{background:#fff;color:#0d1b2a;border:1px solid #dde4f0;font-weight:500;margin-top:2px}
+    .modal-btn-sec:hover{background:#fff}
+    @media(max-width:700px){.sidebar{display:none}.layout{padding:0 0.5rem}.main{padding:12px 0}}
   </style>
 </head>
 <body>
@@ -130,66 +113,42 @@
       <a href="#" onclick="setTab('Sudaderas');return false">Sudaderas</a>
       <a href="#" onclick="setTab('Gorras');return false">Gorras</a>
       <a href="#" onclick="setTab('Bolsos');return false">Bolsos</a>
-      <a href="#" onclick="setTab('Joyería');return false">Joyería</a>
-      <a href="#" onclick="setTab('Maquillaje');return false">Maquillaje</a>
       <a href="#" onclick="setTab('Perfumes');return false">Perfumes</a>
     </nav>
     <div class="header-right">
-      <button><i class="ti ti-heart"></i></button>
-      <button><i class="ti ti-brand-whatsapp"></i> Contacto</button>
+      <button onclick="openWA()"><i class="ti ti-brand-whatsapp"></i> Contacto</button>
     </div>
   </div>
 </div>
 
 <div class="layout">
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-title">Categoría</div>
-      <div class="sidebar-item-cat active" onclick="setTab('todos')" id="cat-todos">
-        <span>🏬 Todo</span><span class="cat-count" id="cnt-todos"></span>
-      </div>
-      <div class="sidebar-item-cat" onclick="setTab('Tenis')" id="cat-Tenis">
-        <span>👟 Tenis</span><span class="cat-count" id="cnt-Tenis"></span>
-      </div>
-      <div class="sidebar-item-cat" onclick="setTab('Playeras')" id="cat-Playeras">
-        <span>👕 Playeras</span><span class="cat-count" id="cnt-Playeras"></span>
-      </div>
-      <div class="sidebar-item-cat" onclick="setTab('Sudaderas')" id="cat-Sudaderas">
-        <span>🧥 Sudaderas</span><span class="cat-count" id="cnt-Sudaderas"></span>
-      </div>
-      <div class="sidebar-item-cat" onclick="setTab('Gorras')" id="cat-Gorras">
-        <span>🧢 Gorras</span><span class="cat-count" id="cnt-Gorras"></span>
-      </div>
-      <div class="sidebar-item-cat" onclick="setTab('Bolsos')" id="cat-Bolsos">
-        <span>👜 Bolsos</span><span class="cat-count" id="cnt-Bolsos"></span>
-      </div>
-      <div class="sidebar-item-cat" onclick="setTab('Joyería')" id="cat-Joyería">
-        <span>💍 Joyería</span><span class="cat-count" id="cnt-Joyería"></span>
-      </div>
-      <div class="sidebar-item-cat" onclick="setTab('Maquillaje')" id="cat-Maquillaje">
-        <span>💄 Maquillaje</span><span class="cat-count" id="cnt-Maquillaje"></span>
-      </div>
-      <div class="sidebar-item-cat" onclick="setTab('Perfumes')" id="cat-Perfumes">
-        <span>🌸 Perfumes</span><span class="cat-count" id="cnt-Perfumes"></span>
-      </div>
+      <div class="sidebar-item-cat active" onclick="setTab('todos')" id="cat-todos"><span>🏬 Todo</span><span class="cat-count" id="cnt-todos"></span></div>
+      <div class="sidebar-item-cat" onclick="setTab('Tenis')" id="cat-Tenis"><span>👟 Tenis</span><span class="cat-count" id="cnt-Tenis"></span></div>
+      <div class="sidebar-item-cat" onclick="setTab('Playeras')" id="cat-Playeras"><span>👕 Playeras</span><span class="cat-count" id="cnt-Playeras"></span></div>
+      <div class="sidebar-item-cat" onclick="setTab('Sudaderas')" id="cat-Sudaderas"><span>🧥 Sudaderas</span><span class="cat-count" id="cnt-Sudaderas"></span></div>
+      <div class="sidebar-item-cat" onclick="setTab('Gorras')" id="cat-Gorras"><span>🧢 Gorras</span><span class="cat-count" id="cnt-Gorras"></span></div>
+      <div class="sidebar-item-cat" onclick="setTab('Bolsos')" id="cat-Bolsos"><span>🎒 Bolsos</span><span class="cat-count" id="cnt-Bolsos"></span></div>
+      <div class="sidebar-item-cat" onclick="setTab('Perfumes')" id="cat-Perfumes"><span>🌸 Perfumes</span><span class="cat-count" id="cnt-Perfumes"></span></div>
     </div>
-
     <div class="sidebar-section">
       <div class="sidebar-title">Marca</div>
       <label class="sidebar-item"><input type="checkbox" value="Nike" onchange="updateBrands()"> Nike</label>
       <label class="sidebar-item"><input type="checkbox" value="Adidas" onchange="updateBrands()"> Adidas</label>
-      <label class="sidebar-item"><input type="checkbox" value="Supreme" onchange="updateBrands()"> Supreme</label>
-      <label class="sidebar-item"><input type="checkbox" value="Gucci" onchange="updateBrands()"> Gucci</label>
-      <label class="sidebar-item"><input type="checkbox" value="Louis Vuitton" onchange="updateBrands()"> Louis Vuitton</label>
-      <label class="sidebar-item"><input type="checkbox" value="Pandora" onchange="updateBrands()"> Pandora</label>
-      <label class="sidebar-item"><input type="checkbox" value="Cartier" onchange="updateBrands()"> Cartier</label>
-      <label class="sidebar-item"><input type="checkbox" value="Dior" onchange="updateBrands()"> Dior</label>
-      <label class="sidebar-item"><input type="checkbox" value="Chanel" onchange="updateBrands()"> Chanel</label>
-      <label class="sidebar-item"><input type="checkbox" value="Versace" onchange="updateBrands()"> Versace</label>
+      <label class="sidebar-item"><input type="checkbox" value="Jordan" onchange="updateBrands()"> Jordan</label>
+      <label class="sidebar-item"><input type="checkbox" value="New Balance" onchange="updateBrands()"> New Balance</label>
+      <label class="sidebar-item"><input type="checkbox" value="ASSC" onchange="updateBrands()"> ASSC</label>
+      <label class="sidebar-item"><input type="checkbox" value="Essentials" onchange="updateBrands()"> Essentials</label>
+      <label class="sidebar-item"><input type="checkbox" value="Palm Angels" onchange="updateBrands()"> Palm Angels</label>
+      <label class="sidebar-item"><input type="checkbox" value="Innedith" onchange="updateBrands()"> Innedith</label>
+      <label class="sidebar-item"><input type="checkbox" value="Barbas Hats" onchange="updateBrands()"> Barbas Hats</label>
+      <label class="sidebar-item"><input type="checkbox" value="Afnan" onchange="updateBrands()"> Afnan</label>
+      <label class="sidebar-item"><input type="checkbox" value="Armaf" onchange="updateBrands()"> Armaf</label>
+      <label class="sidebar-item"><input type="checkbox" value="Lattafa" onchange="updateBrands()"> Lattafa</label>
       <span class="sidebar-clear" onclick="clearBrands()">Limpiar filtros</span>
     </div>
-
     <div class="sidebar-section">
       <div class="sidebar-title">Disponibilidad</div>
       <label class="sidebar-item"><input type="checkbox" value="Disponible" onchange="updateAvail()"> Disponible</label>
@@ -198,7 +157,6 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
     <div class="main-top">
       <div class="main-top-left">
@@ -209,8 +167,6 @@
         <input class="search-input" type="text" id="search" placeholder="Buscar producto o marca..." oninput="render()">
         <select class="sort-select" id="sort" onchange="render()">
           <option value="default">Ordenar</option>
-          <option value="price-asc">Precio: menor a mayor</option>
-          <option value="price-desc">Precio: mayor a menor</option>
           <option value="name">Nombre A-Z</option>
         </select>
       </div>
@@ -223,71 +179,214 @@
 <div class="modal-bg" id="modal" onclick="closeModal(event)">
   <div class="modal">
     <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
-    <div class="modal-left" id="m-img"></div>
+    <div class="modal-left" id="m-img">
+      <div class="carousel">
+        <button class="carousel-btn carousel-prev" onclick="changeSlide(-1)">&#8249;</button>
+        <div id="carousel-content" style="width:100%;height:100%;min-height:420px;display:flex;align-items:center;justify-content:center"></div>
+        <button class="carousel-btn carousel-next" onclick="changeSlide(1)">&#8250;</button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
+    </div>
     <div class="modal-right">
       <div class="modal-brand" id="m-brand"></div>
       <div class="modal-name" id="m-name"></div>
-      <div class="modal-price" id="m-price"></div>
       <div class="modal-divider"></div>
-      <div class="modal-desc" id="m-desc"></div>
       <div class="modal-row"><span class="modal-label">Categoría</span><span class="modal-val" id="m-cat"></span></div>
       <div class="modal-row"><span class="modal-label">Disponibilidad</span><span class="modal-val" id="m-stock"></span></div>
-      <button class="modal-btn" id="m-wa">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Consultar por WhatsApp
-      </button>
+      <div style="margin-top:16px">
+        <div class="wa-title">Consultar por WhatsApp</div>
+        <button class="modal-btn" id="m-wa1">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp 1
+        </button>
+        <button class="modal-btn" id="m-wa2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp 2
+        </button>
+      </div>
       <button class="modal-btn modal-btn-sec" onclick="document.getElementById('modal').classList.remove('open')">Cerrar</button>
     </div>
   </div>
 </div>
 
 <script>
-const products = [
+const WA1='527225116799';
+const WA2='527221122909';
+function openWA(){window.open(`https://wa.me/${WA1}`,'_blank');}
 
-  {id:1,  name:"FEAR OF GOD ESSENTIALS Hoodie Essentials Con Logo  Negro ",        brand:"ESSENTIALS",         category:"Sudaderas",      price:1200, stock:"Disponible",     emoji:"👟",img:"img/sudaderaessencial.webp", desc:"Clásico de clásicos. Diseño limpio en blanco con suela icónica. Disponible en varias tallas."},
-  {id:2,  name:"Samba OG",           brand:"Adidas",       category:"Tenis",      price:1400, stock:"Últimas piezas", emoji:"👟", desc:"El regreso más esperado del streetwear. Suela de goma y tres franjas icónicas."},
-  {id:3,  name:"Gazelle Bold",       brand:"Adidas",       category:"Tenis",      price:1350, stock:"Disponible",     emoji:"👟", desc:"Plataforma elevada con el estilo retro que domina las calles esta temporada."},
-  {id:4,  name:"Box Logo Tee",       brand:"Supreme",      category:"Playeras",   price:950,  stock:"Disponible",     emoji:"👕", desc:"La playera más reconocida del streetwear mundial. Corte oversize, algodón premium."},
-  {id:5,  name:"Monogram Tee",       brand:"Gucci",        category:"Playeras",   price:2200, stock:"Por pedido",     emoji:"👕", desc:"Playera con monograma GG bordado en el pecho. Algodón de alta calidad."},
-  {id:6,  name:"Damier Tee",         brand:"Louis Vuitton",category:"Playeras",   price:2800, stock:"Por pedido",     emoji:"👕", desc:"Estampado Damier clásico en playera de algodón pima. Fit regular."},
-  {id:7,  name:"Crewneck Classic",   brand:"Supreme",      category:"Sudaderas",  price:1800, stock:"Disponible",     emoji:"🧥", desc:"Sudadera de felpa francesa con bordado en el pecho. La más buscada cada temporada."},
-  {id:8,  name:"Track Hoodie",       brand:"Adidas",       category:"Sudaderas",  price:1500, stock:"Disponible",     emoji:"🧥", desc:"Hoodie con capucha, bolsa canguro y logo tonal. Fit oversize."},
-  {id:9,  name:"GG Hoodie",          brand:"Gucci",        category:"Sudaderas",  price:3200, stock:"Por pedido",     emoji:"🧥", desc:"Hoodie premium con patch GG al frente. Algodón francés de peso medio."},
-  {id:10, name:"Box Logo Cap",       brand:"Supreme",      category:"Gorras",     price:750,  stock:"Disponible",     emoji:"🧢", desc:"Gorra 6 panel con logo bordado al frente. Ajuste con hebilla metálica."},
-  {id:11, name:"Monogram Cap",       brand:"Louis Vuitton",category:"Gorras",     price:1800, stock:"Por pedido",     emoji:"🧢", desc:"Gorra con patrón monograma LV en toda la tela. Ajuste con correa de cuero."},
-  {id:12, name:"Swoosh Cap",         brand:"Nike",         category:"Gorras",     price:550,  stock:"Disponible",     emoji:"🧢", desc:"Gorra clásica con logo Swoosh bordado. Tela dri-fit, ajuste de velcro."},
-  {id:13, name:"Neverfull MM",       brand:"Louis Vuitton",category:"Bolsos",     price:8500, stock:"Por pedido",     emoji:"👜", desc:"El tote más icónico de LV. Lona monograma, asas de cuero natural."},
-  {id:14, name:"GG Marmont",         brand:"Gucci",        category:"Bolsos",     price:7200, stock:"Por pedido",     emoji:"👜", desc:"Bolso acolchado con herraje GG doble dorado. Cuero matelassé suave."},
-  {id:15, name:"Mini Lady Dior",     brand:"Dior",         category:"Bolsos",     price:9500, stock:"Por pedido",     emoji:"👜", desc:"El bolso favorito de la princesa Diana. Cannage acolchado, asa de cadena."},
-  {id:16, name:"Love Bracelet",      brand:"Cartier",      category:"Joyería",    price:72000,stock:"Por pedido",     emoji:"💍", desc:"La pulsera más icónica de Cartier. Diseño con tornillos emblemáticos."},
-  {id:17, name:"Moments Pulsera",    brand:"Pandora",      category:"Joyería",    price:1850, stock:"Disponible",     emoji:"💎", desc:"Pulsera con cierre de corazón, compatible con todos los charms Pandora."},
-  {id:18, name:"Alhambra Collar",    brand:"Van Cleef",    category:"Joyería",    price:58000,stock:"Por pedido",     emoji:"🍀", desc:"Collar con motivo trébol, símbolo de la maison desde 1968."},
-  {id:19, name:"Rouge Allure",       brand:"Chanel",       category:"Maquillaje", price:980,  stock:"Disponible",     emoji:"💄", desc:"Labial de larga duración con acabado satinado. 45 tonos disponibles."},
-  {id:20, name:"Lip Glow Oil",       brand:"Dior",         category:"Maquillaje", price:850,  stock:"Disponible",     emoji:"💋", desc:"Aceite de labios con color natural y brillo espejo. Hidratación 24h."},
-  {id:21, name:"Lip Liner",          brand:"Versace",      category:"Maquillaje", price:620,  stock:"Disponible",     emoji:"✏️", desc:"Delineador de labios de larga duración con fórmula cremosa."},
-  {id:22, name:"Bleu de Chanel EDP", brand:"Chanel",       category:"Perfumes",   price:3200, stock:"Disponible",     emoji:"🌸", desc:"Fragancia amaderada aromática. Notas de cítricos, madera de cedro y sándalo."},
-  {id:23, name:"Sauvage EDP",        brand:"Dior",         category:"Perfumes",   price:2800, stock:"Disponible",     emoji:"🌿", desc:"El perfume más vendido del mundo. Notas de bergamota, pimienta y ambroxan."},
-  {id:24, name:"Eros EDT",           brand:"Versace",      category:"Perfumes",   price:1900, stock:"Últimas piezas", emoji:"⚡", desc:"Fragancia oriental fresca para hombre. Notas de menta, vainilla y cedro."},
+const products=[
+  {id:1,  name:'Nike 720 Black',          brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'data:image/jpeg;base64,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'},
+  {id:2,  name:'Nike 720 Black and White',         brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7OtBb48CDCkxKndmNkbIv2jaOs9XaMzYZU5w7C8K-3A&s=10'},
+  {id:3,  name:'Nike Air Force 1',         brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZRnTrjUPinWfY7DPDdd-TffftArhUsqAwgkpEP_HyGg&s'},
+  {id:4,  name:'Nike Air Max 1',           brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmpN1eoCEv5149doPZTDNBAOCxyYJ6iA1BvO33vkwGrQ&s=10'},
+  {id:5,  name:'Nike Air Max 97',          brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxirUOPozP4pDo3W1r2U8y_Z49aNXXz5YAxYVKuFTAMQ&s'},
+  {id:6,  name:'Nike Air Max Plus TN',     brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXqC3s0J9xe5fqfddsyToLZjR7ooaZuus5O_lcJdLeuA&s=10'},
+  {id:7,  name:'Nike Dunk Low',            brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR0FP5yM5Y1JkPcsVCxuGAmL_fMSTiNBiI2DNwqt2vjg&s=10'},
+  {id:8,  name:'Nike Cortez',              brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkFA57TN7yvjyDjaQQJznY791HevHtYX5HBkNsB3BANA&s=10'},
+  {id:9,  name:'Nike P-6000',              brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmfUtgzFoJZYldyo4CHITcn4DMJrJZbFMQrNLlLDwPRA&s=10'},
+  {id:10, name:'Nike Air Max 90',          brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/33/95/52/35/33955235_64977217_1000.jpg'},
+  {id:11, name:'Nike Air Max 95',          brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/33/95/52/35/33955235_64977217_1000.jpg'},
+  {id:12, name:'Nike Shox',                brand:'Nike',        category:'Tenis', stock:'Por pedido',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/25/77/04/30/25770430_57165212_1000.jpg'},
+  {id:13, name:'Nike Blazer Mid 77',       brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/14/56/99/85/14569985_22232500_1000.jpg'},
+  {id:14, name:'Nike V2K Run',             brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/23/80/64/74/23806474_53810519_1000.jpg'},
+  {id:15, name:'Nike Pegasus',             brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/37/27/60/34/37276034_69911240_1000.jpg'},
+  {id:16, name:'Adidas Samba OG',          brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/30/56/38/90/30563890_59516334_1000.jpg'},
+  {id:17, name:'Adidas Gazelle',           brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/28/59/18/14/28591814_57918164_1000.jpg'},
+  {id:18, name:'Adidas Spezial',           brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/34/33/77/94/34337794_65575469_1000.jpg'},
+  {id:19, name:'Adidas SL 72',             brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/23/64/94/58/23649458_58150319_1000.jpg'},
+  {id:20, name:'Adidas Superstar',         brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/20/96/54/66/20965466_51157688_1000.jpg'},
+  {id:21, name:'Adidas Campus 00s',        brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/28/59/18/20/28591820_57917920_1000.jpg'},
+  {id:22, name:'Adidas Handball Spezial',  brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/34/33/77/94/34337794_65575469_1000.jpg'},
+  {id:23, name:'Adidas Adizero EVO SL',    brand:'Adidas',      category:'Tenis', stock:'Por pedido',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/34/38/25/73/34382573_65525804_1000.jpg'},
+  {id:24, name:'Air Jordan 1 Low',         brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/15/94/67/24/15946724_40390975_1000.jpg'},
+  {id:25, name:'Air Jordan 1 High OG',     brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/36/15/63/44/36156344_68001872_1000.jpg'},
+  {id:26, name:'Air Jordan 4 Bred',        brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/14/07/65/19/14076519_18662956_1000.jpg'},
+  {id:27, name:'Air Jordan 3',             brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/22/86/26/26/22862626_52935342_1000.jpg'},
+  {id:28, name:'Air Jordan 11 Space Jam',  brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/21/98/71/69/21987169_53823204_1000.jpg'},
+  {id:29, name:'Air Jordan 6',             brand:'Jordan',      category:'Tenis', stock:'Por pedido',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/32/06/09/85/32060985_64729706_1000.jpg'},
+  {id:30, name:'Air Jordan 5',             brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/23/64/51/70/23645170_53693876_1000.jpg'},
+  {id:31, name:'Air Jordan 1 Mid',         brand:'Jordan',      category:'Tenis', stock:'Por pedido',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/14/84/32/36/14843236_24358834_1000.jpg'},
+  {id:32, name:'New Balance 530',          brand:'New Balance', category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://nb.scene7.com/is/image/NB/mr530sg_nb_02_i?$pdpflexf2$&fmt=webp&wid=440&hei=440'},
+  {id:33, name:'New Balance 550',          brand:'New Balance', category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://nb.scene7.com/is/image/NB/bb550wt1_nb_02_i?$pdpflexf2$&fmt=webp&wid=440&hei=440'},
+  {id:34, name:'New Balance 204L',         brand:'New Balance', category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/34/73/22/08/34732208_65925760_1000.jpg'},
+  {id:35, name:'Fear of God Essentials Hoodie Negro', brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/18/65/99/25/18659925_40518678_1000.jpg'},
+  {id:36, name:'Fear of God Essentials Hoodie Blanco',brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/18/76/43/44/18764344_40611751_1000.jpg'},
+  {id:37, name:'Essentials Classic Hoodie',           brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/36/32/75/53/36327553_69310205_1000.jpg'},
+  {id:38, name:'Essentials Classic Zip-Up Hoodie',    brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/36/32/81/11/36328111_69311671_1000.jpg'},
+  {id:39, name:'Essentials Crewneck',                 brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/26/66/66/16/26666616_57729168_1000.jpg'},
+  {id:40, name:'ASSC Sign Me Up Hoodie',              brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2ajCJ6NKUrhQ-o3tre99DftV5TgM9kIYkG8MynGrf4Q&s=10'},
+  {id:41, name:'ASSC Libra Hoodie',                   brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZlqa5SK-4tRrFtwpkQ3GQ4-qIBRwC2PQY1DB3Y3aygQ&s'},
+  {id:42, name:'ASSC Kkoch Black Hoodie',             brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqDzuYsl76bRybX3jTLeQQ_rWEM4GWoZac0rJhcSO3CA&s=10'},
+  {id:43, name:'ASSC Fuzzy Connection Hoodie',        brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVAbR9DF4VvK8B8ehGOHRY3cqQULLsKA8IL37j2UMFg&s=10'},
+  {id:44, name:'ASSC Scorpio Hoodie',                 brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB0lEmTtY187q0PaukWSBWKypsCkMisbN5k0KjO6Lbrw&s=10'},
+  {id:45, name:'ASSC Cancelled Hoodie',               brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnyGKsb5avsCsWLjMiZ08t8qgdziDBuXMDSbat2mD_iA&s=10'},
+  {id:46, name:'ASSC Tiger Blood Hoodie',             brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-bY9rr5K4Knks1Z4-R09M7RTpSgJyxR2aX4rqk-7ejg&s=10'},
+  {id:47, name:'ASSC x Hello Kitty Hoodie',           brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAsKszKWo18xQan1iwkPo69sgjWB4OB5No9dF3MkFx-g&s=10'},
+  {id:48, name:'ASSC x Peanuts Hoodie',               brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjf_dAs8KuKVY5GETT3dwf1bjnaaUncMZxK5l0zamDgg&s'},
+  {id:49, name:'ASSC x Fragment Hoodie',              brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRel34Xde5PwvpQibRGbPh5KGQsmvxPN-XGf55fr3PAw&s=10'},
+  {id:50, name:'ASSC Mind Games Hoodie',              brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTun-i7LSBO5ru5sjcOudt2aPYVWBoSzMK-udiAOomMvg&s=10'},
+  {id:51, name:'Crewneck Alo Yoga',                   brand:'Alo',        category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa9IXnyMLOM5HOJAyJMFiP8Hv-a3q1snICG8bjxAr5AA&s=10'},
+  {id:52, name:'Hoodie Denim Tears',                  brand:'Denim Tears',category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4X6Nsq-Qw21ogMz8O7OmzaI7LA6BN_-lUo9MVFtZw&s=10'},
+  {id:53, name:'Property Lounge Half Zip Hoodie',     brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqdaNy84p0PhM4lx62O_pRmX25W4Bb0kc9PAQTZcA_1A&s'},
+  {id:54, name:'Training 90s Hoodie',                 brand:'Essentials', category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE9lrexBUmJSF49Mpq7lPDpjBi2-Bjpe8umeQzOcSxxA&s=10'},
+  {id:55, name:'ASSC Airbrush Mind Games Blanca',     brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPsEvnjiu_7ukoL_DwyS7wU0ypZj16pL5IA40B1WCWSw&s=10'},
+  {id:56, name:'ASSC x Everton FC Blues Negra',       brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT362byvXIJwqwPZeH3-Jewd_kow03KVMNiwQ1azPzKDw&s=10'},
+  {id:57, name:'ASSC x Everton FC Blues Rosa',        brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT362byvXIJwqwPZeH3-Jewd_kow03KVMNiwQ1azPzKDw&s=10'},
+  {id:58, name:'ASSC x Everton FC Azul Real',         brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqCm64MwA5ooA4XQL3aUCK9LOKxg-6UnMzqhRaGr38cA&s=10'},
+  {id:59, name:'ASSC x Everton FC Toffees Negra',     brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEy2BmXOML3PIxDy2vn99klLm00VIqp7dqLsXNerrovA&s'},
+  {id:60, name:'ASSC Mind Games USA Made',            brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEacrP6AAUMnwyic8Qai9ypkubEUBJD4efeNQUICullg&s=10'},
+  {id:61, name:'ASSC Camiseta Desgastada Blanca',     brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9AlhzpzKa1dmELDUQCNtJ6vsC0xiz59sPzBisbX2Pig&s=10'},
+  {id:62, name:'ASSC Camiseta Desgastada Verde',      brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlE_u33K2ea1rjYc3QQufCpaB8aG2AH8IPmeF3oRpfsA&s=10'},
+  {id:63, name:'ASSC Camiseta Missing Negra',         brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPsEvnjiu_7ukoL_DwyS7wU0ypZj16pL5IA40B1WCWSw&s=10'},
+  {id:64, name:'Essentials Playera Manga Corta',      brand:'Essentials', category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://cdn-images.farfetch-contents.com/26/66/66/16/26666616_57729168_1000.jpg'},
+  {id:65, name:'Essentials Playera Signature 90s',    brand:'Essentials', category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPNLpQbkegPPduIFa5WtP6lMp6Xa7ZGxeDYF024d0MOQ&s'},
+  {id:66, name:'Essentials Playera Campus',           brand:'Essentials', category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPNLpQbkegPPduIFa5WtP6lMp6Xa7ZGxeDYF024d0MOQ&s'},
+  {id:67, name:'Palm Angels Azul Vertical',           brand:'Palm Angels',category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-DiPEg_d72fZXTCoyOLCDMTbJAYyetEi6MTF0djp35w&s=10'},
+  {id:68, name:'Palm Angels Greetings',               brand:'Palm Angels',category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL4ahe0regBlRsMFa-ubx1F7JI52d7tRtD1mMg4tXdqQ&s=10'},
+  {id:69, name:'Palm Angels Beige Letras',            brand:'Palm Angels',category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpsWcR5B376ssn4bxN5eBo4i5t7cTt7X7jGxPkOjzJPw&s'},
+  {id:70, name:'Palm Angels New York Sprayed Negra',  brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1wC_olTshk8u3gX21DtvRYFTbJ7QOiR33VL5qpejqdQ&s=10'},
+  {id:71, name:'Palm Angels Bear Decapitated Blanca', brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTepYPxChebUL52FBUplJrjwLk6q_DPjSO3DrQTyJIcHg&s=10'},
+  {id:72, name:'Palm Angels Bear Print Sprayed Blanca',brand:'Palm Angels',category:'Playeras', stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7nn6CifSAQCrLlCw57ix8ZHnb7C-bozoFASC78H-jrA&s=10'},
+  {id:73, name:'Palm Angels Bear Decapitated Negra',  brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1ivkmpqs4vBliIAJm546Xes0bvOiw4NmGm7MX6Z6dkw&s=10'},
+  {id:74, name:'Palm Angels Star Sprayed Negra',      brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK7fZBrJFdreNuRrPzHoYyRvon1BgLdsGr-3aJ0nU3vA&s'},
+  {id:75, name:'Innedith Sad Flower Black',           brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIA4vuzx3CVFBYsw_MVRD-kdefbQ2IZeQMYrCjF1BOvQ&s=10'},
+  {id:76, name:'Innedith Sad Flower Black & Cream',   brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOI-1Z_6Kew6FiZgQEA4mD1cZkuXNQXZTu01iEKNcO8w&s=10'},
+  {id:77, name:'Innedith Happy Flower Black Multicolor',brand:'Innedith', category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQof5NfRvKZSEY-d39Ru9akC3GBBP-Pa3vsmqAUiY6nVw&s'},
+  {id:78, name:'Barbas Hats Chrome',                  brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0DrRNmiuJ5E42oZ-yyqDfznDQMtNGd1F--sCFZ2JUkA&s'},
+  {id:79, name:'Gorra Skate or Die Black Edition',    brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpVv4ewLUqcL78YfX7y2PB2JzgbCZ-RRKhFxYkbpUh3w&s=10'},
+  {id:80, name:'Gorra Rich Forever Black Edition',    brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHKe6L3mJgKG9CJO7O1yu01T4-USl83qy7cMDosHmf8g&s=10'},
+  {id:81, name:'Barbas Hats 77 Last Edition',         brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://snapsmx.com/cdn/shop/files/71226_82229253-5ca8-4abe-ac0b-2f9ba1985346.jpg?v=1769408358&width=1600'},
+  {id:82, name:'Barbas Hats B Chrome 24K Gold',       brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_svmw4gnWbbGm_AX9S1ojh04lPFHlGK6_ffM4UXNZPg&s=10'},
+  {id:83, name:'Barbas Hats B Star Rose Gold',        brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfZ1SyNjHHUy4lZOeifhaTxrjE7TvU3LSb_nz71rsPzA&s=10'},
+  {id:84, name:'Barbas Hats B-Cross',                 brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRir94ZiyvFZpTUMKwyyJkiMR9jgZdvo93sh0VIJuWpDA&s=10'},
+  {id:85, name:'Barbas Hats BBB',                     brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Lg_0YiMe3nCA0G96-72WF1NZeUDvWXg_ZBd80qME1Q&s=10'},
+  {id:86, name:'Barbas Hats Rockstar 3',              brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQweTMWwsVHl6wMHtLxaOLaBgaNkxPPS-JHt2dhrSVWg&s=10'},
+  {id:87, name:'Barbas Hats Scream',                  brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa513MV1AqfRkdV5rAX4TjqPQ_av3cOvgYgsUdCyuGxw&s'},
+  {id:88, name:'Barbas Hats The 77 Black',            brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwQbCr_WEvEBN1-RhQ8R7nq3G-hUOBMlGnkC0wIinWQA&s=10'},
+  {id:89, name:'Gorra New Era Dodgers 940 Royal',     brand:'New Era',    category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc9Ul_D9Ol_uAqor1RKSmPJMW2VvsXyoUr9K-IqjepLw&s'},
+  {id:90, name:'Son of God Total Black Baez x Shifu', brand:'Baez x Shifu',category:'Gorras',  stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKqgQVr7B8hVjUdWIleqxu5BQQZ8S-fnkOp9JFEOjzzA&s'},
+  {id:91, name:'ABZ Rosa Exclusiva Baez x Shifu',     brand:'Baez x Shifu',category:'Gorras',  stock:'Disponible', emoji:'🧢', img:'https://gallerycdmx.com/cdn/shop/files/Capturadepantalla2026-05-18ala_s_3.50.04p.m..png?v=1779141037&width=823'},
+  {id:92, name:'All Eyes On Me Baez x Shifu',         brand:'Baez x Shifu',category:'Gorras',  stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwtgecVS9HRaWNZcoWrJNgYwHrTAZ2dxkanjOBQJJpPA&s=10'},
+  {id:93, name:'Sayonara',                            brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCB4oVqaDv6cQQKfyKvS-1PqOuhKjRxC8WyGozg7YX4w&s'},
+  {id:94, name:'Gorra DANDY NEGRA STARGAZING',        brand:'Dandy',      category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4-8qAXHqOs8XWPaSHye0SMffWwYZp-DOffenfInCJRw&s'},
+  {id:95, name:'Gorra DANDY CANELO POUND FOR POUND',  brand:'Dandy',      category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkUMAUN7zCg7yahY7rgmvP3y-Rmk0Uvwz3m6_cRju3rQ&s'},
+  {id:96, name:'Gorra DANDY CANELO WBC BLK',          brand:'Dandy',      category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWUbhmRLrDSwtaOBRqEayweVyvX2oCA9LLNoNEiY-iqw&s=10'},
+  {id:97, name:'Gorra 31 Hats MAGO TOTAL BLK',        brand:'31 Hats',    category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGTqLjnuoKXIdjOWm5k25hzPCEqylRzpksk__FPdu2Aw&s'},
+  {id:98, name:'Gorra 31 Hats NY CLOUDS ANNIVERSARY', brand:'31 Hats',    category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Lg_0YiMe3nCA0G96-72WF1NZeUDvWXg_ZBd80qME1Q&s=10'},
+  {id:99, name:'Gorra 31 Hats EL MAGO BLK/RED Suede', brand:'31 Hats',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQweTMWwsVHl6wMHtLxaOLaBgaNkxPPS-JHt2dhrSVWg&s=10'},
+  {id:100,name:'Gorra 31 Hats NY TRIPLE BLACK',       brand:'31 Hats',    category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc9Ul_D9Ol_uAqor1RKSmPJMW2VvsXyoUr9K-IqjepLw&s'},
+  {id:101,name:'Nike Brasilia Backpack',               brand:'Nike',       category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlENiBZVvEPJERG02JdnF0mDN547rQX2kcDne0YPTFQw&s=10'},
+  {id:102,name:'Nike Elemental Backpack',              brand:'Nike',       category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvkb4DVIMOGXPIC-9LCBbjbSpXoJRC9vtSZU2DjcMyPA&s'},
+  {id:103,name:'Nike Heritage Backpack',               brand:'Nike',       category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlVXwnJv1XezgIjZIZQ57VN8tGQL0zeoXU--xu-XOP1w&s'},
+  {id:104,name:'Nike Utility Backpack',                brand:'Nike',       category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5OJgN9zLvlmAcQFCAj8yoXZDyXrnfQqOs4GaID0vfkQ&s=10'},
+  {id:105,name:'Nike Jordan Backpack',                 brand:'Jordan',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeN5FulUt-4XUiw8zYjcn5_y0Q4H5Co_EIuinGqr1rAw&s=10'},
+  {id:106,name:'Adidas Classic 3-Stripes Backpack',    brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwN25X-TCuNXkekO1Vb3oVwQHL_JSiUlgKi_BYXNBX5w&s=10'},
+  {id:107,name:'Adidas Linear Backpack',               brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr4O1yZquIaSJAGgIrEVwH8CS-2TslFm2emlJoex6ldg&s'},
+  {id:108,name:'Adidas Prime Backpack',                brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj6YiI1Z2FlVWEggwkvQvT7upepJMBMkghFWOU9Us_CQ&s=10'},
+  {id:109,name:'Adidas Adicolor Backpack',             brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDXr8pORAY-m5jPFX2A6WhDSGHdI_MNR8VnwEvBC8Ohg&s=10'},
+  {id:110,name:'Adidas Essentials Backpack',           brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2jKtb90xdLLLs3jelY57FMVYHWvLQiasVao07Q5HLTQ&s=10'},
+  {id:111,name:'Dior Sauvage EDP',                     brand:'Dior',       category:'Perfumes',  stock:'Disponible', emoji:'🌿', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGUFha1tEwUIsHHw5my6rLnCsELTXriJCJR8SXosrNKQ&s=10'},
+  {id:112,name:'Paco Rabanne Invictus',                brand:'Paco Rabanne',category:'Perfumes', stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHXRHTzMQ0BbCyGf5t5hI9AISEPaduzA9nYybphhBxzw&s=10'},
+  {id:113,name:'Jean Paul Gaultier Le Male',           brand:'JPG',        category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS8UKX6Xsh5_ihFhtB7ff2YUYznf5Tw8fGcAos7CbfCQ&s=10'},
+  {id:114,name:'Paco Rabanne One Million',             brand:'Paco Rabanne',category:'Perfumes', stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7GCvMSJkqMC9dXrG3S9pDW4y-EdpnjsVrhG83gd1JmQ&s'},
+  {id:115,name:'Calvin Klein Eternity',                brand:'Calvin Klein',category:'Perfumes', stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRoEav3WLGzo2SmBh2WXToep81Mm-4rzQISOfPVXKp0g&s=10'},
+  {id:116,name:'YSL Libre EDP',                        brand:'YSL',        category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmFBGzslHcTcey63du17abNiDaeIOBiLnoluDUNbuy_Q&s=10'},
+  {id:117,name:'YSL Black Opium',                      brand:'YSL',        category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvM3N-ave60ICwXH7JCreEZyaZGd1fvM7iGVmRYc1dDg&s=10'},
+  {id:118,name:'Mugler Alien',                         brand:'Mugler',     category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUVEXHHtmzBbXPNXd1ZGEbGmpJ7GnOTMgSu1r0xmQoZw&s=10'},
+  {id:119,name:"Dior J'adore",                         brand:'Dior',       category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSEc1lpa14VpXSaWL5DN2yECG-uDn5-ypmJrgc04rI3w&s=10'},
+  {id:120,name:'Chanel Coco Mademoiselle',             brand:'Chanel',     category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY4ykBhfsbHYRvcG77MrevF-xeuFdzbFsjKLPytxBrQg&s=10'},
+  {id:121,name:'Afnan 9PM Night Out 100ml',            brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQItfrb3D1agFJKXZZgJM1yCvW2APOIdbQGPUqFA4wCQg&s=10'},
+  {id:122,name:'Afnan 9PM Original',                   brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTavihudwbCKu56jYMwVHNM0pHB4hZeaahMckch3hkX2g&s=10'},
+  {id:123,name:'Afnan 9PM Black',                      brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8bpAqZ1MJuhfEiKs6_2bEZ5c_wMNvZXJLsqwFrOlJBQ&s=10'},
+  {id:124,name:'Afnan 9PM Elixir',                     brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOCJzQbqiYn6GXcXl-g-Kl4pWlcMQFxKzmnz8i8CIP_g&s=10'},
+  {id:125,name:'Afnan 9PM Rebel',                      brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLzoZ6cBIqnCwXdXaKh0d4Ku7I5vHHWHVSgWUJY2gzPw&s=10'},
+  {id:126,name:'Afnan 9PM Fusion For Her',             brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq2OVQnBst41S7A_fiC7mhWo5wh7piKLFa6Qh8seRu3w&s=10'},
+  {id:127,name:'Afnan 9AM',                            brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO4gHhNvm8bMDRZsT9TcDa4RIiGWPWM7abR_8fGLqX_A&s=10'},
+  {id:128,name:'Afnan 9AM Dive',                       brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiao4Yye-6QH5cGpmE7QysfgIwW0WJYXP6bXOFbZ-TaA&s=10'},
+  {id:129,name:'Afnan Supremacy Not Only Intense',     brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Fs5vulxwRV8U8MZUkWMGgyiDFF-VWRcdIFCq0rTTyQ&s=10'},
+  {id:130,name:'Afnan Supremacy Silver',               brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Fs5vulxwRV8U8MZUkWMGgyiDFF-VWRcdIFCq0rTTyQ&s=10'},
+  {id:131,name:'Afnan Turathi Blue',                   brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO-qDgkp5IPjhSdN4J05EygGYmO2AqX7ZIWSWhvxUFWw&s'},
+  {id:132,name:'Afnan Highness For Her',               brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAd1hlVYP3GpRHs0mIo286-XF_lGVNFO7u-pVmkx1VGA&s=10'},
+  {id:133,name:'Armaf Club de Nuit Intense Man',       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_pIvr-1yM2_GSt29pGNQLPUuFXGzrjesP3OPOuC3kUg&s=10'},
+  {id:134,name:'Armaf Club de Nuit Untold',            brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ4plWiaJ_x1MheRSJz-Mlsqii6BqWamJxVszGMIMhEA&s'},
+  {id:135,name:'Armaf Club de Nuit Blue Iconic',       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2SeOf6YqHCIkxJ3Leedfu8BATJy45Hovgwu1UBoOd8g&s=10'},
+  {id:136,name:'Armaf Club de Nuit Milestone',         brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtDBJ35FoXI0kz8pP3YoQzqw-3YLW2b8iEFaof3R01wQ&s'},
+  {id:137,name:'Armaf Club de Nuit Oud',               brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj9NqESnUgTpiKNFO4POmR6y7HwqSVDChulsw6T3mpzw&s=10'},
+  {id:138,name:'Armaf Club de Nuit Woman',             brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0eh5sjYa0rHS6OTolA0UDYN8YdhkCEDaooNVvu7WysQ&s=10'},
+  {id:139,name:'Armaf Club de Nuit Int. Man Ltd. V4',  brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaWU-i314Pmfi6t4HPYbleXmsdKOFNaZOqwJAtcwk-Hw&s=10'},
+  {id:140,name:'Armaf Tres Nuit',                      brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQprvhPfj62CLwHAYJrR1OYiB1OK6b-rYWqzhBv2Hxtog&s=10'},
+  {id:141,name:'Odyssey Homme',                        brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHNGPPsiMCkFrkY8-7vZ51fkC7MyXE_hqTEDOXKiNNQQ&s=10'},
+  {id:142,name:'Odyssey Aqua Edition',                 brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrNJ4A1kqJKcZOgPX5eIvYvAjIMg6vinmi_7U8CuwGtw&s=10'},
+  {id:143,name:'Odyssey Tyrant',                       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKRdTFCZlTzwYcgG7osLz9_wCI5-2tc8kgOYoirZ4Tpg&s'},
+  {id:144,name:'Odyssey Mega',                         brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gu1oRZFdlRcjvMRbPvxQQDnemaXasP51EF-AUZy3WQ&s=10'},
+  {id:145,name:'Odyssey Elixir',                       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMeWOT4TQ3ntP7fvTHdRTjOs5e1HWlfW5MJs3ELe7fag&s'},
+  {id:146,name:'Lattafa Khamrah',                      brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRPAo31SSfm9TxfaW7EjCw9SRXeUVRPQ9oXqT5_gbxBg&s'},
+  {id:147,name:'Lattafa Khamrah Waha',                 brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq0uFaHxSjynA3s_g05Vl_MxUGF6K8cc90F9oKZO84aA&s=10'},
+  {id:148,name:'Lattafa Yara',                         brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpNMUUd6KOgudprZRkYrRujlT511eTHuV_PHxbpT6_Ug&s=10'},
+  {id:149,name:'Lattafa Yara Candy',                   brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1qBRMHtVJRfwImIaJPuFDAodc_jnRD7CRHknkwiobDA&s'},
+  {id:150,name:'Lattafa Asad',                         brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVR_qgAkJvIFtpFZCzO3FhXfe2OulmY2-lGk9zdekZtg&s=10'},
+  {id:151,name:'Lattafa Oud Mood',                     brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT1pAdSgdQOFh30hnzagf2jHdOxFVmSxM2c_4DFHqV6g&s=10'},
+  {id:152,name:'Lattafa Qaed Al Fursan',               brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-EuIpFj5qGtlndqLutWnEqQBziIFKjHEbjDig5iANNA&s=10'},
+  {id:153,name:'Lattafa Fakhar For Him',               brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0wvBy2U1l15jLrcr4w81VlD-i_9YB5lfy-HC1AHbpWw&s'},
+  {id:154,name:'Lattafa Eclaire',                      brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGDDMep9TlXbtPVoAaR_9fBgbviLmWcHQhxrMBBiRYwg&s=10'},
+  {id:155,name:'Lattafa Ana Abiyedh',                  brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaA0UrH9zWyGjzMHoDo7dkqAkmcDSsLHzDC02oij5xDQ&s'},
+  {id:156,name:'Lattafa Teriaq',                       brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTblHuNNywpsiI15WymUh9SRPxVwgkVbI0lG76Y677YKQ&s=10'},
 ];
 
 const catBg={
-  "Tenis":"bg-tenis","Playeras":"bg-playeras","Sudaderas":"bg-sudaderas",
-  "Gorras":"bg-gorras","Bolsos":"bg-bolsos","Joyería":"bg-joyeria",
-  "Maquillaje":"bg-maquillaje","Perfumes":"bg-perfumes"
+  'Tenis':'bg-tenis','Playeras':'bg-playeras','Sudaderas':'bg-sudaderas',
+  'Gorras':'bg-gorras','Bolsos':'bg-bolsos','Perfumes':'bg-perfumes'
 };
 const catTitles={
-  "todos":"Todos los productos","Tenis":"👟 Tenis","Playeras":"👕 Playeras",
-  "Sudaderas":"🧥 Sudaderas","Gorras":"🧢 Gorras","Bolsos":"👜 Bolsos",
-  "Joyería":"💍 Joyería","Maquillaje":"💄 Maquillaje","Perfumes":"🌸 Perfumes"
+  'todos':'Todos los productos','Tenis':'👟 Tenis','Playeras':'👕 Playeras',
+  'Sudaderas':'🧥 Sudaderas','Gorras':'🧢 Gorras','Bolsos':'🎒 Bolsos','Perfumes':'🌸 Perfumes'
 };
-const stockClass={"Disponible":"stock-ok","Últimas piezas":"stock-low","Por pedido":"stock-ord"};
-const categories=["todos","Tenis","Playeras","Sudaderas","Gorras","Bolsos","Joyería","Maquillaje","Perfumes"];
-let activeCat='todos';
-let selectedBrands=[];
-let selectedAvail=[];
+const stockClass={'Disponible':'stock-ok','Últimas piezas':'stock-low','Por pedido':'stock-ord'};
+const categories=['todos','Tenis','Playeras','Sudaderas','Gorras','Bolsos','Perfumes'];
+let activeCat='todos',selectedBrands=[],selectedAvail=[];
 
 function updateBrands(){
-  selectedBrands=[...document.querySelectorAll('input[type=checkbox]')].filter(c=>c.value!=='Disponible'&&c.value!=='Últimas piezas'&&c.value!=='Por pedido'&&c.checked).map(c=>c.value);
+  selectedBrands=[...document.querySelectorAll('input[type=checkbox]')].filter(c=>!['Disponible','Últimas piezas','Por pedido'].includes(c.value)&&c.checked).map(c=>c.value);
   render();
 }
 function updateAvail(){
@@ -298,23 +397,13 @@ function clearBrands(){
   document.querySelectorAll('input[type=checkbox]').forEach(c=>{if(!['Disponible','Últimas piezas','Por pedido'].includes(c.value))c.checked=false;});
   selectedBrands=[];render();
 }
-
 function setTab(cat){
   activeCat=cat;
-  document.querySelectorAll('.header-nav a').forEach((a,i)=>{
-    const cats=['todos','Tenis','Playeras','Sudaderas','Gorras','Bolsos','Joyería','Maquillaje','Perfumes'];
-    a.classList.toggle('active',cats[i]===cat);
-  });
-  categories.forEach(c=>{
-    const el=document.getElementById('cat-'+c);
-    if(el)el.classList.toggle('active',c===cat);
-  });
+  document.querySelectorAll('.header-nav a').forEach((a,i)=>a.classList.toggle('active',categories[i]===cat));
+  categories.forEach(c=>{const el=document.getElementById('cat-'+c);if(el)el.classList.toggle('active',c===cat);});
   document.getElementById('cat-title').textContent=catTitles[cat]||cat;
   render();
 }
-
-function fmt(n){return'$'+n.toLocaleString('es-MX')}
-
 function render(){
   const q=document.getElementById('search').value.toLowerCase();
   const sort=document.getElementById('sort').value;
@@ -324,58 +413,66 @@ function render(){
     (selectedAvail.length===0||selectedAvail.includes(p.stock))&&
     (activeCat==='todos'||p.category===activeCat)
   );
-  if(sort==='price-asc')f.sort((a,b)=>a.price-b.price);
-  else if(sort==='price-desc')f.sort((a,b)=>b.price-a.price);
-  else if(sort==='name')f.sort((a,b)=>a.name.localeCompare(b.name));
-
-  // update sidebar counts
+  if(sort==='name')f.sort((a,b)=>a.name.localeCompare(b.name));
   categories.forEach(c=>{
     const el=document.getElementById('cnt-'+c);
-    if(el){
-      const n=c==='todos'?products.length:products.filter(p=>p.category===c).length;
-      el.textContent=n;
-    }
+    if(el){const n=c==='todos'?products.length:products.filter(p=>p.category===c).length;el.textContent=n;}
   });
-
   document.getElementById('count').textContent=f.length+' producto'+(f.length!==1?'s':'')+' encontrados';
   const g=document.getElementById('grid');
   if(!f.length){g.innerHTML='<div class="empty">Sin resultados</div>';return;}
   g.innerHTML=f.map(p=>{
     const rib=p.stock==='Últimas piezas'?'<div class="ribbon ribbon-low">Últimas</div>':
                p.stock==='Por pedido'?'<div class="ribbon ribbon-order">Por pedido</div>':'';
+    const imgHtml=p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:contain" onerror="this.parentElement.innerHTML='<span style=font-size:60px>${p.emoji}</span>'">`:p.emoji;
     return`<div class="card" onclick="openModal(${p.id})">
       <div class="card-img-wrap">
-        <div class="card-img-inner ${catBg[p.category]||''}">${rib}${p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:contain;display:block">`:p.emoji}</div>
+        <div class="card-img-inner ${catBg[p.category]||''}">${rib}${imgHtml}</div>
         <div class="card-cta">Ver producto</div>
       </div>
       <div class="card-body">
         <div class="card-brand">${p.brand}</div>
         <div class="card-name">${p.name}</div>
-        <div class="card-price">${fmt(p.price)}</div>
         <div class="card-stock">${p.stock==='Disponible'?'✓ Disponible':p.stock}</div>
       </div>
     </div>`;
   }).join('');
 }
 
+let currentSlide=0,currentImgs=[];
+function renderSlide(){
+  const content=document.getElementById('carousel-content');
+  const dots=document.getElementById('carousel-dots');
+  if(currentImgs.length>0){
+    content.innerHTML=`<img src="${currentImgs[currentSlide]}" style="width:100%;height:100%;object-fit:contain;min-height:420px">`;
+    dots.innerHTML=currentImgs.map((_,i)=>`<div class="carousel-dot ${i===currentSlide?'active':''}" onclick="goSlide(${i})"></div>`).join('');
+    document.querySelector('.carousel-prev').style.display=currentImgs.length>1?'block':'none';
+    document.querySelector('.carousel-next').style.display=currentImgs.length>1?'block':'none';
+  }
+}
+window.changeSlide=d=>{currentSlide=(currentSlide+d+currentImgs.length)%currentImgs.length;renderSlide();};
+window.goSlide=i=>{currentSlide=i;renderSlide();};
+
 function openModal(id){
   const p=products.find(x=>x.id===id);
   const mi=document.getElementById('m-img');
   mi.className=`modal-left ${catBg[p.category]||''}`;
-  mi.innerHTML=p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:contain">`:`<span style="font-size:90px">${p.emoji}</span>`;
+  currentImgs=Array.isArray(p.img)?p.img:(p.img?[p.img]:[]);
+  currentSlide=0;
+  if(currentImgs.length===0){
+    document.getElementById('carousel-content').innerHTML=`<span style="font-size:90px">${p.emoji}</span>`;
+    document.getElementById('carousel-dots').innerHTML='';
+    document.querySelector('.carousel-prev').style.display='none';
+    document.querySelector('.carousel-next').style.display='none';
+  } else renderSlide();
   document.getElementById('m-brand').textContent=p.brand;
   document.getElementById('m-name').textContent=p.name;
-  document.getElementById('m-price').textContent=fmt(p.price);
-  document.getElementById('m-desc').textContent=p.desc;
   document.getElementById('m-cat').textContent=p.category;
   const ms=document.getElementById('m-stock');
   ms.textContent=p.stock;
   ms.className='modal-val '+(stockClass[p.stock]||'');
-  document.getElementById('m-wa').onclick=()=>{
-    const numero='521XXXXXXXXXX';
-    const msg=encodeURIComponent(`Hola, me interesa *${p.name}* de ${p.brand} (${fmt(p.price)}). ¿Está disponible?`);
-    window.open(`https://wa.me/${numero}?text=${msg}`,'_blank');
-  };
+  document.getElementById('m-wa1').onclick=()=>window.open(`https://wa.me/${WA1}`,'_blank');
+  document.getElementById('m-wa2').onclick=()=>window.open(`https://wa.me/${WA2}`,'_blank');
   document.getElementById('modal').classList.add('open');
 }
 function closeModal(e){if(e.target.id==='modal')document.getElementById('modal').classList.remove('open');}
