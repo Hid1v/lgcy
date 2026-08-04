@@ -480,7 +480,7 @@ function openModal(id){
   ms.textContent=p.stock;
   ms.className='modal-val '+(stockClass[p.stock]||'');
   document.getElementById('m-wa1').onclick=()=>window.open(`https://wa.me/${WA1}?text=${encodeURIComponent('Hola, me interesa el producto: '+p.name+' de '+p.brand+'. ¿Está disponible?')}`,'_blank');
-  document.getElementById('m-wa2').onclick=()=>window.open(`https://wa.me/${WA2}`,'_blank');
+  document.getElementById('m-wa2').onclick=()=>window.open(`https://wa.me/${WA2}?text=${encodeURIComponent('Hola, me interesa el producto: '+p.name+' de '+p.brand+'. ¿Está disponible?')}`,'_blank');`,'_blank');
   document.getElementById('modal').classList.add('open');
 }
 function closeModal(e){if(e.target.id==='modal')document.getElementById('modal').classList.remove('open');}
