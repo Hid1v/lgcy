@@ -1,490 +1,989 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-MX">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LGCY Store</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Segoe UI',sans-serif;background:#fff;color:#0d1b2a;min-height:100vh}
-    .topbar{background:#0d1b2a;color:#c8d8f0;text-align:center;padding:9px 1rem;font-size:10px;letter-spacing:2.5px;text-transform:uppercase}
-    .header{background:#fff;border-bottom:1px solid #dde4f0;padding:0 1rem;position:sticky;top:0;z-index:50;box-shadow:0 1px 8px rgba(13,27,42,0.06)}
-    .header-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
-    .logo{font-family:Georgia,serif;font-size:22px;font-weight:700;letter-spacing:8px;text-transform:uppercase;color:#0d1b2a;text-decoration:none}
-    .logo span{color:#4a7fc1}
-    .header-nav{display:flex;gap:0;overflow-x:auto}
-    .header-nav a{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:0 10px;color:#555;text-decoration:none;height:60px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all 0.15s;font-weight:500;white-space:nowrap}
-    .header-nav a:hover{color:#0d1b2a}
-    .header-nav a.active{color:#0d1b2a;border-bottom-color:#0d1b2a}
-    .header-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
-    .header-right button{background:none;border:none;cursor:pointer;color:#0d1b2a;font-size:11px;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:5px;transition:color 0.15s;padding:0;white-space:nowrap}
-    .header-right button:hover{color:#4a7fc1}
-    .header-right i{font-size:20px}
-    .layout{max-width:1300px;margin:0 auto;display:flex;padding:0 1rem;gap:0}
-    .sidebar{width:200px;flex-shrink:0;padding:20px 20px 20px 0;border-right:1px solid #dde4f0;min-height:calc(100vh - 120px)}
-    .sidebar-section{margin-bottom:24px}
-    .sidebar-title{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#0d1b2a;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #dde4f0}
-    .sidebar-item{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:12px;color:#444;transition:color 0.15s}
-    .sidebar-item:hover{color:#4a7fc1}
-    .sidebar-item input[type=checkbox]{accent-color:#0d1b2a;width:13px;height:13px;cursor:pointer}
-    .sidebar-item-cat{padding:6px 0;cursor:pointer;font-size:12px;color:#444;transition:color 0.15s;display:flex;align-items:center;justify-content:space-between}
-    .sidebar-item-cat:hover{color:#4a7fc1}
-    .sidebar-item-cat.active{color:#0d1b2a;font-weight:700}
-    .sidebar-item-cat .cat-count{font-size:10px;color:#9aaec8}
-    .sidebar-clear{font-size:11px;color:#4a7fc1;cursor:pointer;margin-top:4px;display:inline-block}
-    .sidebar-clear:hover{text-decoration:underline}
-    .main{flex:1;padding:20px 0 20px 24px;min-width:0}
-    .main-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
-    .main-top-left h1{font-size:16px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#0d1b2a}
-    .main-top-left p{font-size:12px;color:#9aaec8;margin-top:2px}
-    .main-top-right{display:flex;align-items:center;gap:10px}
-    .search-input{background:#fff;border:1px solid #dde4f0;color:#0d1b2a;font-size:12px;border-radius:2px;padding:8px 12px;width:200px;transition:border-color 0.15s}
-    .search-input:focus{outline:none;border-color:#4a7fc1}
-    .search-input::placeholder{color:#9aaec8}
-    .sort-select{background:#fff;border:1px solid #dde4f0;color:#0d1b2a;font-size:12px;border-radius:2px;padding:8px 10px;cursor:pointer}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;background:#e8e8e8}
-    .card{background:#fff;cursor:pointer;position:relative;overflow:hidden;transition:background 0.15s}
-    .card:hover .card-img-inner{transform:scale(1.04)}
-    .card:hover .card-cta{opacity:1;transform:translateY(0)}
-    .card-img-wrap{overflow:hidden;position:relative}
-    .card-img-inner{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:60px;transition:transform 0.35s ease}
-    .card-img-inner img{width:100%;height:100%;object-fit:contain;display:block}
-    .bg-tenis{background:#e8eef7}
-.bg-playeras{background:#e8eef7}
-.bg-sudaderas{background:#e8eef7}
-.bg-gorras{background:#e8eef7}
-.bg-bolsos{background:#e8eef7}
-.bg-perfumes{background:#e8eef7}
-    .card-cta{position:absolute;bottom:0;left:0;right:0;background:#0d1b2a;color:#fff;text-align:center;padding:10px;font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:0;transform:translateY(4px);transition:all 0.2s}
-    .ribbon{position:absolute;top:10px;left:0;font-size:8px;padding:4px 10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
-    .ribbon-low{background:#4a7fc1;color:#fff}
-    .ribbon-order{background:#9aaec8;color:#0d1b2a}
-    .card-body{padding:10px 12px 14px}
-    .card-brand{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#9aaec8;margin-bottom:3px;font-weight:500}
-    .card-name{font-size:12px;font-weight:500;color:#0d1b2a;margin-bottom:3px;line-height:1.3}
-    .card-stock{font-size:10px;color:#4a7fc1;margin-top:3px;font-weight:500}
-    .empty{text-align:center;padding:5rem 1rem;color:#9aaec8;font-size:12px;letter-spacing:2px;text-transform:uppercase;grid-column:1/-1;background:#fff}
-    /* MODAL MÁS GRANDE */
-    .modal-bg{display:none;position:fixed;inset:0;background:rgba(13,27,42,0.6);z-index:100;align-items:center;justify-content:center;padding:1rem}
-    .modal-bg.open{display:flex}
-    .modal{background:#fff;max-width:820px;width:100%;display:flex;overflow:hidden;position:relative;box-shadow:0 24px 64px rgba(13,27,42,0.18);max-height:95vh}
-    .modal-left{width:400px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:90px;min-height:420px;position:relative;overflow:hidden}
-    .carousel{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;min-height:420px}
-    .carousel img{width:100%;height:100%;object-fit:contain}
-    .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,27,42,0.5);color:#fff;border:none;cursor:pointer;font-size:20px;padding:8px 10px;z-index:2}
-    .carousel-prev{left:0}
-    .carousel-next{right:0}
-    .carousel-dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:6px}
-    .carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,0.25);cursor:pointer}
-    .carousel-dot.active{background:#0d1b2a}
-    .modal-right{flex:1;padding:2rem 1.5rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;max-height:95vh;border-left:1px solid #eef2f8}
-    .modal-close{position:absolute;top:14px;right:14px;background:#fff;border:none;cursor:pointer;color:#9aaec8;font-size:16px;z-index:10;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,0.1)}
-    .modal-close:hover{color:#0d1b2a}
-    .modal-brand{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#9aaec8;margin-bottom:6px}
-    .modal-name{font-size:18px;font-weight:600;color:#0d1b2a;margin-bottom:10px;line-height:1.3;font-family:Georgia,serif}
-    .modal-divider{height:1px;background:#eef2f8;margin-bottom:14px}
-    .modal-row{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px solid #f0f4fb}
-    .modal-row:last-of-type{border-bottom:none;margin-bottom:16px}
-    .modal-label{color:#9aaec8}
-    .modal-val{font-weight:600;color:#0d1b2a}
-    .stock-ok{color:#1a7a4a}
-    .stock-low{color:#4a7fc1}
-    .stock-ord{color:#9aaec8}
-    .wa-title{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9aaec8;margin-bottom:8px}
-    .modal-btn{width:100%;padding:13px;background:#0d1b2a;color:#fff;border:none;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s;margin-bottom:6px}
-    .modal-btn:hover{background:#25d366}
-    .modal-btn-sec{background:#fff;color:#0d1b2a;border:1px solid #dde4f0;font-weight:500;margin-top:2px}
-    .modal-btn-sec:hover{background:#fff}
-   @media(max-width:700px){.sidebar{display:none}.layout{padding:0 0.5rem}.main{padding:12px 0}.modal{flex-direction:column;max-height:95vh;overflow-y:auto}.modal-left{width:100%;min-height:260px}.modal-right{padding:1.2rem 1rem;border-left:none;border-top:1px solid #eef2f8}.modal-btn{padding:14px;font-size:11px}.grid{grid-template-columns:repeat(2,1fr)}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LGCY | Tenis, ropa, gorras y perfumes</title>
+<meta name="description" content="Tenis Nike, Jordan, Adidas y New Balance, sudaderas, playeras, gorras y perfumes. Pide por WhatsApp con envío seguro a todo México.">
+<meta name="theme-color" content="#0C2340">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LGCY">
+<meta property="og:description" content="Tenis, ropa, gorras y perfumes. Pide por WhatsApp, envío a todo México.">
+<!-- Sube una imagen tuya (1200x630) al repo y pon aquí su URL completa: -->
+<meta property="og:image" content="https://hid1v.github.io/lgcy/pagina/portada.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230C2340'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='36' text-anchor='middle' fill='%23fff'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;
+  --ink:#1C1C1C;
+  --navy:#0C2340;
+  --grey:#686868;
+  --line:#E2E2E2;
+  --tile:#F3F3F1;
+  --soft:#F7F7F5;
+  --serif:'Cormorant Garamond','Garamond','Times New Roman',serif;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px)}
+body{font-family:var(--sans);font-size:15px;line-height:1.55;color:var(--ink);background:var(--white)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{max-width:1440px;margin:0 auto;padding:0 40px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Enlace subrayado al estilo editorial */
+.u-link{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding-bottom:3px;border-bottom:1px solid currentColor;transition:opacity .2s}
+.u-link:hover{opacity:.6}
+.serif{font-family:var(--serif);font-weight:500}
+
+/* ---------- Barra superior ---------- */
+.utility{background:var(--navy);color:#fff;text-align:center;font-size:12px;letter-spacing:.06em;padding:9px 16px}
+
+/* ---------- Header ---------- */
+.header{position:sticky;top:0;z-index:40;background:var(--white);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:41;background:var(--white)}
+.head-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px}
+.head-left,.head-right{display:flex;align-items:center;gap:22px}
+.head-right{justify-content:flex-end}
+.icon-btn{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;height:40px}
+.icon-btn:hover{opacity:.6}
+.menu-btn{display:none}
+.logo{font-family:var(--serif);font-weight:600;font-size:34px;letter-spacing:.32em;padding-left:.32em;color:var(--navy);line-height:1}
+.nav{display:flex;justify-content:center;gap:36px;height:44px;align-items:center}
+.nav a{font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:13px 0;border-bottom:1px solid transparent}
+.nav a:hover,.nav a[aria-current="page"]{border-bottom-color:var(--ink)}
+.searchbar{border-top:1px solid var(--line);padding:18px 0}
+.searchbar form{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--ink)}
+.searchbar input{flex:1;border:0;font:inherit;font-size:20px;font-family:var(--serif);padding:8px 0;background:transparent;color:var(--ink)}
+.searchbar input:focus{outline:none}
+
+/* ---------- Inicio ---------- */
+.hero{background:var(--tile);position:relative;overflow:hidden}
+.slide{display:grid;grid-template-columns:1fr 1.25fr;min-height:min(78vh,760px);position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility 0s .9s}
+.slide.active{position:relative;opacity:1;visibility:visible;transition:opacity .9s ease}
+.slide .hero-media img{transform:scale(1.03);transition:transform 6s ease}
+.slide.active .hero-media img{transform:none}
+.hero-ctrl{position:absolute;left:8%;bottom:36px;display:flex;align-items:center;gap:14px;z-index:2}
+.hero-ctrl .dot{width:28px;height:18px;background:#BFC3C9;padding:8px 0;background-clip:content-box}
+.hero-ctrl .dot[aria-current="true"]{background-color:var(--navy)}
+.hero-ctrl .pause{width:28px;height:28px;display:grid;place-items:center;color:var(--navy);margin-left:6px}
+.hero-text{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:64px 8%}
+.hero-text h1,.hero-text .h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.6rem,5.4vw,5.2rem);line-height:1.02;color:var(--navy);max-width:11ch}
+.hero-text p{margin-top:20px;max-width:36ch;color:#3f3f3f;font-size:16px}
+.hero-text .u-link{margin-top:32px}
+.hero-media{position:relative;overflow:hidden}
+.hero-media img{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:multiply}
+.hero-media img.contain{object-fit:contain;padding:6% 8%}
+.hero-media img.cover{object-fit:cover;mix-blend-mode:normal}
+
+.section{padding:88px 0 0}
+.section-head{text-align:center;margin-bottom:40px}
+.section-head h2{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,3.4vw,2.9rem);line-height:1.1;color:var(--navy)}
+.section-head p{color:var(--grey);margin-top:8px}
+
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.cat-tile{display:block;text-align:center}
+.cat-tile .ph{aspect-ratio:4/5}
+.cat-tile h3{font-family:var(--serif);font-weight:500;font-size:28px;margin-top:16px;line-height:1.1}
+.cat-tile .u-link{margin-top:10px}
+
+.row-scroll{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 60px)/4);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
+.row-scroll::-webkit-scrollbar{display:none}
+.row-scroll > *{scroll-snap-align:start}
+
+.editorial{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ed-tile{display:block;text-align:center}
+.ed-tile .ph{aspect-ratio:1/1}
+.ed-tile h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.8rem,2.6vw,2.4rem);margin-top:20px;color:var(--navy)}
+.ed-tile p{color:var(--grey);margin:6px auto 0;max-width:40ch}
+.ed-tile .u-link{margin-top:14px}
+
+.how{margin-top:96px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:64px 0}
+.how ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;counter-reset:s}
+.how li{text-align:center;counter-increment:s;padding:0 12px}
+.how li::before{content:counter(s);display:block;font-family:var(--serif);font-size:44px;line-height:1;color:var(--navy);margin-bottom:14px}
+.how h3{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.how p{color:var(--grey);margin:8px auto 0;max-width:32ch}
+
+/* ---------- Tarjeta de producto ---------- */
+.ph{position:relative;background:var(--tile);overflow:hidden;display:grid;place-items:center}
+.ph img{width:100%;height:100%;object-fit:contain;padding:12%;mix-blend-mode:multiply;transition:transform .6s ease}
+a:hover .ph img{transform:scale(1.04)}
+.fallback{font-family:var(--serif);font-size:32px;letter-spacing:.2em;color:#B5B5B0}
+.card{display:block;min-width:0}
+.card .ph{aspect-ratio:4/5}
+.card .meta{padding-top:14px}
+.card .flag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px;font-weight:500}
+.card .brand{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.card .name{font-size:15px;margin-top:2px;line-height:1.35}
+.card .price{font-size:14px;margin-top:6px}
+.card .price.ask{color:var(--grey)}
+
+/* ---------- Catálogo ---------- */
+.crumbs{font-size:12px;color:var(--grey);padding:22px 0 0;letter-spacing:.04em}
+.crumbs a:hover{text-decoration:underline}
+.cat-head{text-align:center;padding:28px 0 32px}
+.cat-head h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,4.4vw,3.6rem);line-height:1.05;color:var(--navy)}
+.cat-head p{color:var(--grey);margin-top:6px}
+.subnav{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 26px;margin-top:22px}
+.subnav a{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);padding-bottom:3px;border-bottom:1px solid transparent}
+.subnav a:hover,.subnav a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--ink)}
+.toolbar{position:sticky;top:121px;z-index:20;background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.toolbar .wrap{display:flex;align-items:center;justify-content:space-between;height:54px;gap:16px}
+.tool-btn{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.tool-btn b{font-weight:500;color:var(--grey)}
+.sort-wrap{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.sort-wrap select{border:0;background:transparent;font:inherit;font-size:13px;letter-spacing:0;text-transform:none;color:var(--ink);cursor:pointer;padding:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding-top:20px}
+.chip{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border:1px solid var(--line);font-size:13px}
+.chip:hover{border-color:var(--ink)}
+.chip.clear{border:0;text-decoration:underline;text-underline-offset:3px;color:var(--grey);padding:0 4px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px 20px;padding:28px 0 96px}
+.empty{grid-column:1/-1;text-align:center;padding:64px 16px}
+.empty h2{font-family:var(--serif);font-weight:500;font-size:34px;color:var(--navy)}
+.empty p{color:var(--grey);margin:10px auto 28px;max-width:44ch}
+.empty .row{display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
+
+/* ---------- Página de producto ---------- */
+.pdp{display:grid;grid-template-columns:1.35fr 1fr;gap:64px;padding:24px 0 80px;align-items:start}
+.pdp-media{display:grid;grid-template-columns:72px 1fr;gap:16px}
+.thumbs{display:flex;flex-direction:column;gap:10px}
+.thumbs button{background:var(--tile);aspect-ratio:4/5;border:1px solid transparent;overflow:hidden}
+.thumbs button[aria-current="true"]{border-color:var(--ink)}
+.thumbs img{width:100%;height:100%;object-fit:contain;padding:10%;mix-blend-mode:multiply}
+.pdp-main{aspect-ratio:4/5;position:relative}
+.pdp-main.single{grid-column:1/-1}
+.pdp-main .ph{height:100%}
+.pdp-main .ph img{padding:10%}
+.pdp-info{position:sticky;top:150px}
+.pdp-info .brand{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+.pdp-info h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,3vw,2.8rem);line-height:1.08;color:var(--navy);margin-top:8px}
+.pdp-info .price{font-size:18px;margin-top:14px}
+.pdp-info .price.ask{font-size:15px;color:var(--grey)}
+.status{display:flex;align-items:center;gap:8px;margin-top:18px;font-size:14px}
+.status i{width:7px;height:7px;border-radius:50%;background:#2E7D4F}
+.status i.order{background:#B7891E}
+.sizes{margin-top:28px}
+.sizes-head{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.sizes-head span{color:var(--grey);letter-spacing:.04em;text-transform:none;font-size:13px}
+.size-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:8px}
+.size-grid button{height:44px;border:1px solid var(--line);font-size:14px}
+.size-grid button:hover{border-color:var(--ink)}
+.size-grid button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;margin-top:28px;background:var(--navy);color:#fff;font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;transition:background .2s}
+.btn-primary:hover{background:#163564}
+.pdp-alt{display:flex;justify-content:space-between;margin-top:16px;font-size:13px}
+.pdp-alt a,.pdp-alt button{text-decoration:underline;text-underline-offset:3px;color:var(--grey)}
+.pdp-alt a:hover,.pdp-alt button:hover{color:var(--ink)}
+.acc{margin-top:36px;border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font-size:20px;font-weight:300;letter-spacing:0}
+.acc details[open] summary::after{content:"−"}
+.acc .acc-body{padding:0 0 20px;color:#444;font-size:14px}
+.acc dl{display:grid;grid-template-columns:auto 1fr;gap:6px 24px}
+.acc dt{color:var(--grey)}
+.related{border-top:1px solid var(--line);padding:64px 0 96px}
+
+/* ---------- Footer ---------- */
+.footer{background:var(--soft);padding:64px 0 40px;font-size:14px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.foot-grid h4{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.foot-grid ul{list-style:none;display:grid;gap:8px;color:#444}
+.foot-grid a:hover{text-decoration:underline}
+.foot-logo{font-family:var(--serif);font-size:30px;letter-spacing:.3em;color:var(--navy)}
+.foot-grid .lead{color:var(--grey);margin-top:12px;max-width:34ch}
+.foot-bottom{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--grey);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* ---------- Paneles laterales ---------- */
+.scrim{position:fixed;inset:0;background:rgba(12,35,64,.4);z-index:60;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;bottom:0;z-index:61;width:min(420px,100%);background:var(--white);display:flex;flex-direction:column;transition:transform .3s ease;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.right{right:0;transform:translateX(100%)}
+.drawer.left{left:0;transform:translateX(-100%)}
+.drawer.open{transform:none}
+.drawer header{display:flex;justify-content:space-between;align-items:center;padding:0 24px;height:64px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.drawer .body{flex:1;overflow:auto;padding:8px 24px 24px}
+.drawer fieldset{border:0;border-bottom:1px solid var(--line);padding:20px 0}
+.drawer legend{font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.check{display:flex;align-items:center;gap:12px;padding:7px 0;cursor:pointer}
+.check input{width:16px;height:16px;accent-color:var(--navy)}
+.check em{font-style:normal;color:var(--grey);font-size:13px;margin-left:auto}
+.drawer footer{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 24px;border-top:1px solid var(--line)}
+.btn-line,.btn-solid{height:48px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.btn-line{border:1px solid var(--ink)}
+.btn-solid{background:var(--navy);color:#fff}
+.menu-list{list-style:none}
+.menu-list a{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:24px;color:var(--navy)}
+.menu-list em{font-family:var(--sans);font-style:normal;font-size:13px;color:var(--grey);align-self:center}
+.menu-extra{margin-top:28px;display:grid;gap:14px;font-size:14px}
+
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:35;width:54px;height:54px;border-radius:50%;background:var(--navy);color:#fff;display:none;place-items:center;box-shadow:0 6px 18px rgba(12,35,64,.3)}
+.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;font-size:13px;z-index:80;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1100px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .row-scroll{grid-auto-columns:calc((100% - 40px)/3)}
+  .pdp{gap:40px}
+}
+@media(max-width:860px){
+  .wrap{padding:0 20px}
+  .nav{display:none}
+  .menu-btn{display:inline-flex}
+  .head-row{height:64px}
+  .logo{font-size:28px}
+  .icon-btn span{display:none}
+  .toolbar{top:65px}
+  .slide{grid-template-columns:1fr;min-height:0}
+  .hero-ctrl{left:20px;bottom:18px}
+  .hero-media{aspect-ratio:1/1;order:-1}
+  .hero-text{padding:32px 20px 64px}
+  .section{padding-top:64px}
+  .cats{grid-template-columns:repeat(2,1fr);gap:24px 12px}
+  .cat-tile h3{font-size:22px}
+  .editorial{grid-template-columns:1fr;gap:48px}
+  .how ol{grid-template-columns:1fr;gap:36px}
+  .grid{grid-template-columns:repeat(2,1fr);gap:36px 12px}
+  .row-scroll{grid-auto-columns:62%;gap:12px}
+  .pdp{grid-template-columns:1fr;gap:28px;padding-top:12px}
+  .pdp-media{grid-template-columns:1fr}
+  .thumbs{flex-direction:row;order:2;overflow-x:auto}
+  .thumbs button{width:64px;flex-shrink:0}
+  .pdp-info{position:static}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-grid > div:first-child{grid-column:1/-1}
+  .fab{display:grid}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
 
-<div class="topbar">♛ &nbsp; Alta calidad &nbsp;·&nbsp; Diseño exclusivo &nbsp;·&nbsp; Envío seguro a todo México &nbsp; ♛</div>
+<div class="utility" id="utility"></div>
 
-<div class="header">
-  <div class="header-inner">
-    <a class="logo" href="#">LG<span>C</span>Y</a>
-    <nav class="header-nav">
-      <a href="#" class="active" onclick="setTab('todos');return false">Todo</a>
-      <a href="#" onclick="setTab('Tenis');return false">Tenis</a>
-      <a href="#" onclick="setTab('Playeras');return false">Playeras</a>
-      <a href="#" onclick="setTab('Sudaderas');return false">Sudaderas</a>
-      <a href="#" onclick="setTab('Gorras');return false">Gorras</a>
-      <a href="#" onclick="setTab('Bolsos');return false">Bolsos</a>
-      <a href="#" onclick="setTab('Perfumes');return false">Perfumes</a>
-    </nav>
-    <div class="header-right">
-      <button onclick="openWA()"><i class="ti ti-brand-whatsapp"></i> Contacto</button>
+<header class="header">
+  <div class="wrap">
+    <div class="head-row">
+      <div class="head-left">
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menú"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+        <button class="icon-btn" id="searchBtn" aria-expanded="false" aria-controls="searchbar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar</span></button>
+      </div>
+      <a class="logo" href="#/" aria-label="LGCY, inicio">LGCY</a>
+      <div class="head-right">
+        <a class="icon-btn" id="headWa" href="#" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#wa"/></svg><span>WhatsApp</span></a>
+      </div>
+    </div>
+    <nav class="nav" id="nav" aria-label="Categorías"></nav>
+  </div>
+  <div class="searchbar" id="searchbar" hidden>
+    <div class="wrap">
+      <form id="searchForm" role="search">
+        <label class="sr-only" for="q">Buscar</label>
+        <input id="q" type="search" placeholder="¿Qué estás buscando?" autocomplete="off">
+        <button type="submit" class="u-link">Buscar</button>
+      </form>
     </div>
   </div>
-</div>
-<div class="<div class="tab-bar" style="display:none">" >
-  <a href="#" class="active" onclick="setTab('todos');return false">Todo</a>
-  <a href="#" onclick="setTab('Tenis');return false">Tenis</a>
-  <a href="#" onclick="setTab('Playeras');return false">Playeras</a>
-  <a href="#" onclick="setTab('Sudaderas');return false">Sudaderas</a>
-  <a href="#" onclick="setTab('Gorras');return false">Gorras</a>
-  <a href="#" onclick="setTab('Bolsos');return false">Bolsos</a>
-  <a href="#" onclick="setTab('Perfumes');return false">Perfumes</a>
-</div>
-<div class="layout">
-  <aside class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-title">Categoría</div>
-      <div class="sidebar-item-cat active" onclick="setTab('todos')" id="cat-todos"><span>🏬 Todo</span><span class="cat-count" id="cnt-todos"></span></div>
-      <div class="sidebar-item-cat" onclick="setTab('Tenis')" id="cat-Tenis"><span>👟 Tenis</span><span class="cat-count" id="cnt-Tenis"></span></div>
-      <div class="sidebar-item-cat" onclick="setTab('Playeras')" id="cat-Playeras"><span>👕 Playeras</span><span class="cat-count" id="cnt-Playeras"></span></div>
-      <div class="sidebar-item-cat" onclick="setTab('Sudaderas')" id="cat-Sudaderas"><span>🧥 Sudaderas</span><span class="cat-count" id="cnt-Sudaderas"></span></div>
-      <div class="sidebar-item-cat" onclick="setTab('Gorras')" id="cat-Gorras"><span>🧢 Gorras</span><span class="cat-count" id="cnt-Gorras"></span></div>
-      <div class="sidebar-item-cat" onclick="setTab('Bolsos')" id="cat-Bolsos"><span>🎒 Bolsos</span><span class="cat-count" id="cnt-Bolsos"></span></div>
-      <div class="sidebar-item-cat" onclick="setTab('Perfumes')" id="cat-Perfumes"><span>🌸 Perfumes</span><span class="cat-count" id="cnt-Perfumes"></span></div>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-title">Marca</div>
-      <label class="sidebar-item"><input type="checkbox" value="Nike" onchange="updateBrands()"> Nike</label>
-      <label class="sidebar-item"><input type="checkbox" value="Adidas" onchange="updateBrands()"> Adidas</label>
-      <label class="sidebar-item"><input type="checkbox" value="Jordan" onchange="updateBrands()"> Jordan</label>
-      <label class="sidebar-item"><input type="checkbox" value="New Balance" onchange="updateBrands()"> New Balance</label>
-      <label class="sidebar-item"><input type="checkbox" value="ASSC" onchange="updateBrands()"> ASSC</label>
-      <label class="sidebar-item"><input type="checkbox" value="Essentials" onchange="updateBrands()"> Essentials</label>
-      <label class="sidebar-item"><input type="checkbox" value="Palm Angels" onchange="updateBrands()"> Palm Angels</label>
-      <label class="sidebar-item"><input type="checkbox" value="Innedith" onchange="updateBrands()"> Innedith</label>
-      <label class="sidebar-item"><input type="checkbox" value="Barbas Hats" onchange="updateBrands()"> Barbas Hats</label>
-      <label class="sidebar-item"><input type="checkbox" value="Afnan" onchange="updateBrands()"> Afnan</label>
-      <label class="sidebar-item"><input type="checkbox" value="Armaf" onchange="updateBrands()"> Armaf</label>
-      <label class="sidebar-item"><input type="checkbox" value="Lattafa" onchange="updateBrands()"> Lattafa</label>
-      <span class="sidebar-clear" onclick="clearBrands()">Limpiar filtros</span>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-title">Disponibilidad</div>
-      <label class="sidebar-item"><input type="checkbox" value="Disponible" onchange="updateAvail()"> Disponible</label>
-      <label class="sidebar-item"><input type="checkbox" value="Últimas piezas" onchange="updateAvail()"> Últimas piezas</label>
-      <label class="sidebar-item"><input type="checkbox" value="Por pedido" onchange="updateAvail()"> Por pedido</label>
-    </div>
-  </aside>
+</header>
 
-  <main class="main">
-    <div class="main-top">
-      <div class="main-top-left">
-        <h1 id="cat-title">Todos los productos</h1>
-        <p id="count"></p>
-      </div>
-      <div class="main-top-right">
-        <input class="search-input" type="text" id="search" placeholder="Buscar producto o marca..." oninput="render()">
-        <select class="sort-select" id="sort" onchange="render()">
-          <option value="default">Ordenar</option>
-          <option value="name">Nombre A-Z</option>
+<!-- ===== INICIO ===== -->
+<main id="viewHome">
+  <section class="hero" id="hero" aria-roledescription="carrusel" aria-label="Portada"></section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>Comprar por categoría</h2></div>
+      <div class="cats" id="cats"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>Destacados</h2><p>Modelos que más nos piden.</p></div>
+      <div class="row-scroll" id="featured"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="editorial" id="editorial"></div>
+    </div>
+  </section>
+
+  <section class="how" aria-labelledby="howT">
+    <div class="wrap">
+      <div class="section-head"><h2 id="howT">Así compras en LGCY</h2></div>
+      <ol>
+        <li><h3>Elige tu producto</h3><p>Abre el modelo que te guste y selecciona tu talla.</p></li>
+        <li><h3>Escríbenos</h3><p>El botón de WhatsApp ya lleva el modelo y la talla. Te confirmamos precio y disponibilidad.</p></li>
+        <li><h3>Paga y recibe</h3><p id="stepPay"></p></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<!-- ===== CATÁLOGO ===== -->
+<main id="viewCatalog" hidden>
+  <div class="wrap">
+    <div class="crumbs" id="catCrumbs"></div>
+    <div class="cat-head">
+      <h1 id="catTitle"></h1>
+      <p id="catCount" aria-live="polite"></p>
+      <nav class="subnav" id="subnav" aria-label="Categorías"></nav>
+    </div>
+  </div>
+  <div class="toolbar">
+    <div class="wrap">
+      <button class="tool-btn" id="filterBtn" aria-haspopup="dialog"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtrar <b id="filterN"></b></button>
+      <label class="sort-wrap">Ordenar
+        <select id="sort">
+          <option value="default">Recomendados</option>
+          <option value="avail">Disponibles primero</option>
+          <option value="price-asc">Precio: menor a mayor</option>
+          <option value="price-desc">Precio: mayor a menor</option>
+          <option value="name">Nombre A–Z</option>
         </select>
-      </div>
-    </div>
-    <div class="grid" id="grid"></div>
-  </main>
-</div>
-
-<!-- MODAL -->
-<div class="modal-bg" id="modal" onclick="closeModal(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
-    <div class="modal-left" id="m-img">
-      <div class="carousel">
-        <button class="carousel-btn carousel-prev" onclick="changeSlide(-1)">&#8249;</button>
-        <div id="carousel-content" style="width:100%;height:100%;min-height:420px;display:flex;align-items:center;justify-content:center"></div>
-        <button class="carousel-btn carousel-next" onclick="changeSlide(1)">&#8250;</button>
-        <div class="carousel-dots" id="carousel-dots"></div>
-      </div>
-    </div>
-    <div class="modal-right">
-      <div class="modal-brand" id="m-brand"></div>
-      <div class="modal-name" id="m-name"></div>
-      <div class="modal-divider"></div>
-      <div class="modal-row"><span class="modal-label">Categoría</span><span class="modal-val" id="m-cat"></span></div>
-      <div class="modal-row"><span class="modal-label">Disponibilidad</span><span class="modal-val" id="m-stock"></span></div>
-      <div style="margin-top:16px">
-        <div class="wa-title">Consultar por WhatsApp</div>
-        <button class="modal-btn" id="m-wa1">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp 1
-        </button>
-        <button class="modal-btn" id="m-wa2">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp 2
-        </button>
-      </div>
-      <button class="modal-btn modal-btn-sec" onclick="document.getElementById('modal').classList.remove('open')">Cerrar</button>
+      </label>
     </div>
   </div>
-</div>
+  <div class="wrap">
+    <div class="chips" id="chips"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<!-- ===== PRODUCTO ===== -->
+<main id="viewProduct" hidden>
+  <div class="wrap">
+    <div class="crumbs" id="pCrumbs"></div>
+    <div class="pdp">
+      <div class="pdp-media" id="pMedia"></div>
+      <div class="pdp-info">
+        <div class="brand" id="pBrand"></div>
+        <h1 id="pName"></h1>
+        <div id="pPrice"></div>
+        <div class="status" id="pStatus"></div>
+        <div class="sizes" id="pSizes" hidden>
+          <div class="sizes-head">Talla <span id="pSizeHint"></span></div>
+          <div class="size-grid" id="pSizeGrid" role="group" aria-label="Talla"></div>
+        </div>
+        <a class="btn-primary" id="pWa" href="#" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#wa"/></svg>Pedir por WhatsApp</a>
+        <div class="pdp-alt"><a id="pWa2" href="#" target="_blank" rel="noopener"></a><button id="pShare">Compartir</button></div>
+        <div class="acc">
+          <details open><summary>Detalles</summary><div class="acc-body"><dl id="pDetails"></dl></div></details>
+          <details><summary>Envío y entrega</summary><div class="acc-body" id="pShip"></div></details>
+          <details><summary>Cómo comprar</summary><div class="acc-body">Selecciona tu talla y toca “Pedir por WhatsApp”. El mensaje lleva el modelo, la talla y el link de este producto. Te respondemos con precio, fotos reales y costo de envío.</div></details>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="related">
+    <div class="wrap">
+      <div class="section-head"><h2>También te puede gustar</h2></div>
+      <div class="row-scroll" id="related"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><div class="foot-logo">LGCY</div><p class="lead">Tenis, ropa, gorras y perfumes. Pide por WhatsApp con envío seguro a todo México.</p></div>
+      <div><h4>Tienda</h4><ul id="footCats"></ul></div>
+      <div><h4>Atención</h4><ul id="footWa"></ul></div>
+      <div id="footSocialBox" hidden><h4>Síguenos</h4><ul id="footSocial"></ul></div>
+    </div>
+    <div class="foot-bottom"><span>© <span id="year"></span> LGCY Store</span><span id="footHours"></span></div>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#wa"/></svg></a>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer right" id="filterDrawer" role="dialog" aria-modal="true" aria-label="Filtros" hidden>
+  <header>Filtrar<button data-close aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+  <div class="body">
+    <fieldset><legend>Disponibilidad</legend><div id="fAvail"></div></fieldset>
+    <fieldset><legend>Marca</legend><div id="fBrands"></div></fieldset>
+  </div>
+  <footer><button class="btn-line" id="fClear">Quitar todo</button><button class="btn-solid" id="fApply" data-close>Ver resultados</button></footer>
+</aside>
+
+<aside class="drawer left" id="menuDrawer" role="dialog" aria-modal="true" aria-label="Menú" hidden>
+  <header>Menú<button data-close aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+  <div class="body">
+    <ul class="menu-list" id="menuList"></ul>
+    <div class="menu-extra" id="menuExtra"></div>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="wa" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.69.25-1.29.18-1.41-.08-.13-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.42"/></symbol></svg>
 
 <script>
-const WA1='527225116799';
-const WA2='527221122909';
-function openWA(){window.open(`https://wa.me/${WA1}?text=${encodeURIComponent('Hola, me interesa: '+p.name+' de '+p.brand+'. ¿Está disponible?')}`,'_blank');}
-  
+/* =====================================================
+   CONFIGURACIÓN: edita aquí sin tocar el resto
+   ===================================================== */
+const CONFIG = {
+  whatsapp: [
+    { label: 'Asesor 1', number: '527225116799' },
+    { label: 'Asesor 2', number: '527221122909' }
+  ],
+  aviso: 'Envío seguro a todo México',
+  // Diapositivas de la portada (cambian solas cada 6 segundos).
+  // id = producto del que se toma la foto. Para usar una foto tuya agrega  imagen: 'img/portada1.jpg', ajuste: 'cover'
+  portada: [
+    { id: 26, titulo: 'Clásicos que se quedan', texto: 'Air Jordan 4 Bred y toda la línea Jordan, listos para pedir por WhatsApp.', enlace: 'Comprar Jordan', ir: '#/buscar/jordan' },
+    { id: 16, titulo: 'Terraza, siempre',       texto: 'Samba, Gazelle, Spezial y Campus: los Adidas que no fallan.',              enlace: 'Comprar Adidas', ir: '#/buscar/adidas' },
+    { id: 35, titulo: 'Básicos de temporada',   texto: 'Sudaderas Essentials, ASSC y más para los días fríos.',                     enlace: 'Comprar sudaderas', ir: '#/c/Sudaderas' },
+    { id: 81, titulo: 'Gorras de autor',        texto: 'Barbas Hats, 31 Hats, Dandy e Innedith. Ediciones que se agotan.',          enlace: 'Comprar gorras', ir: '#/c/Gorras' }
+  ],
+  editorial: [
+    { categoria: 'Gorras',   titulo: 'Gorras para coleccionar', texto: 'Barbas Hats, 31 Hats, Dandy, Innedith y más.', id: 91 },
+    { categoria: 'Perfumes', titulo: 'Perfumería',          texto: 'Diseñador y árabes: Dior, YSL, Lattafa, Afnan, Armaf.', id: 146 }
+  ],
+  destacados: [25, 26, 16, 33, 35, 37, 91, 81, 146, 133, 21],
+  pago: 'Te compartimos las formas de pago y enviamos tu pedido a cualquier parte de México.',
+  envio: 'Enviamos a todo México. El costo y el tiempo de entrega te los confirmamos por WhatsApp según tu ciudad.',
+  horario: 'Respondemos por WhatsApp',
+  instagram: '',   // ej. 'lgcy.store'
+  tiktok: '',
+  tallas: {
+    Tenis:     { hint: 'Talla MX', opciones: ['23','23.5','24','24.5','25','25.5','26','26.5','27','27.5','28','28.5','29','30'] },
+    Playeras:  { hint: '',         opciones: ['CH','M','G','EG'] },
+    Sudaderas: { hint: '',         opciones: ['CH','M','G','EG'] }
+  }
+};
+/* Precio:            price: 2499
+   Varias fotos:      img: ['url1','url2']
+   Tallas propias:    sizes: ['26','27']
+   Disponibilidad:    'Disponible', 'Últimas piezas' o 'Por pedido'           */
+
 const products=[
-  {id:1,  name:'Nike 720 Black',          brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJrJcjWq-w7KSpWbgpBDUPVk31pGui0T-yP373nrk8hg&s=10'},
-  {id:2,  name:'Nike 720 Black and White',         brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7OtBb48CDCkxKndmNkbIv2jaOs9XaMzYZU5w7C8K-3A&s=10'},
-  {id:3,  name:'Nike Air Force 1',         brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZRnTrjUPinWfY7DPDdd-TffftArhUsqAwgkpEP_HyGg&s'},
-  {id:4,  name:'Nike Air Max 1',           brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmpN1eoCEv5149doPZTDNBAOCxyYJ6iA1BvO33vkwGrQ&s=10'},
-  {id:5,  name:'Nike Air Max 97',          brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxirUOPozP4pDo3W1r2U8y_Z49aNXXz5YAxYVKuFTAMQ&s'},
-  {id:6,  name:'Nike Air Max Plus TN',     brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXqC3s0J9xe5fqfddsyToLZjR7ooaZuus5O_lcJdLeuA&s=10'},
-  {id:7,  name:'Nike Dunk Low',            brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR0FP5yM5Y1JkPcsVCxuGAmL_fMSTiNBiI2DNwqt2vjg&s=10'},
-  {id:8,  name:'Nike Cortez',              brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkFA57TN7yvjyDjaQQJznY791HevHtYX5HBkNsB3BANA&s=10'},
-  {id:9,  name:'Nike P-6000',              brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmfUtgzFoJZYldyo4CHITcn4DMJrJZbFMQrNLlLDwPRA&s=10'},
-  {id:10, name:'Nike Air Max 90',          brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/33/95/52/35/33955235_64977217_1000.jpg'},
-  {id:11, name:'Nike Air Max 95',          brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/33/95/52/35/33955235_64977217_1000.jpg'},
-  {id:12, name:'Nike Shox',                brand:'Nike',        category:'Tenis', stock:'Por pedido',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/25/77/04/30/25770430_57165212_1000.jpg'},
-  {id:13, name:'Nike Blazer Mid 77',       brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/14/56/99/85/14569985_22232500_1000.jpg'},
-  {id:14, name:'Nike V2K Run',             brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/23/80/64/74/23806474_53810519_1000.jpg'},
-  {id:15, name:'Nike Pegasus',             brand:'Nike',        category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/37/27/60/34/37276034_69911240_1000.jpg'},
-  {id:16, name:'Adidas Samba OG',          brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/30/56/38/90/30563890_59516334_1000.jpg'},
-  {id:17, name:'Adidas Gazelle',           brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/28/59/18/14/28591814_57918164_1000.jpg'},
-  {id:18, name:'Adidas Spezial',           brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/34/33/77/94/34337794_65575469_1000.jpg'},
-  {id:19, name:'Adidas SL 72',             brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/23/64/94/58/23649458_58150319_1000.jpg'},
-  {id:20, name:'Adidas Superstar',         brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/20/96/54/66/20965466_51157688_1000.jpg'},
-  {id:21, name:'Adidas Campus 00s',        brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/28/59/18/20/28591820_57917920_1000.jpg'},
-  {id:22, name:'Adidas Handball Spezial',  brand:'Adidas',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/34/33/77/94/34337794_65575469_1000.jpg'},
-  {id:23, name:'Adidas Adizero EVO SL',    brand:'Adidas',      category:'Tenis', stock:'Por pedido',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/34/38/25/73/34382573_65525804_1000.jpg'},
-  {id:24, name:'Air Jordan 1 Low',         brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/15/94/67/24/15946724_40390975_1000.jpg'},
-  {id:25, name:'Air Jordan 1 High OG',     brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/36/15/63/44/36156344_68001872_1000.jpg'},
-  {id:26, name:'Air Jordan 4 Bred',        brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/14/07/65/19/14076519_18662956_1000.jpg'},
-  {id:27, name:'Air Jordan 3',             brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/22/86/26/26/22862626_52935342_1000.jpg'},
-  {id:28, name:'Air Jordan 11 Space Jam',  brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/21/98/71/69/21987169_53823204_1000.jpg'},
-  {id:29, name:'Air Jordan 6',             brand:'Jordan',      category:'Tenis', stock:'Por pedido',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/32/06/09/85/32060985_64729706_1000.jpg'},
-  {id:30, name:'Air Jordan 5',             brand:'Jordan',      category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/23/64/51/70/23645170_53693876_1000.jpg'},
-  {id:31, name:'Air Jordan 1 Mid',         brand:'Jordan',      category:'Tenis', stock:'Por pedido',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/14/84/32/36/14843236_24358834_1000.jpg'},
-  {id:32, name:'New Balance 530',          brand:'New Balance', category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://nb.scene7.com/is/image/NB/mr530sg_nb_02_i?$pdpflexf2$&fmt=webp&wid=440&hei=440'},
-  {id:33, name:'New Balance 550',          brand:'New Balance', category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://nb.scene7.com/is/image/NB/bb550wt1_nb_02_i?$pdpflexf2$&fmt=webp&wid=440&hei=440'},
-  {id:34, name:'New Balance 204L',         brand:'New Balance', category:'Tenis', stock:'Disponible',     emoji:'👟', img:'https://cdn-images.farfetch-contents.com/34/73/22/08/34732208_65925760_1000.jpg'},
-  {id:35, name:'Fear of God Essentials Hoodie Negro', brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/18/65/99/25/18659925_40518678_1000.jpg'},
-  {id:36, name:'Fear of God Essentials Hoodie Blanco',brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/18/76/43/44/18764344_40611751_1000.jpg'},
-  {id:37, name:'Essentials Classic Hoodie',           brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/36/32/75/53/36327553_69310205_1000.jpg'},
-  {id:38, name:'Essentials Classic Zip-Up Hoodie',    brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/36/32/81/11/36328111_69311671_1000.jpg'},
-  {id:39, name:'Essentials Crewneck',                 brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://cdn-images.farfetch-contents.com/26/66/66/16/26666616_57729168_1000.jpg'},
-  {id:40, name:'ASSC Sign Me Up Hoodie',              brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2ajCJ6NKUrhQ-o3tre99DftV5TgM9kIYkG8MynGrf4Q&s=10'},
-  {id:41, name:'ASSC Libra Hoodie',                   brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZlqa5SK-4tRrFtwpkQ3GQ4-qIBRwC2PQY1DB3Y3aygQ&s'},
-  {id:42, name:'ASSC Kkoch Black Hoodie',             brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqDzuYsl76bRybX3jTLeQQ_rWEM4GWoZac0rJhcSO3CA&s=10'},
-  {id:43, name:'ASSC Fuzzy Connection Hoodie',        brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVAbR9DF4VvK8B8ehGOHRY3cqQULLsKA8IL37j2UMFg&s=10'},
-  {id:44, name:'ASSC Scorpio Hoodie',                 brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB0lEmTtY187q0PaukWSBWKypsCkMisbN5k0KjO6Lbrw&s=10'},
-  {id:45, name:'ASSC Cancelled Hoodie',               brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnyGKsb5avsCsWLjMiZ08t8qgdziDBuXMDSbat2mD_iA&s=10'},
-  {id:46, name:'ASSC Tiger Blood Hoodie',             brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-bY9rr5K4Knks1Z4-R09M7RTpSgJyxR2aX4rqk-7ejg&s=10'},
-  {id:47, name:'ASSC x Hello Kitty Hoodie',           brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAsKszKWo18xQan1iwkPo69sgjWB4OB5No9dF3MkFx-g&s=10'},
-  {id:48, name:'ASSC x Peanuts Hoodie',               brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjf_dAs8KuKVY5GETT3dwf1bjnaaUncMZxK5l0zamDgg&s'},
-  {id:49, name:'ASSC x Fragment Hoodie',              brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRel34Xde5PwvpQibRGbPh5KGQsmvxPN-XGf55fr3PAw&s=10'},
-  {id:50, name:'ASSC Mind Games Hoodie',              brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTun-i7LSBO5ru5sjcOudt2aPYVWBoSzMK-udiAOomMvg&s=10'},
-  {id:51, name:'Crewneck Alo Yoga',                   brand:'Alo',        category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa9IXnyMLOM5HOJAyJMFiP8Hv-a3q1snICG8bjxAr5AA&s=10'},
-  {id:52, name:'Hoodie Denim Tears',                  brand:'Denim Tears',category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4X6Nsq-Qw21ogMz8O7OmzaI7LA6BN_-lUo9MVFtZw&s=10'},
-  {id:53, name:'Property Lounge Half Zip Hoodie',     brand:'Essentials', category:'Sudaderas', stock:'Disponible', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqdaNy84p0PhM4lx62O_pRmX25W4Bb0kc9PAQTZcA_1A&s'},
-  {id:54, name:'Training 90s Hoodie',                 brand:'Essentials', category:'Sudaderas', stock:'Por pedido', emoji:'🧥', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE9lrexBUmJSF49Mpq7lPDpjBi2-Bjpe8umeQzOcSxxA&s=10'},
-  {id:55, name:'ASSC Airbrush Mind Games Blanca',     brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPsEvnjiu_7ukoL_DwyS7wU0ypZj16pL5IA40B1WCWSw&s=10'},
-  {id:56, name:'ASSC x Everton FC Blues Negra',       brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT362byvXIJwqwPZeH3-Jewd_kow03KVMNiwQ1azPzKDw&s=10'},
-  {id:57, name:'ASSC x Everton FC Blues Rosa',        brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT362byvXIJwqwPZeH3-Jewd_kow03KVMNiwQ1azPzKDw&s=10'},
-  {id:58, name:'ASSC x Everton FC Azul Real',         brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqCm64MwA5ooA4XQL3aUCK9LOKxg-6UnMzqhRaGr38cA&s=10'},
-  {id:59, name:'ASSC x Everton FC Toffees Negra',     brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEy2BmXOML3PIxDy2vn99klLm00VIqp7dqLsXNerrovA&s'},
-  {id:60, name:'ASSC Mind Games USA Made',            brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEacrP6AAUMnwyic8Qai9ypkubEUBJD4efeNQUICullg&s=10'},
-  {id:61, name:'ASSC Camiseta Desgastada Blanca',     brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9AlhzpzKa1dmELDUQCNtJ6vsC0xiz59sPzBisbX2Pig&s=10'},
-  {id:62, name:'ASSC Camiseta Desgastada Verde',      brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlE_u33K2ea1rjYc3QQufCpaB8aG2AH8IPmeF3oRpfsA&s=10'},
-  {id:63, name:'ASSC Camiseta Missing Negra',         brand:'ASSC',       category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPsEvnjiu_7ukoL_DwyS7wU0ypZj16pL5IA40B1WCWSw&s=10'},
-  {id:64, name:'Essentials Playera Manga Corta',      brand:'Essentials', category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://cdn-images.farfetch-contents.com/26/66/66/16/26666616_57729168_1000.jpg'},
-  {id:65, name:'Essentials Playera Signature 90s',    brand:'Essentials', category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPNLpQbkegPPduIFa5WtP6lMp6Xa7ZGxeDYF024d0MOQ&s'},
-  {id:66, name:'Essentials Playera Campus',           brand:'Essentials', category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPNLpQbkegPPduIFa5WtP6lMp6Xa7ZGxeDYF024d0MOQ&s'},
-  {id:67, name:'Palm Angels Azul Vertical',           brand:'Palm Angels',category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-DiPEg_d72fZXTCoyOLCDMTbJAYyetEi6MTF0djp35w&s=10'},
-  {id:68, name:'Palm Angels Greetings',               brand:'Palm Angels',category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL4ahe0regBlRsMFa-ubx1F7JI52d7tRtD1mMg4tXdqQ&s=10'},
-  {id:69, name:'Palm Angels Beige Letras',            brand:'Palm Angels',category:'Playeras',  stock:'Disponible', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpsWcR5B376ssn4bxN5eBo4i5t7cTt7X7jGxPkOjzJPw&s'},
-  {id:70, name:'Palm Angels New York Sprayed Negra',  brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1wC_olTshk8u3gX21DtvRYFTbJ7QOiR33VL5qpejqdQ&s=10'},
-  {id:71, name:'Palm Angels Bear Decapitated Blanca', brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTepYPxChebUL52FBUplJrjwLk6q_DPjSO3DrQTyJIcHg&s=10'},
-  {id:72, name:'Palm Angels Bear Print Sprayed Blanca',brand:'Palm Angels',category:'Playeras', stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7nn6CifSAQCrLlCw57ix8ZHnb7C-bozoFASC78H-jrA&s=10'},
-  {id:73, name:'Palm Angels Bear Decapitated Negra',  brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1ivkmpqs4vBliIAJm546Xes0bvOiw4NmGm7MX6Z6dkw&s=10'},
-  {id:74, name:'Palm Angels Star Sprayed Negra',      brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', emoji:'👕', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK7fZBrJFdreNuRrPzHoYyRvon1BgLdsGr-3aJ0nU3vA&s'},
-  {id:75, name:'Innedith Sad Flower Black',           brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIA4vuzx3CVFBYsw_MVRD-kdefbQ2IZeQMYrCjF1BOvQ&s=10'},
-  {id:76, name:'Innedith Sad Flower Black & Cream',   brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOI-1Z_6Kew6FiZgQEA4mD1cZkuXNQXZTu01iEKNcO8w&s=10'},
-  {id:77, name:'Innedith Happy Flower Black Multicolor',brand:'Innedith', category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQof5NfRvKZSEY-d39Ru9akC3GBBP-Pa3vsmqAUiY6nVw&s'},
-  {id:78, name:'Barbas Hats Chrome',                  brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0DrRNmiuJ5E42oZ-yyqDfznDQMtNGd1F--sCFZ2JUkA&s'},
-  {id:79, name:'Gorra Skate or Die Black Edition',    brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpVv4ewLUqcL78YfX7y2PB2JzgbCZ-RRKhFxYkbpUh3w&s=10'},
-  {id:80, name:'Gorra Rich Forever Black Edition',    brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHKe6L3mJgKG9CJO7O1yu01T4-USl83qy7cMDosHmf8g&s=10'},
-  {id:81, name:'Barbas Hats 77 Last Edition',         brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://snapsmx.com/cdn/shop/files/71226_82229253-5ca8-4abe-ac0b-2f9ba1985346.jpg?v=1769408358&width=1600'},
-  {id:82, name:'Barbas Hats B Chrome 24K Gold',       brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_svmw4gnWbbGm_AX9S1ojh04lPFHlGK6_ffM4UXNZPg&s=10'},
-  {id:83, name:'Barbas Hats B Star Rose Gold',        brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfZ1SyNjHHUy4lZOeifhaTxrjE7TvU3LSb_nz71rsPzA&s=10'},
-  {id:84, name:'Barbas Hats B-Cross',                 brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRir94ZiyvFZpTUMKwyyJkiMR9jgZdvo93sh0VIJuWpDA&s=10'},
-  {id:85, name:'Barbas Hats BBB',                     brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Lg_0YiMe3nCA0G96-72WF1NZeUDvWXg_ZBd80qME1Q&s=10'},
-  {id:86, name:'Barbas Hats Rockstar 3',              brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQweTMWwsVHl6wMHtLxaOLaBgaNkxPPS-JHt2dhrSVWg&s=10'},
-  {id:87, name:'Barbas Hats Scream',                  brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa513MV1AqfRkdV5rAX4TjqPQ_av3cOvgYgsUdCyuGxw&s'},
-  {id:88, name:'Barbas Hats The 77 Black',            brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwQbCr_WEvEBN1-RhQ8R7nq3G-hUOBMlGnkC0wIinWQA&s=10'},
-  {id:89, name:'Gorra New Era Dodgers 940 Royal',     brand:'New Era',    category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc9Ul_D9Ol_uAqor1RKSmPJMW2VvsXyoUr9K-IqjepLw&s'},
-  {id:90, name:'Son of God Total Black Baez x Shifu', brand:'Baez x Shifu',category:'Gorras',  stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKqgQVr7B8hVjUdWIleqxu5BQQZ8S-fnkOp9JFEOjzzA&s'},
-  {id:91, name:'ABZ Rosa Exclusiva Baez x Shifu',     brand:'Baez x Shifu',category:'Gorras',  stock:'Disponible', emoji:'🧢', img:'https://gallerycdmx.com/cdn/shop/files/Capturadepantalla2026-05-18ala_s_3.50.04p.m..png?v=1779141037&width=823'},
-  {id:92, name:'All Eyes On Me Baez x Shifu',         brand:'Baez x Shifu',category:'Gorras',  stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwtgecVS9HRaWNZcoWrJNgYwHrTAZ2dxkanjOBQJJpPA&s=10'},
-  {id:93, name:'Sayonara',                            brand:'Innedith',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCB4oVqaDv6cQQKfyKvS-1PqOuhKjRxC8WyGozg7YX4w&s'},
-  {id:94, name:'Gorra DANDY NEGRA STARGAZING',        brand:'Dandy',      category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4-8qAXHqOs8XWPaSHye0SMffWwYZp-DOffenfInCJRw&s'},
-  {id:95, name:'Gorra DANDY CANELO POUND FOR POUND',  brand:'Dandy',      category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkUMAUN7zCg7yahY7rgmvP3y-Rmk0Uvwz3m6_cRju3rQ&s'},
-  {id:96, name:'Gorra DANDY CANELO WBC BLK',          brand:'Dandy',      category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWUbhmRLrDSwtaOBRqEayweVyvX2oCA9LLNoNEiY-iqw&s=10'},
-  {id:97, name:'Gorra 31 Hats MAGO TOTAL BLK',        brand:'31 Hats',    category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGTqLjnuoKXIdjOWm5k25hzPCEqylRzpksk__FPdu2Aw&s'},
-  {id:98, name:'Gorra 31 Hats NY CLOUDS ANNIVERSARY', brand:'31 Hats',    category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Lg_0YiMe3nCA0G96-72WF1NZeUDvWXg_ZBd80qME1Q&s=10'},
-  {id:99, name:'Gorra 31 Hats EL MAGO BLK/RED Suede', brand:'31 Hats',   category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQweTMWwsVHl6wMHtLxaOLaBgaNkxPPS-JHt2dhrSVWg&s=10'},
-  {id:100,name:'Gorra 31 Hats NY TRIPLE BLACK',       brand:'31 Hats',    category:'Gorras',    stock:'Disponible', emoji:'🧢', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc9Ul_D9Ol_uAqor1RKSmPJMW2VvsXyoUr9K-IqjepLw&s'},
-  {id:101,name:'Nike Brasilia Backpack',               brand:'Nike',       category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlENiBZVvEPJERG02JdnF0mDN547rQX2kcDne0YPTFQw&s=10'},
-  {id:102,name:'Nike Elemental Backpack',              brand:'Nike',       category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvkb4DVIMOGXPIC-9LCBbjbSpXoJRC9vtSZU2DjcMyPA&s'},
-  {id:103,name:'Nike Heritage Backpack',               brand:'Nike',       category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlVXwnJv1XezgIjZIZQ57VN8tGQL0zeoXU--xu-XOP1w&s'},
-  {id:104,name:'Nike Utility Backpack',                brand:'Nike',       category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5OJgN9zLvlmAcQFCAj8yoXZDyXrnfQqOs4GaID0vfkQ&s=10'},
-  {id:105,name:'Nike Jordan Backpack',                 brand:'Jordan',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeN5FulUt-4XUiw8zYjcn5_y0Q4H5Co_EIuinGqr1rAw&s=10'},
-  {id:106,name:'Adidas Classic 3-Stripes Backpack',    brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwN25X-TCuNXkekO1Vb3oVwQHL_JSiUlgKi_BYXNBX5w&s=10'},
-  {id:107,name:'Adidas Linear Backpack',               brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr4O1yZquIaSJAGgIrEVwH8CS-2TslFm2emlJoex6ldg&s'},
-  {id:108,name:'Adidas Prime Backpack',                brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj6YiI1Z2FlVWEggwkvQvT7upepJMBMkghFWOU9Us_CQ&s=10'},
-  {id:109,name:'Adidas Adicolor Backpack',             brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDXr8pORAY-m5jPFX2A6WhDSGHdI_MNR8VnwEvBC8Ohg&s=10'},
-  {id:110,name:'Adidas Essentials Backpack',           brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', emoji:'🎒', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2jKtb90xdLLLs3jelY57FMVYHWvLQiasVao07Q5HLTQ&s=10'},
-  {id:111,name:'Dior Sauvage EDP',                     brand:'Dior',       category:'Perfumes',  stock:'Disponible', emoji:'🌿', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGUFha1tEwUIsHHw5my6rLnCsELTXriJCJR8SXosrNKQ&s=10'},
-  {id:112,name:'Paco Rabanne Invictus',                brand:'Paco Rabanne',category:'Perfumes', stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHXRHTzMQ0BbCyGf5t5hI9AISEPaduzA9nYybphhBxzw&s=10'},
-  {id:113,name:'Jean Paul Gaultier Le Male',           brand:'JPG',        category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS8UKX6Xsh5_ihFhtB7ff2YUYznf5Tw8fGcAos7CbfCQ&s=10'},
-  {id:114,name:'Paco Rabanne One Million',             brand:'Paco Rabanne',category:'Perfumes', stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7GCvMSJkqMC9dXrG3S9pDW4y-EdpnjsVrhG83gd1JmQ&s'},
-  {id:115,name:'Calvin Klein Eternity',                brand:'Calvin Klein',category:'Perfumes', stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRoEav3WLGzo2SmBh2WXToep81Mm-4rzQISOfPVXKp0g&s=10'},
-  {id:116,name:'YSL Libre EDP',                        brand:'YSL',        category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmFBGzslHcTcey63du17abNiDaeIOBiLnoluDUNbuy_Q&s=10'},
-  {id:117,name:'YSL Black Opium',                      brand:'YSL',        category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvM3N-ave60ICwXH7JCreEZyaZGd1fvM7iGVmRYc1dDg&s=10'},
-  {id:118,name:'Mugler Alien',                         brand:'Mugler',     category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUVEXHHtmzBbXPNXd1ZGEbGmpJ7GnOTMgSu1r0xmQoZw&s=10'},
-  {id:119,name:"Dior J'adore",                         brand:'Dior',       category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSEc1lpa14VpXSaWL5DN2yECG-uDn5-ypmJrgc04rI3w&s=10'},
-  {id:120,name:'Chanel Coco Mademoiselle',             brand:'Chanel',     category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY4ykBhfsbHYRvcG77MrevF-xeuFdzbFsjKLPytxBrQg&s=10'},
-  {id:121,name:'Afnan 9PM Night Out 100ml',            brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQItfrb3D1agFJKXZZgJM1yCvW2APOIdbQGPUqFA4wCQg&s=10'},
-  {id:122,name:'Afnan 9PM Original',                   brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTavihudwbCKu56jYMwVHNM0pHB4hZeaahMckch3hkX2g&s=10'},
-  {id:123,name:'Afnan 9PM Black',                      brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8bpAqZ1MJuhfEiKs6_2bEZ5c_wMNvZXJLsqwFrOlJBQ&s=10'},
-  {id:124,name:'Afnan 9PM Elixir',                     brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOCJzQbqiYn6GXcXl-g-Kl4pWlcMQFxKzmnz8i8CIP_g&s=10'},
-  {id:125,name:'Afnan 9PM Rebel',                      brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLzoZ6cBIqnCwXdXaKh0d4Ku7I5vHHWHVSgWUJY2gzPw&s=10'},
-  {id:126,name:'Afnan 9PM Fusion For Her',             brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq2OVQnBst41S7A_fiC7mhWo5wh7piKLFa6Qh8seRu3w&s=10'},
-  {id:127,name:'Afnan 9AM',                            brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO4gHhNvm8bMDRZsT9TcDa4RIiGWPWM7abR_8fGLqX_A&s=10'},
-  {id:128,name:'Afnan 9AM Dive',                       brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiao4Yye-6QH5cGpmE7QysfgIwW0WJYXP6bXOFbZ-TaA&s=10'},
-  {id:129,name:'Afnan Supremacy Not Only Intense',     brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Fs5vulxwRV8U8MZUkWMGgyiDFF-VWRcdIFCq0rTTyQ&s=10'},
-  {id:130,name:'Afnan Supremacy Silver',               brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Fs5vulxwRV8U8MZUkWMGgyiDFF-VWRcdIFCq0rTTyQ&s=10'},
-  {id:131,name:'Afnan Turathi Blue',                   brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO-qDgkp5IPjhSdN4J05EygGYmO2AqX7ZIWSWhvxUFWw&s'},
-  {id:132,name:'Afnan Highness For Her',               brand:'Afnan',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAd1hlVYP3GpRHs0mIo286-XF_lGVNFO7u-pVmkx1VGA&s=10'},
-  {id:133,name:'Armaf Club de Nuit Intense Man',       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_pIvr-1yM2_GSt29pGNQLPUuFXGzrjesP3OPOuC3kUg&s=10'},
-  {id:134,name:'Armaf Club de Nuit Untold',            brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ4plWiaJ_x1MheRSJz-Mlsqii6BqWamJxVszGMIMhEA&s'},
-  {id:135,name:'Armaf Club de Nuit Blue Iconic',       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2SeOf6YqHCIkxJ3Leedfu8BATJy45Hovgwu1UBoOd8g&s=10'},
-  {id:136,name:'Armaf Club de Nuit Milestone',         brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtDBJ35FoXI0kz8pP3YoQzqw-3YLW2b8iEFaof3R01wQ&s'},
-  {id:137,name:'Armaf Club de Nuit Oud',               brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj9NqESnUgTpiKNFO4POmR6y7HwqSVDChulsw6T3mpzw&s=10'},
-  {id:138,name:'Armaf Club de Nuit Woman',             brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0eh5sjYa0rHS6OTolA0UDYN8YdhkCEDaooNVvu7WysQ&s=10'},
-  {id:139,name:'Armaf Club de Nuit Int. Man Ltd. V4',  brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaWU-i314Pmfi6t4HPYbleXmsdKOFNaZOqwJAtcwk-Hw&s=10'},
-  {id:140,name:'Armaf Tres Nuit',                      brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQprvhPfj62CLwHAYJrR1OYiB1OK6b-rYWqzhBv2Hxtog&s=10'},
-  {id:141,name:'Odyssey Homme',                        brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHNGPPsiMCkFrkY8-7vZ51fkC7MyXE_hqTEDOXKiNNQQ&s=10'},
-  {id:142,name:'Odyssey Aqua Edition',                 brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrNJ4A1kqJKcZOgPX5eIvYvAjIMg6vinmi_7U8CuwGtw&s=10'},
-  {id:143,name:'Odyssey Tyrant',                       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKRdTFCZlTzwYcgG7osLz9_wCI5-2tc8kgOYoirZ4Tpg&s'},
-  {id:144,name:'Odyssey Mega',                         brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gu1oRZFdlRcjvMRbPvxQQDnemaXasP51EF-AUZy3WQ&s=10'},
-  {id:145,name:'Odyssey Elixir',                       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMeWOT4TQ3ntP7fvTHdRTjOs5e1HWlfW5MJs3ELe7fag&s'},
-  {id:146,name:'Lattafa Khamrah',                      brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRPAo31SSfm9TxfaW7EjCw9SRXeUVRPQ9oXqT5_gbxBg&s'},
-  {id:147,name:'Lattafa Khamrah Waha',                 brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq0uFaHxSjynA3s_g05Vl_MxUGF6K8cc90F9oKZO84aA&s=10'},
-  {id:148,name:'Lattafa Yara',                         brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpNMUUd6KOgudprZRkYrRujlT511eTHuV_PHxbpT6_Ug&s=10'},
-  {id:149,name:'Lattafa Yara Candy',                   brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1qBRMHtVJRfwImIaJPuFDAodc_jnRD7CRHknkwiobDA&s'},
-  {id:150,name:'Lattafa Asad',                         brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVR_qgAkJvIFtpFZCzO3FhXfe2OulmY2-lGk9zdekZtg&s=10'},
-  {id:151,name:'Lattafa Oud Mood',                     brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT1pAdSgdQOFh30hnzagf2jHdOxFVmSxM2c_4DFHqV6g&s=10'},
-  {id:152,name:'Lattafa Qaed Al Fursan',               brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-EuIpFj5qGtlndqLutWnEqQBziIFKjHEbjDig5iANNA&s=10'},
-  {id:153,name:'Lattafa Fakhar For Him',               brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0wvBy2U1l15jLrcr4w81VlD-i_9YB5lfy-HC1AHbpWw&s'},
-  {id:154,name:'Lattafa Eclaire',                      brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGDDMep9TlXbtPVoAaR_9fBgbviLmWcHQhxrMBBiRYwg&s=10'},
-  {id:155,name:'Lattafa Ana Abiyedh',                  brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaA0UrH9zWyGjzMHoDo7dkqAkmcDSsLHzDC02oij5xDQ&s'},
-  {id:156,name:'Lattafa Teriaq',                       brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', emoji:'🌸', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTblHuNNywpsiI15WymUh9SRPxVwgkVbI0lG76Y677YKQ&s=10'},
+  // ── TENIS NIKE ──
+  {id:1,  name:'Nike Vomero 18',          brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxVJjHxAxVSSwRYEEjT6BZv5bxl1-sx8VfXYupf3jrFA&s=10'},
+  {id:2,  name:'Nike Vomero Plus',         brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://dpjye2wk9gi5z.cloudfront.net/wcsstore/ExtendedSitesCatalogAssetStore/images/catalog/zoom/1037339-0114V2.jpg'},
+  {id:3,  name:'Nike Air Force 1',         brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZRnTrjUPinWfY7DPDdd-TffftArhUsqAwgkpEP_HyGg&s'},
+  {id:4,  name:'Nike Air Max 1',           brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmpN1eoCEv5149doPZTDNBAOCxyYJ6iA1BvO33vkwGrQ&s=10'},
+  {id:5,  name:'Nike Air Max 97',          brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxirUOPozP4pDo3W1r2U8y_Z49aNXXz5YAxYVKuFTAMQ&s'},
+  {id:6,  name:'Nike Air Max Plus TN',     brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXqC3s0J9xe5fqfddsyToLZjR7ooaZuus5O_lcJdLeuA&s=10'},
+  {id:7,  name:'Nike Dunk Low',            brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR0FP5yM5Y1JkPcsVCxuGAmL_fMSTiNBiI2DNwqt2vjg&s=10'},
+  {id:8,  name:'Nike Cortez',              brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkFA57TN7yvjyDjaQQJznY791HevHtYX5HBkNsB3BANA&s=10'},
+  {id:9,  name:'Nike P-6000',              brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmfUtgzFoJZYldyo4CHITcn4DMJrJZbFMQrNLlLDwPRA&s=10'},
+  {id:10, name:'Nike Air Max 90',          brand:'Nike',        category:'Tenis', stock:'Disponible', img:'data:image/jpeg;base64,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OiDk2+rrhw9kYhvZisWP/Itv/QmCgtmuQRF69Y+ZcSunRBxuD9WXDKL+UptrNfe/LVTqIMhziD3hWH/RuF6av8X5LokQce31cYEP5QOxOaSf7eoRJ/ZJyx1RCYv1cYGqcz3YmYi1eoweDYC7BEHI4r1dYCq0MfyxaItyrgbCLkQT3rCj6teHspmk3lhTdMjlXnXW5uO4rsUQcTw71WcMw5caLazC4QYquMxpYyFod6ouFF5qRXFR0kuFZ4JnW4Xeog4zhnq0wGGaWUXV2NJzEB4deInnNMWA0TiPq1wOIaG13V6jQZALw0T081onvXZog4jh3qt4dhnOdhzXpOcMpLamaRM3D2uHfEqbU9BaDmua6viS1wIIzUmyDY3bTBHcuqRB88b6mOCj+6qH/Vf8VeU/QTBNa1gNfK0AActVEAWFwZ8106IOU/7c8JLsz8NyrtM1WpWqmOiXvMDqW9voBwgf4DDf7bSukRBVYP0ZwFH+ywmHZ+7Spg+IarOnTa2zQAOoALJEBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERB//2Q=='},
+  {id:11, name:'Nike Air Max 95',          brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/33/95/52/35/33955235_64977217_1000.jpg'},
+  {id:12, name:'Nike Shox',                brand:'Nike',        category:'Tenis', stock:'Por pedido', img:'https://cdn-images.farfetch-contents.com/25/77/04/30/25770430_57165212_1000.jpg'},
+  {id:13, name:'Nike Blazer Mid 77',       brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/14/56/99/85/14569985_22232500_1000.jpg'},
+  {id:14, name:'Nike V2K Run',             brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/23/80/64/74/23806474_53810519_1000.jpg'},
+  {id:15, name:'Nike Pegasus',             brand:'Nike',        category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/37/27/60/34/37276034_69911240_1000.jpg'},
+  // ── TENIS ADIDAS ──
+  {id:16, name:'Adidas Samba OG',          brand:'Adidas',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/30/56/38/90/30563890_59516334_1000.jpg'},
+  {id:17, name:'Adidas Gazelle',           brand:'Adidas',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/28/59/18/14/28591814_57918164_1000.jpg'},
+  {id:18, name:'Adidas Spezial',           brand:'Adidas',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/34/33/77/94/34337794_65575469_1000.jpg'},
+  {id:19, name:'Adidas SL 72',             brand:'Adidas',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/23/64/94/58/23649458_58150319_1000.jpg'},
+  {id:20, name:'Adidas Superstar',         brand:'Adidas',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/20/96/54/66/20965466_51157688_1000.jpg'},
+  {id:21, name:'Adidas Campus 00s',        brand:'Adidas',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/28/59/18/20/28591820_57917920_1000.jpg'},
+  {id:22, name:'Adidas Handball Spezial',  brand:'Adidas',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/34/33/77/94/34337794_65575469_1000.jpg'},
+  {id:23, name:'Adidas Adizero EVO SL',    brand:'Adidas',      category:'Tenis', stock:'Por pedido', img:'https://cdn-images.farfetch-contents.com/34/38/25/73/34382573_65525804_1000.jpg'},
+  // ── TENIS JORDAN ──
+  {id:24, name:'Air Jordan 1 Low',         brand:'Jordan',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/15/94/67/24/15946724_40390975_1000.jpg'},
+  {id:25, name:'Air Jordan 1 High OG',     brand:'Jordan',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/36/15/63/44/36156344_68001872_1000.jpg'},
+  {id:26, name:'Air Jordan 4 Bred',        brand:'Jordan',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/14/07/65/19/14076519_18662956_1000.jpg'},
+  {id:27, name:'Air Jordan 3',             brand:'Jordan',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/22/86/26/26/22862626_52935342_1000.jpg'},
+  {id:28, name:'Air Jordan 11 Space Jam',  brand:'Jordan',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/21/98/71/69/21987169_53823204_1000.jpg'},
+  {id:29, name:'Air Jordan 6',             brand:'Jordan',      category:'Tenis', stock:'Por pedido', img:'https://cdn-images.farfetch-contents.com/32/06/09/85/32060985_64729706_1000.jpg'},
+  {id:30, name:'Air Jordan 5',             brand:'Jordan',      category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/23/64/51/70/23645170_53693876_1000.jpg'},
+  {id:31, name:'Air Jordan 1 Mid',         brand:'Jordan',      category:'Tenis', stock:'Por pedido', img:'https://cdn-images.farfetch-contents.com/14/84/32/36/14843236_24358834_1000.jpg'},
+  // ── TENIS NEW BALANCE ──
+  {id:32, name:'New Balance 530',          brand:'New Balance', category:'Tenis', stock:'Disponible', img:'https://nb.scene7.com/is/image/NB/mr530sg_nb_02_i?$pdpflexf2$&fmt=webp&wid=440&hei=440'},
+  {id:33, name:'New Balance 550',          brand:'New Balance', category:'Tenis', stock:'Disponible', img:'https://nb.scene7.com/is/image/NB/bb550wt1_nb_02_i?$pdpflexf2$&fmt=webp&wid=440&hei=440'},
+  {id:34, name:'New Balance 204L',         brand:'New Balance', category:'Tenis', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/34/73/22/08/34732208_65925760_1000.jpg'},
+  // ── SUDADERAS ──
+  {id:35, name:'Fear of God Essentials Hoodie Negro', brand:'Essentials', category:'Sudaderas', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/18/65/99/25/18659925_40518678_1000.jpg'},
+  {id:36, name:'Fear of God Essentials Hoodie ',brand:'Essentials', category:'Sudaderas', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/18/76/43/44/18764344_40611751_1000.jpg'},
+  {id:37, name:'Essentials Classic Hoodie',           brand:'Essentials', category:'Sudaderas', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/36/32/75/53/36327553_69310205_1000.jpg'},
+  {id:38, name:'Essentials Classic Zip-Up Hoodie',    brand:'Essentials', category:'Sudaderas', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/36/32/81/11/36328111_69311671_1000.jpg'},
+  {id:39, name:'Essentials Crewneck',                 brand:'Essentials', category:'Sudaderas', stock:'Disponible', img:'https://cdn-images.farfetch-contents.com/26/66/66/16/26666616_57729168_1000.jpg'},
+  {id:40, name:'ASSC Sign Me Up Hoodie',              brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2ajCJ6NKUrhQ-o3tre99DftV5TgM9kIYkG8MynGrf4Q&s=10'},
+  {id:41, name:'ASSC Libra Hoodie',                   brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZlqa5SK-4tRrFtwpkQ3GQ4-qIBRwC2PQY1DB3Y3aygQ&s'},
+  {id:42, name:'ASSC Kkoch Black Hoodie',             brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqDzuYsl76bRybX3jTLeQQ_rWEM4GWoZac0rJhcSO3CA&s=10'},
+  {id:43, name:'ASSC Fuzzy Connection Hoodie',        brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSVAbR9DF4VvK8B8ehGOHRY3cqQULLsKA8IL37j2UMFg&s=10'},
+  {id:44, name:'ASSC Scorpio Hoodie',                 brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB0lEmTtY187q0PaukWSBWKypsCkMisbN5k0KjO6Lbrw&s=10'},
+  {id:45, name:'ASSC Cancelled Hoodie',               brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnyGKsb5avsCsWLjMiZ08t8qgdziDBuXMDSbat2mD_iA&s=10'},
+  {id:46, name:'ASSC Tiger Blood Hoodie',             brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-bY9rr5K4Knks1Z4-R09M7RTpSgJyxR2aX4rqk-7ejg&s=10'},
+  {id:47, name:'ASSC x Hello Kitty Hoodie',           brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAsKszKWo18xQan1iwkPo69sgjWB4OB5No9dF3MkFx-g&s=10'},
+  {id:48, name:'ASSC x Peanuts Hoodie',               brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjf_dAs8KuKVY5GETT3dwf1bjnaaUncMZxK5l0zamDgg&s'},
+  {id:49, name:'ASSC x Fragment Hoodie',              brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRel34Xde5PwvpQibRGbPh5KGQsmvxPN-XGf55fr3PAw&s=10'},
+  {id:50, name:'ASSC Mind Games Hoodie',              brand:'ASSC',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTun-i7LSBO5ru5sjcOudt2aPYVWBoSzMK-udiAOomMvg&s=10'},
+  {id:51, name:'Crewneck Alo Yoga',                   brand:'Alo',        category:'Sudaderas', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa9IXnyMLOM5HOJAyJMFiP8Hv-a3q1snICG8bjxAr5AA&s=10'},
+  {id:52, name:'Hoodie Denim Tears',                  brand:'Denim Tears',category:'Sudaderas', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGT4X6Nsq-Qw21ogMz8O7OmzaI7LA6BN_-lUo9MVFtZw&s=10'},
+  {id:53, name:'Property Lounge Half Zip Hoodie',     brand:'Essentials', category:'Sudaderas', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqdaNy84p0PhM4lx62O_pRmX25W4Bb0kc9PAQTZcA_1A&s'},
+  {id:54, name:'Training 90s Hoodie',                 brand:'Essentials',       category:'Sudaderas', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE9lrexBUmJSF49Mpq7lPDpjBi2-Bjpe8umeQzOcSxxA&s=10'},
+  // ── PLAYERAS ──
+  {id:55, name:'ASSC Airbrush Mind Games Blanca',     brand:'ASSC',       category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPsEvnjiu_7ukoL_DwyS7wU0ypZj16pL5IA40B1WCWSw&s=10'},
+  {id:56, name:'ASSC x Everton FC Blues Negra',       brand:'ASSC',       category:'Playeras',  stock:'Por pedido', img:'data:image/jpeg;base64,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'},
+  {id:57, name:'ASSC x Everton FC Blues Rosa',        brand:'ASSC',       category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT362byvXIJwqwPZeH3-Jewd_kow03KVMNiwQ1azPzKDw&s=10'},
+  {id:58, name:'ASSC x Everton FC Azul Real',         brand:'ASSC',       category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqCm64MwA5ooA4XQL3aUCK9LOKxg-6UnMzqhRaGr38cA&s=10'},
+  {id:59, name:'ASSC x Everton FC Toffees Negra',     brand:'ASSC',       category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEy2BmXOML3PIxDy2vn99klLm00VIqp7dqLsXNerrovA&s'},
+  {id:60, name:'ASSC Mind Games USA Made',            brand:'ASSC',       category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEacrP6AAUMnwyic8Qai9ypkubEUBJD4efeNQUICullg&s=10'},
+  {id:61, name:'ASSC Camiseta Desgastada Blanca',     brand:'ASSC',       category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9AlhzpzKa1dmELDUQCNtJ6vsC0xiz59sPzBisbX2Pig&s=10'},
+  {id:62, name:'ASSC Camiseta Desgastada Verde',      brand:'ASSC',       category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlE_u33K2ea1rjYc3QQufCpaB8aG2AH8IPmeF3oRpfsA&s=10'},
+  {id:63, name:'ASSC Camiseta Missing Negra',         brand:'ASSC',       category:'Playeras',  stock:'Por pedido', img:'data:image/jpeg;base64,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'},
+  {id:64, name:'Essentials Playera Manga Corta',      brand:'Essentials', category:'Playeras',  stock:'Disponible', img:'data:image/jpeg;base64,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'},
+  {id:65, name:'Essentials Playera Signature 90s',    brand:'Essentials', category:'Playeras',  stock:'Por pedido', img:'data:image/jpeg;base64,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'},
+  {id:66, name:'Essentials Playera Campus',           brand:'Essentials', category:'Playeras',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPNLpQbkegPPduIFa5WtP6lMp6Xa7ZGxeDYF024d0MOQ&s'},
+  {id:67, name:'Palm Angels Azul Vertical',           brand:'Palm Angels',category:'Playeras',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-DiPEg_d72fZXTCoyOLCDMTbJAYyetEi6MTF0djp35w&s=10'},
+  {id:68, name:'Palm Angels Greetings',               brand:'Palm Angels',category:'Playeras',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL4ahe0regBlRsMFa-ubx1F7JI52d7tRtD1mMg4tXdqQ&s=10'},
+  {id:69, name:'Palm Angels Beige Letras',            brand:'Palm Angels',category:'Playeras',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpsWcR5B376ssn4bxN5eBo4i5t7cTt7X7jGxPkOjzJPw&s'},
+  {id:70, name:'Palm Angels New York Sprayed Negra',  brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1wC_olTshk8u3gX21DtvRYFTbJ7QOiR33VL5qpejqdQ&s=10'},
+  {id:71, name:'Palm Angels Bear Decapitated Blanca', brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTepYPxChebUL52FBUplJrjwLk6q_DPjSO3DrQTyJIcHg&s=10'},
+  {id:72, name:'Palm Angels Bear Print Sprayed Blanca',brand:'Palm Angels',category:'Playeras', stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7nn6CifSAQCrLlCw57ix8ZHnb7C-bozoFASC78H-jrA&s=10'},
+  {id:73, name:'Palm Angels Bear Decapitated Negra',  brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1ivkmpqs4vBliIAJm546Xes0bvOiw4NmGm7MX6Z6dkw&s=10'},
+  {id:74, name:'Palm Angels Star Sprayed Negra',      brand:'Palm Angels',category:'Playeras',  stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK7fZBrJFdreNuRrPzHoYyRvon1BgLdsGr-3aJ0nU3vA&s'},
+  // ── GORRAS ──
+  {id:75, name:'Innedith Sad Flower Black',           brand:'Innedith',   category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIA4vuzx3CVFBYsw_MVRD-kdefbQ2IZeQMYrCjF1BOvQ&s=10'},
+  {id:76, name:'Innedith Sad Flower Black & Cream',   brand:'Innedith',   category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOI-1Z_6Kew6FiZgQEA4mD1cZkuXNQXZTu01iEKNcO8w&s=10'},
+  {id:77, name:'Innedith Happy Flower Black Multicolor',brand:'Innedith', category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQof5NfRvKZSEY-d39Ru9akC3GBBP-Pa3vsmqAUiY6nVw&s'},
+  {id:78, name:'Barbas Hats Chrome',                  brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0DrRNmiuJ5E42oZ-yyqDfznDQMtNGd1F--sCFZ2JUkA&s'},
+  {id:79, name:'Gorra Skate or Die Black Edition',    brand:'Innedith',   category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpVv4ewLUqcL78YfX7y2PB2JzgbCZ-RRKhFxYkbpUh3w&s=10'},
+  {id:80, name:'Gorra Rich Forever Black Edition',    brand:'Innedith',   category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHKe6L3mJgKG9CJO7O1yu01T4-USl83qy7cMDosHmf8g&s=10'},
+  {id:81, name:'Barbas Hats 77 Last Edition',         brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', img:'https://snapsmx.com/cdn/shop/files/71226_82229253-5ca8-4abe-ac0b-2f9ba1985346.jpg?v=1769408358&width=1600'},
+  {id:82, name:'Barbas Hats B Chrome 24K Gold',       brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_svmw4gnWbbGm_AX9S1ojh04lPFHlGK6_ffM4UXNZPg&s=10'},
+  {id:83, name:'Barbas Hats B Star Rose Gold',        brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfZ1SyNjHHUy4lZOeifhaTxrjE7TvU3LSb_nz71rsPzA&s=10'},
+  {id:84, name:'Barbas Hats B-Cross',                 brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRir94ZiyvFZpTUMKwyyJkiMR9jgZdvo93sh0VIJuWpDA&s=10'},
+  {id:85, name:'Barbas Hats BBB',                     brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Lg_0YiMe3nCA0G96-72WF1NZeUDvWXg_ZBd80qME1Q&s=10'},
+  {id:86, name:'Barbas Hats Rockstar 3',              brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQweTMWwsVHl6wMHtLxaOLaBgaNkxPPS-JHt2dhrSVWg&s=10'},
+  {id:87, name:'Barbas Hats Scream',                  brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa513MV1AqfRkdV5rAX4TjqPQ_av3cOvgYgsUdCyuGxw&s'},
+  {id:88, name:'Barbas Hats The 77 Black',            brand:'Barbas Hats',category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwQbCr_WEvEBN1-RhQ8R7nq3G-hUOBMlGnkC0wIinWQA&s=10'},
+  {id:89, name:'Gorra New Era Dodgers 940 Royal',     brand:'New Era',    category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc9Ul_D9Ol_uAqor1RKSmPJMW2VvsXyoUr9K-IqjepLw&s'},
+  {id:90, name:'Son of God Total Black Baez x Shifu', brand:'Baez x Shifu',category:'Gorras',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKqgQVr7B8hVjUdWIleqxu5BQQZ8S-fnkOp9JFEOjzzA&s'},
+  {id:91, name:'ABZ Rosa Exclusiva Baez x Shifu',     brand:'Baez x Shifu',category:'Gorras',  stock:'Disponible', img:'https://gallerycdmx.com/cdn/shop/files/Capturadepantalla2026-05-18ala_s_3.50.04p.m..png?v=1779141037&width=823'},
+  {id:92, name:'All Eyes On Me Baez x Shifu',         brand:'Baez x Shifu',category:'Gorras',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwtgecVS9HRaWNZcoWrJNgYwHrTAZ2dxkanjOBQJJpPA&s=10'},
+  {id:93, name:'Sayonara',                            brand:'Innedith',   category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCB4oVqaDv6cQQKfyKvS-1PqOuhKjRxC8WyGozg7YX4w&s'},
+  {id:94, name:'Gorra DANDY NEGRA STARGAZING',        brand:'Dandy',      category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4-8qAXHqOs8XWPaSHye0SMffWwYZp-DOffenfInCJRw&s'},
+  {id:95, name:'Gorra DANDY CANELO POUND FOR POUND',  brand:'Dandy',      category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkUMAUN7zCg7yahY7rgmvP3y-Rmk0Uvwz3m6_cRju3rQ&s'},
+  {id:96, name:'Gorra DANDY CANELO WBC BLK',          brand:'Dandy',      category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWUbhmRLrDSwtaOBRqEayweVyvX2oCA9LLNoNEiY-iqw&s=10'},
+  {id:97, name:'Gorra 31 Hats MAGO TOTAL BLK',        brand:'31 Hats',    category:'Gorras',    stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGTqLjnuoKXIdjOWm5k25hzPCEqylRzpksk__FPdu2Aw&s'},
+  {id:98, name:'Gorra 31 Hats NY CLOUDS ANNIVERSARY', brand:'31 Hats',    category:'Gorras',    stock:'Disponible', img:'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxIQEBUQEBAVFRAVFRgVFRUVFRUQFRUYGBcXFxUVFxcYHSggGBolGxcXITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGy0lICYvNS0vLS0tLS0tLS0tLS0tKy0tLS0vLS0tNS0tLS0tLS0rLS0tLS0vLS0tLS0tLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAEAAgIDAQAAAAAAAAAAAAAAAQIGBwMFCAT/xABAEAACAQIDBAcFBgQEBwAAAAAAAQIDEQQSIQUGMUEHEyJRYXGBFDKRobEjQlJiwfAVcoKyFjOS8SREc4Oi0eH/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAkEQEBAAICAgEDBQAAAAAAAAAAAQIRAyESMUETIlIEFFFh8P/aAAwDAQACEQMRAD8A3eAAAAAAAAAAAAAAAAAAAAAAAAQSQAAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAAAAAAIBJAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEgCAAAAAAAASAAAAAAAACtWrGEXKclGK1bbSSXe2zE9udIeCwy7MnVnyUFo3/M+Pmrlscbl6RcpPbLjH98N7KOzKcalaE5Z21FQS5K7bb0S1Nc7R6SsZVf2eWhDkoqM6nrKaaXojGtobcnVlmrTdSXfNudr91+HobY8F+WOXPPhs7YvSlhsRVhSdCtTzyUVJxU4JyaSzNcFdrXkZzGvF8Jxfk0zzX/F0uEY+isV/jXgi2XBj8VXHmvzHpoHmyjvTVh7lScf5Zyj9GfZS6QcbD3cTP1ef+65S8H9rzmn8PQ4NH4HpZxcP8zJVX5oqL/8AGxl2x+lbDVbKvB033p5l6p6r5lbw5RacuNbCB8uz9o0cRHPRqxnH8r1XmuK9T6jJoAAAAAAAAAACASQAAAEgAAAVq1FGLlJ2ildt8gLGFbzdI2Hw14UPt617dl/Zp92Ze8/BfFGEb577VcdVnRw83TwUE7tdl1bcXJ/hfBR58/DCZYuKleC7K0u+L7tOS8EdXHwfk5eTn/F3m8O9WIrvPiKuaXGNJaU6fd2Vo5ft3MZnjXfNJtzet3rby7j5sVUcne/O/eccom966jGd91zyxjOGddsplJylVkdYyrkznpYaclJxhKUYK83GLkoLheTXurxZxWCUK5KRNjKNzty8RtJydJxhSi7Sqz1Sla6iktW7NeBFsndJLfTtOjncOeNlDFVMnskalpwk5ZqmXikkrWvo7tczg6V9nUMLtFww0IwhKlCcoQSjGMm5J2itIq0Yu3izL91dsLYs1snEUpe0zrrLUUr0akKkrRqJyd4aK2XLxXi2Omrd11IU8dQpJ5FJV5RspOLy5JSXNLVX5Jrlwwmd8+21wni6fcHZcq2za9fDVJrHUqt6ajJp2jFPJx1U8z9UvE73dnpNkpdRj4NNPK5qOWUWnZ54eD42s/BnUdBVH7bETyysowV02o3ea6avZuyT4aa942zuy9p47aFfCVYXoygowST62fVQU+1mtHtKSvrquXEnctsyNWSXFuWjVjOKnCSlGSTi07pp8GmXMD6MZVaODTrVU6Lm45HdToVFPI4PvTlx4WffdszwxymrptjdwABVIAAABAEkAAAABIIAEmtOk3blSrOOzsKpSqVF21BOTycGrL8Xf3J/iNgbSxHV020m5PSKXFuzenjZP5GmNq7dqYKnNpZdo4r7WtOSu8PSl/lUkn97LbR8Od9LdHBhu7cn6nk19sdNtLYlPBpe2TTrNXhhKcryf5q1RaQjfkrt8mYxiq+aeZqKu+EUoxXK0UuCXD0Ir4lylKTk5Tk25Sk3KUm+Lb5nAjqYSORvX0X6kS0Kt9r0DZFXnosd9uRRw08fQjjHH2dyebPJRhfJJxUm+TlZHQ3DK3uLT23Nt/fHZeEw+JwmCpQc5wnTtSgurk5xad5pWaWbXU0wkLnbbs0sJLEf8fUlDDxi5PIm5TkrZYJpO17t38PEpMZhNr2+XTqkbQ6Ld+cPg6XseIvDtuUKlnKLzu+WVldNP5NdxiG/WIwE8RH+GU3GioLP7yjKffFS1WnHlf1OghL0fFCyZwl8a9PbwbtYXHwaxFGMpuGWNWy6yC4pwlxVnqY/u3h6vs1XZO0JzeJqU60VOb6xVaTvBVYcmkpJOL1Ttfim/s6NNuVsdglVrximm4XT9/Lo5tfdd76f7H0bJ3moYjEzwt08RQlOLutUk8uaMrWs+yuN/DQ5e506OvbqujrdSpsyFfrJ55yk3lilZqGZQav96S1tfS6XeyvR/VjT2dVxTlGNOdTEYiMXoqMZTl2JNd2R37uHIyfeHEVaOFrVMNTz4hQbhHK55pcrpatGI9GmaeyZRyXqN1k4t5c0nOpeLv7ursT77R66arht6tUrVpxbhHE1XUnSi7xvKbml42b9Tf26mOqVsNHroyjXpvq6ikmndJNSd++LTueaIJxeWSakuy1waa0frdM3j0c7z1MbVkqqSkqFNac3Tk1KVuTfWcPBG/Lj9vTHiy+7tnwAOV0gAAAC4AAgCQQAJBAA6vbGJalGEVrx+LsjXG93R869Wpiqm0aUHOV3mpvKktIxzZuSSXDkbF2jTVRyjGyndJSavZ2v8DVW8HRfj6jdT2qGJnz6yUqcvTNdel0jq47JPenn5zK52+2Dbc2PDDSSji6Fe7t9jKUmrc5aWS9b+B1a4nZba2FicG0sTh507uybV4vykrp/E61G8RCT7Xo/0IfES4ryZL/fIirwZDYIuQkuLkAgTctEoi8X4BLfPQzgalPAZ5zTp1JynTgl2oq+V3lfW7jdK2l3r3a231xywu2a9TAydKUZ62VlncV1qytWcXK7tazubg6Ndnez7NoxvO8oKo1UVnCU+1KKVk0k29GaL33p1Y7SxSrtOr10m2lZNPWDS5djKc+HeVb59Yxvjcva08Rs+niKk1Um45p2tBKzalFavhZr05Ha4PC0oylOjFR6yTlUS0vKVrya/E7IwjodrUauzZUItKonONVL3u23aX+hxX9J025u3KuzcfPZOIm6iVTLTqSlwTgpwi78pRy27pO3Mp4+1vL06/D7Go0Nv1aWPUJ0Z9bXjm0i1NupFteCzL+lma0Nm4fA7Uw3syUKdenUi4K9k4rSWvC7yq3fHxHShsHD4rBTxEnCFWlDPTqu0cyWvVN81LVJd7Xrqrd7bNSOKo16k5TdNwSzO7ywtaPwRvhLn8scrMOno8ERkmrrg9V5EnK6QAAAAAAIAkEACQQGwMF6QNr1MJhKlWjLLVckouyds07N2fF5bo0tiN48ZOTcsZXu+Nqs4r4RaSPQeK2fTxN6NaGanUhOLTtpe+se6S5PkYV0rbm0o4RYnC06dL2ePbUY5XUg3FLVcWuOup1Tk8dRwYcXnvJqXE4+rVSVWtUmk7pTnKaT70m9HbQ+ZP6EA2Qmb7Sfn+gkys2GyKtE3IITBCRgMBKTkw1Z05xqRtmhKM43V1eLUldc1dcDiuTy4ED0L0e77wx9Jqs4wxEW88E3a3KUbu+X9TSW+Mp/xHFKpNzn181mdneKdocPy5UdOu/XzWhXLbRcDPHDxu2ly3NNy7A6Q8Nhdk0rOn7TTUKcqK0k7SUZSUVq+zed+D77mFdJW2cJi8XGvgtJOCdWazJSmrKDSkk1JRVm/LuMOQQmEl2XPc0zfefpErY3CrCdTGFN5HVlfM5Ti8zyq3Zi5KMufBrmY5gKlmmdafRQdjXjnj6Zcl29Mbl47r8DRnfVRyPzh2fokd4YF0O4vPgZxv7lX4XjH9UzPDk5JrKx1YXeMoACi4AAAAAAABciT0BDA6atVVLLVndKGZy0b7Li7uy1ehp3fbf6eKjXwdLL7LOu5Kor5p01a0bPgnJZvgjbuK1snqrO93fw/U83VoJSaXBN28r6fI68MJe687Hlstxn+6cNiheSKs2SpItkZywjeL0LXdiNLbfO4NCxepWiuL17uLKda37sH6u3/wB+RXpPZlJyFHmf3kvJfqwqC53fm2/lwISs5xXGS+OpHWLkm/6WvmzkjFLgkvItcnRuOLNJ8IW82l9Lk9XN/hXxZyovEnxRtwwwj5y+Ct9T6IYKPNt+tvoWhJI5etLTGK3Kpp4GHc/9TOens+nfSU15OMl9EfP13cR7Xbmiekdti9HO36OzutjVc5RqZWssUrOOa905eJsLC77YGpp12V904yj80mjzlLaT5fPUpU2nPnPL8EYZ44W7bYZZyaeqcLj6VVXpVYT/AJZKXyR9FzydT2zNO8a8k+9TaMi2X0hbRw9suKlOK+7USrR+L1Xo0Y3jnxWs5L8x6QuLmsd2ulyjVap42n1Unp1sLzp3/NH3oL4+hsijWjOKnCSlCSvGUWpJp8GmuKKXGz20mUvpzXBW5JVISQAADRVgY5t2uqCvONRp3S6unOq+VvcTtw5mi1u1jJNxp4TESSbSfUzjfknqj0fWrWMf2vi67TySt5G2PNljOnP+3w3tpX/Be0H/AMnUiu+ThT/ukj5Nobr4rDxc6lJZVxtUpza8WoyenoZztehjJt3lJrwZ0VXAVueb5j62S04cYwlOdrJqMfBN/Ww9n/FKT83ZfBGRYrYcnrBWl3W0f/o6bEUJQeWcWmbY5TJlcbi4YU0uCt5aF3AmCLMvpXbicRY5Wtf3oUsNCEv3+/L5EtW5fJfvuLKPkVYEIsmVKudhs05es7jjlUsUjmlwXryLLByfIzy5JF8ePakHObsuHwRk+7+7uGnJPF4iTWnYp9nzvOV9PJLzOhjg5eJ9FKFSPN/MwyzyreYSN07H2bsZUnRhhKOWStJzXWTf/cleXwZhW9nRDe9XZVVTjxdCpJKa/wCnUekvKVvNmI+2Vo8JS+aOfD7zYulrGpLTxKdrsQx2DqUKjpV6cqdWPGE4uEl6Pl4nFCfiZ3tDfapiIdVjMNTxEFw6xdqPjCa7UX5MwvHxpuV6MJwi/uTaqW8pWTa81fxYQvRxLXj9fibJ6L985YSrGhVm3hKkrNN/5Un9+Pcr+8u7XlrquMrGVbm7Er4+r1eHg2tM07PJDxlLgtLmuN31WeU13HqRElKFPLGMb3tFK/fZWuchi1ATYASQ0SAOCpSTPnngkz7WiLEodXPZcXyR889ix/CjvLEWAx2psKL+4jr9obq06sXGdFSXitfRrgZlYWGzTR23ejarC8sNeS/BLR+kufr8TC8ZgKlGWWrTlCXdJNfDvPUlj58VgaVVZalKE490oqS+aNseaz2yy4pfTy24FWmehMd0dbMraywkYvvpynS+UWkdRiOiLAS92piIeVSMv7oMv9aKfRrSDbOOUv3xZuiXQ1heWJr+vVv6RR9GG6KMNT1VWb80v0IvNFpxVpehgKtT3YteMtPkd1gd1m7OScn5Wj8DcmH3IpU+HzR9sN3Yx/2M7yWrzCRqzD7rvusdhS3VXP6GyY7HSORbLXcU2tpr6nutDuZzR3Wh+Ez1bP8AAt7F4AYE906f4Sr3MpP7psD2NkrBsJa+/wACUX9wldHuHfGBsJYMusGiNjAaPR1g07ukn53Mw2Lglh4KnTVoLhFcDso4VHNCiAhI5EwolrEJRcFrAAAABFiQBFiLFgBWwLWAFRYtYWArYWJAEWBIAiwsSAK5RlLACmUZS4AplJylgBWxNiwsBWxKRJIEEgACCQBALACoJsLAQCbCwEEFrCwFQWsLAVBawsBUF7CwFAXsLAVBYAVFiwAqCwAgEgCAWIAgFgBUFgBAIAEggXAkEC4EggASCCQAIAEgAAAAAAAAAASQAJAAAAAAAAAAFWQAAAAAAACSABIIAEgAAAAAAAkAAAAAAAAAACQAAAAAAD//2Q=='},
+  {id:99, name:'Gorra 31 Hats EL MAGO BLK/RED Suede', brand:'31 Hats',   category:'Gorras',    stock:'Disponible', img:'data:image/jpeg;base64,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'},
+  {id:100,name:'Gorra 31 Hats NY TRIPLE BLACK',       brand:'31 Hats',    category:'Gorras',    stock:'Disponible', img:'data:image/jpeg;base64,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'},
+  // ── BOLSOS ──
+  {id:101,name:'Nike Brasilia Backpack',               brand:'Nike',       category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlENiBZVvEPJERG02JdnF0mDN547rQX2kcDne0YPTFQw&s=10'},
+  {id:102,name:'Nike Elemental Backpack',              brand:'Nike',       category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvkb4DVIMOGXPIC-9LCBbjbSpXoJRC9vtSZU2DjcMyPA&s'},
+  {id:103,name:'Nike Heritage Backpack',               brand:'Nike',       category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlVXwnJv1XezgIjZIZQ57VN8tGQL0zeoXU--xu-XOP1w&s'},
+  {id:104,name:'Nike Utility Backpack',                brand:'Nike',       category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5OJgN9zLvlmAcQFCAj8yoXZDyXrnfQqOs4GaID0vfkQ&s=10'},
+  {id:105,name:'Nike Jordan Backpack',                 brand:'Jordan',     category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeN5FulUt-4XUiw8zYjcn5_y0Q4H5Co_EIuinGqr1rAw&s=10'},
+  {id:106,name:'Adidas Classic 3-Stripes Backpack',    brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwN25X-TCuNXkekO1Vb3oVwQHL_JSiUlgKi_BYXNBX5w&s=10'},
+  {id:107,name:'Adidas Linear Backpack',               brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr4O1yZquIaSJAGgIrEVwH8CS-2TslFm2emlJoex6ldg&s'},
+  {id:108,name:'Adidas Prime Backpack',                brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj6YiI1Z2FlVWEggwkvQvT7upepJMBMkghFWOU9Us_CQ&s=10'},
+  {id:109,name:'Adidas Adicolor Backpack',             brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDXr8pORAY-m5jPFX2A6WhDSGHdI_MNR8VnwEvBC8Ohg&s=10'},
+  {id:110,name:'Adidas Essentials Backpack',           brand:'Adidas',     category:'Bolsos',    stock:'Por pedido', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2jKtb90xdLLLs3jelY57FMVYHWvLQiasVao07Q5HLTQ&s=10'},
+  // ── PERFUMES ──
+  {id:111,name:'Dior Sauvage EDP',                     brand:'Dior',       category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGUFha1tEwUIsHHw5my6rLnCsELTXriJCJR8SXosrNKQ&s=10'},
+  {id:112,name:'Paco Rabanne Invictus',                brand:'Paco Rabanne',category:'Perfumes', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHXRHTzMQ0BbCyGf5t5hI9AISEPaduzA9nYybphhBxzw&s=10'},
+  {id:113,name:'Jean Paul Gaultier Le Male',           brand:'JPG',        category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS8UKX6Xsh5_ihFhtB7ff2YUYznf5Tw8fGcAos7CbfCQ&s=10'},
+  {id:114,name:'Paco Rabanne One Million',             brand:'Paco Rabanne',category:'Perfumes', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7GCvMSJkqMC9dXrG3S9pDW4y-EdpnjsVrhG83gd1JmQ&s'},
+  {id:115,name:'Calvin Klein Eternity',                brand:'Calvin Klein',category:'Perfumes', stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRoEav3WLGzo2SmBh2WXToep81Mm-4rzQISOfPVXKp0g&s=10'},
+  {id:116,name:'YSL Libre EDP',                        brand:'YSL',        category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmFBGzslHcTcey63du17abNiDaeIOBiLnoluDUNbuy_Q&s=10'},
+  {id:117,name:'YSL Black Opium',                      brand:'YSL',        category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvM3N-ave60ICwXH7JCreEZyaZGd1fvM7iGVmRYc1dDg&s=10'},
+  {id:118,name:'Mugler Alien',                         brand:'Mugler',     category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUVEXHHtmzBbXPNXd1ZGEbGmpJ7GnOTMgSu1r0xmQoZw&s=10'},
+  {id:119,name:'Dior J\'adore',                        brand:'Dior',       category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSEc1lpa14VpXSaWL5DN2yECG-uDn5-ypmJrgc04rI3w&s=10'},
+  {id:120,name:'Chanel Coco Mademoiselle',             brand:'Chanel',     category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY4ykBhfsbHYRvcG77MrevF-xeuFdzbFsjKLPytxBrQg&s=10'},
+  {id:121,name:'Afnan 9PM Night Out 100ml',            brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQItfrb3D1agFJKXZZgJM1yCvW2APOIdbQGPUqFA4wCQg&s=10'},
+  {id:122,name:'Afnan 9PM Original',                   brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTavihudwbCKu56jYMwVHNM0pHB4hZeaahMckch3hkX2g&s=10'},
+  {id:123,name:'Afnan 9PM Black',                      brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8bpAqZ1MJuhfEiKs6_2bEZ5c_wMNvZXJLsqwFrOlJBQ&s=10'},
+  {id:124,name:'Afnan 9PM Elixir',                     brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOCJzQbqiYn6GXcXl-g-Kl4pWlcMQFxKzmnz8i8CIP_g&s=10'},
+  {id:125,name:'Afnan 9PM Rebel',                      brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLzoZ6cBIqnCwXdXaKh0d4Ku7I5vHHWHVSgWUJY2gzPw&s=10'},
+  {id:126,name:'Afnan 9PM Fusion For Her',             brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq2OVQnBst41S7A_fiC7mhWo5wh7piKLFa6Qh8seRu3w&s=10'},
+  {id:127,name:'Afnan 9AM',                            brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO4gHhNvm8bMDRZsT9TcDa4RIiGWPWM7abR_8fGLqX_A&s=10'},
+  {id:128,name:'Afnan 9AM Dive',                       brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiao4Yye-6QH5cGpmE7QysfgIwW0WJYXP6bXOFbZ-TaA&s=10'},
+  {id:129,name:'Afnan Supremacy Not Only Intense',     brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'data:image/jpeg;base64,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'},
+  {id:130,name:'Afnan Supremacy Silver',               brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Fs5vulxwRV8U8MZUkWMGgyiDFF-VWRcdIFCq0rTTyQ&s=10'},
+  {id:131,name:'Afnan Turathi Blue',                   brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO-qDgkp5IPjhSdN4J05EygGYmO2AqX7ZIWSWhvxUFWw&s'},
+  {id:132,name:'Afnan Highness For Her',               brand:'Afnan',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAd1hlVYP3GpRHs0mIo286-XF_lGVNFO7u-pVmkx1VGA&s=10'},
+  {id:133,name:'Armaf Club de Nuit Intense Man',       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_pIvr-1yM2_GSt29pGNQLPUuFXGzrjesP3OPOuC3kUg&s=10'},
+  {id:134,name:'Armaf Club de Nuit Untold',            brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ4plWiaJ_x1MheRSJz-Mlsqii6BqWamJxVszGMIMhEA&s'},
+  {id:135,name:'Armaf Club de Nuit Blue Iconic',       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2SeOf6YqHCIkxJ3Leedfu8BATJy45Hovgwu1UBoOd8g&s=10'},
+  {id:136,name:'Armaf Club de Nuit Milestone',         brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtDBJ35FoXI0kz8pP3YoQzqw-3YLW2b8iEFaof3R01wQ&s'},
+  {id:137,name:'Armaf Club de Nuit Oud',               brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj9NqESnUgTpiKNFO4POmR6y7HwqSVDChulsw6T3mpzw&s=10'},
+  {id:138,name:'Armaf Club de Nuit Woman',             brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0eh5sjYa0rHS6OTolA0UDYN8YdhkCEDaooNVvu7WysQ&s=10'},
+  {id:139,name:'Armaf Club de Nuit Int. Man Ltd. V4',  brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaWU-i314Pmfi6t4HPYbleXmsdKOFNaZOqwJAtcwk-Hw&s=10'},
+  {id:140,name:'Armaf Tres Nuit',                      brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQprvhPfj62CLwHAYJrR1OYiB1OK6b-rYWqzhBv2Hxtog&s=10'},
+  {id:141,name:'Odyssey Homme',                        brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHNGPPsiMCkFrkY8-7vZ51fkC7MyXE_hqTEDOXKiNNQQ&s=10'},
+  {id:142,name:'Odyssey Aqua Edition',                 brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrNJ4A1kqJKcZOgPX5eIvYvAjIMg6vinmi_7U8CuwGtw&s=10'},
+  {id:143,name:'Odyssey Tyrant',                       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKRdTFCZlTzwYcgG7osLz9_wCI5-2tc8kgOYoirZ4Tpg&s'},
+  {id:144,name:'Odyssey Mega',                         brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gu1oRZFdlRcjvMRbPvxQQDnemaXasP51EF-AUZy3WQ&s=10'},
+  {id:145,name:'Odyssey Elixir',                       brand:'Armaf',      category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMeWOT4TQ3ntP7fvTHdRTjOs5e1HWlfW5MJs3ELe7fag&s'},
+  {id:146,name:'Lattafa Khamrah',                      brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRPAo31SSfm9TxfaW7EjCw9SRXeUVRPQ9oXqT5_gbxBg&s'},
+  {id:147,name:'Lattafa Khamrah Waha',                 brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq0uFaHxSjynA3s_g05Vl_MxUGF6K8cc90F9oKZO84aA&s=10'},
+  {id:148,name:'Lattafa Yara',                         brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpNMUUd6KOgudprZRkYrRujlT511eTHuV_PHxbpT6_Ug&s=10'},
+  {id:149,name:'Lattafa Yara Candy',                   brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1qBRMHtVJRfwImIaJPuFDAodc_jnRD7CRHknkwiobDA&s'},
+  {id:150,name:'Lattafa Asad',                         brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVR_qgAkJvIFtpFZCzO3FhXfe2OulmY2-lGk9zdekZtg&s=10'},
+  {id:151,name:'Lattafa Oud Mood',                     brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT1pAdSgdQOFh30hnzagf2jHdOxFVmSxM2c_4DFHqV6g&s=10'},
+  {id:152,name:'Lattafa Qaed Al Fursan',               brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-EuIpFj5qGtlndqLutWnEqQBziIFKjHEbjDig5iANNA&s=10'},
+  {id:153,name:'Lattafa Fakhar For Him',               brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0wvBy2U1l15jLrcr4w81VlD-i_9YB5lfy-HC1AHbpWw&s'},
+  {id:154,name:'Lattafa Eclaire',                      brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGDDMep9TlXbtPVoAaR_9fBgbviLmWcHQhxrMBBiRYwg&s=10'},
+  {id:155,name:'Lattafa Ana Abiyedh',                  brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaA0UrH9zWyGjzMHoDo7dkqAkmcDSsLHzDC02oij5xDQ&s'},
+  {id:156,name:'Lattafa Teriaq',                       brand:'Lattafa',    category:'Perfumes',  stock:'Disponible', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTblHuNNywpsiI15WymUh9SRPxVwgkVbI0lG76Y677YKQ&s=10'},
 ];
 
-const catBg={
-  'Tenis':'bg-tenis','Playeras':'bg-playeras','Sudaderas':'bg-sudaderas',
-  'Gorras':'bg-gorras','Bolsos':'bg-bolsos','Perfumes':'bg-perfumes'
-};
-const catTitles={
-  'todos':'Todos los productos','Tenis':'👟 Tenis','Playeras':'👕 Playeras',
-  'Sudaderas':'🧥 Sudaderas','Gorras':'🧢 Gorras','Bolsos':'🎒 Bolsos','Perfumes':'🌸 Perfumes'
-};
-const stockClass={'Disponible':'stock-ok','Últimas piezas':'stock-low','Por pedido':'stock-ord'};
-const categories=['todos','Tenis','Playeras','Sudaderas','Gorras','Bolsos','Perfumes'];
-let activeCat='todos',selectedBrands=[],selectedAvail=[];
 
-function updateBrands(){
-  selectedBrands=[...document.querySelectorAll('input[type=checkbox]')].filter(c=>!['Disponible','Últimas piezas','Por pedido'].includes(c.value)&&c.checked).map(c=>c.value);
-  render();
+/* ===================================================== */
+const CATS = ['Tenis','Sudaderas','Playeras','Gorras','Bolsos','Perfumes'];
+const AVAIL = ['Disponible','Últimas piezas','Por pedido'];
+products.forEach(p => { const s = String(p.stock || '').trim().toLowerCase(); p.stock = AVAIL.find(a => a.toLowerCase() === s) || 'Disponible'; p.name = p.name.trim(); });
+
+const $ = s => document.querySelector(s);
+const norm = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money = n => '$' + Number(n).toLocaleString('es-MX') + ' MXN';
+const imgsOf = p => Array.isArray(p.img) ? p.img : (p.img ? [p.img] : []);
+const byId = id => products.find(p => p.id === id);
+const pageUrl = () => location.href.split('#')[0];
+const waLink = (n, m) => `https://wa.me/${n}?text=${encodeURIComponent(m)}`;
+const initials = b => b.split(/\s+/).map(w => w[0]).join('').slice(0, 3).toUpperCase();
+const generalMsg = 'Hola LGCY, vi su catálogo y quiero información.';
+
+const state = { cat: 'todo', q: '', sort: 'default', brands: new Set(), avail: new Set() };
+let current = null, slide = 0, size = null;
+
+function imgTag(p, src, eager) {
+  const fb = `<span class="fallback">${esc(initials(p.brand))}</span>`;
+  if (!src) return fb;
+  return `<img src="${esc(src)}" alt="${esc(p.name)}" ${eager ? '' : 'loading="lazy"'} decoding="async" referrerpolicy="no-referrer" onerror="this.outerHTML='${fb.replace(/"/g, '&quot;')}'">`;
 }
-function updateAvail(){
-  selectedAvail=[...document.querySelectorAll('input[type=checkbox]')].filter(c=>['Disponible','Últimas piezas','Por pedido'].includes(c.value)&&c.checked).map(c=>c.value);
-  render();
+function priceHtml(p) { return p.price ? `<div class="price">${money(p.price)}</div>` : `<div class="price ask">Precio por WhatsApp</div>`; }
+function cardHtml(p) {
+  const flag = p.stock !== 'Disponible' ? `<div class="flag">${p.stock}</div>` : '';
+  return `<a class="card" href="#/p/${p.id}">
+    <div class="ph">${imgTag(p, imgsOf(p)[0])}</div>
+    <div class="meta">${flag}<div class="brand">${esc(p.brand)}</div><div class="name">${esc(p.name)}</div>${priceHtml(p)}</div>
+  </a>`;
 }
-function clearBrands(){
-  document.querySelectorAll('input[type=checkbox]').forEach(c=>{if(!['Disponible','Últimas piezas','Por pedido'].includes(c.value))c.checked=false;});
-  selectedBrands=[];render();
-}
-function setTab(cat){
-  activeCat=cat;
-  document.querySelectorAll('.header-nav a').forEach((a,i)=>a.classList.toggle('active',categories[i]===cat));
-  categories.forEach(c=>{const el=document.getElementById('cat-'+c);if(el)el.classList.toggle('active',c===cat);});
-  document.getElementById('cat-title').textContent=catTitles[cat]||cat;
-  render();
-}
-function render(){
-  const q=document.getElementById('search').value.toLowerCase();
-  const sort=document.getElementById('sort').value;
-  let f=products.filter(p=>
-    (!q||p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q))&&
-    (selectedBrands.length===0||selectedBrands.includes(p.brand))&&
-    (selectedAvail.length===0||selectedAvail.includes(p.stock))&&
-    (activeCat==='todos'||p.category===activeCat)
-  );
-  if(sort==='name')f.sort((a,b)=>a.name.localeCompare(b.name));
-  categories.forEach(c=>{
-    const el=document.getElementById('cnt-'+c);
-    if(el){const n=c==='todos'?products.length:products.filter(p=>p.category===c).length;el.textContent=n;}
-  });
-  document.getElementById('count').textContent=f.length+' producto'+(f.length!==1?'s':'')+' encontrados';
-  const g=document.getElementById('grid');
-  if(!f.length){g.innerHTML='<div class="empty">Sin resultados</div>';return;}
-  g.innerHTML=f.map(p=>{
-    const rib=p.stock==='Últimas piezas'?'<div class="ribbon ribbon-low">Últimas</div>':
-               p.stock==='Por pedido'?'<div class="ribbon ribbon-order">Por pedido</div>':'';
-    const imgHtml=p.img?`<img src="${p.img}" style="width:100%;height:100%;object-fit:contain" onerror="this.parentElement.innerHTML='<span style=font-size:60px>${p.emoji}</span>'">`:p.emoji;
-    return`<div class="card" onclick="openModal(${p.id})">
-      <div class="card-img-wrap">
-        <div class="card-img-inner ${catBg[p.category]||''}">${rib}${imgHtml}</div>
-        <div class="card-cta">Ver producto</div>
+const countIn = c => products.filter(p => p.category === c).length;
+
+/* ---------- Contenido fijo ---------- */
+$('#utility').textContent = CONFIG.aviso;
+['#headWa', '#fab'].forEach(s => $(s).href = waLink(CONFIG.whatsapp[0].number, generalMsg));
+$('#nav').innerHTML = `<a href="#/c/todo" data-nav="todo">Todo</a>` + CATS.map(c => `<a href="#/c/${c}" data-nav="${c}">${c}</a>`).join('');
+$('#menuList').innerHTML = `<li><a href="#/c/todo">Todo <em>${products.length}</em></a></li>` + CATS.map(c => `<li><a href="#/c/${c}">${c} <em>${countIn(c)}</em></a></li>`).join('');
+$('#menuExtra').innerHTML = CONFIG.whatsapp.map(w => `<a class="u-link" href="${waLink(w.number, generalMsg)}" target="_blank" rel="noopener">WhatsApp ${esc(w.label)}</a>`).join('');
+$('#footCats').innerHTML = CATS.map(c => `<li><a href="#/c/${c}">${c}</a></li>`).join('');
+$('#footWa').innerHTML = CONFIG.whatsapp.map(w => `<li><a href="${waLink(w.number, generalMsg)}" target="_blank" rel="noopener">${esc(w.label)}: ${w.number.replace(/^52/, '').replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}</a></li>`).join('');
+const soc = [];
+if (CONFIG.instagram) soc.push(`<li><a href="https://instagram.com/${CONFIG.instagram}" target="_blank" rel="noopener">Instagram</a></li>`);
+if (CONFIG.tiktok) soc.push(`<li><a href="https://tiktok.com/@${CONFIG.tiktok}" target="_blank" rel="noopener">TikTok</a></li>`);
+if (soc.length) { $('#footSocialBox').hidden = false; $('#footSocial').innerHTML = soc.join(''); }
+$('#year').textContent = new Date().getFullYear();
+$('#footHours').textContent = CONFIG.horario;
+$('#stepPay').textContent = CONFIG.pago;
+
+/* ---------- Inicio ---------- */
+function buildHome() {
+  const slides = CONFIG.portada.map(s => ({ ...s, p: byId(s.id) })).filter(s => s.imagen || s.p);
+  $('#hero').innerHTML = slides.map((s, i) => {
+    const src = s.imagen || imgsOf(s.p)[0];
+    return `<div class="slide ${i ? '' : 'active'}" role="group" aria-roledescription="diapositiva" aria-label="${i + 1} de ${slides.length}" ${i ? 'aria-hidden="true"' : ''}>
+      <div class="hero-text">
+        ${i ? `<h2 class="h1">${esc(s.titulo)}</h2>` : `<h1>${esc(s.titulo)}</h1>`}
+        <p>${esc(s.texto)}</p>
+        <a class="u-link" href="${s.ir}" ${i ? 'tabindex="-1"' : ''}>${esc(s.enlace)}</a>
       </div>
-      <div class="card-body">
-        <div class="card-brand">${p.brand}</div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-stock">${p.stock==='Disponible'?'✓ Disponible':p.stock}</div>
-      </div>
+      <a class="hero-media" href="${s.ir}" tabindex="-1" aria-hidden="true"><img class="${s.ajuste === 'cover' ? 'cover' : 'contain'}" src="${esc(src)}" alt="" ${i ? 'loading="lazy"' : ''} referrerpolicy="no-referrer" onerror="this.remove()"></a>
     </div>`;
+  }).join('') + (slides.length > 1 ? `<div class="hero-ctrl">${slides.map((_, i) => `<button class="dot" data-slide-to="${i}" aria-label="Ver diapositiva ${i + 1}" aria-current="${!i}"></button>`).join('')}
+      <button class="pause" id="heroPause" aria-label="Pausar portada"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg></button></div>` : '');
+  startHero(slides.length);
+
+  $('#cats').innerHTML = CATS.map(c => {
+    const inCat = products.filter(p => p.category === c);
+    const pick = inCat.find(p => isHiRes(p) && CONFIG.destacados.includes(p.id)) || inCat.find(isHiRes) || inCat.find(p => CONFIG.destacados.includes(p.id)) || inCat[0];
+    return `<a class="cat-tile" href="#/c/${c}"><div class="ph">${pick ? imgTag(pick, imgsOf(pick)[0]) : ''}</div><h3>${c}</h3><span class="u-link">Comprar</span></a>`;
+  }).join('');
+
+  $('#featured').innerHTML = CONFIG.destacados.map(byId).filter(Boolean).map(cardHtml).join('');
+
+  $('#editorial').innerHTML = CONFIG.editorial.map(e => {
+    const p = byId(e.id) || products.find(x => x.category === e.categoria);
+    return `<a class="ed-tile" href="#/c/${e.categoria}"><div class="ph">${p ? imgTag(p, imgsOf(p)[0]) : ''}</div>
+      <h3>${esc(e.titulo)}</h3><p>${esc(e.texto)}</p><span class="u-link">Descubrir</span></a>`;
   }).join('');
 }
 
-let currentSlide=0,currentImgs=[];
-function renderSlide(){
-  const content=document.getElementById('carousel-content');
-  const dots=document.getElementById('carousel-dots');
-  if(currentImgs.length>0){
-    content.innerHTML=`<img src="${currentImgs[currentSlide]}" style="width:100%;height:100%;object-fit:contain;min-height:420px">`;
-    dots.innerHTML=currentImgs.map((_,i)=>`<div class="carousel-dot ${i===currentSlide?'active':''}" onclick="goSlide(${i})"></div>`).join('');
-    document.querySelector('.carousel-prev').style.display=currentImgs.length>1?'block':'none';
-    document.querySelector('.carousel-next').style.display=currentImgs.length>1?'block':'none';
-  }
+/* ---------- Carrusel de portada ---------- */
+let heroIdx = 0, heroTimer = null, heroPaused = matchMedia('(prefers-reduced-motion: reduce)').matches, heroN = 0;
+function goHero(i) {
+  const sl = document.querySelectorAll('#hero .slide');
+  if (!sl.length) return;
+  heroIdx = (i + sl.length) % sl.length;
+  sl.forEach((s, k) => {
+    const on = k === heroIdx;
+    s.classList.toggle('active', on);
+    on ? s.removeAttribute('aria-hidden') : s.setAttribute('aria-hidden', 'true');
+    s.querySelectorAll('.hero-text a').forEach(a => on ? a.removeAttribute('tabindex') : a.setAttribute('tabindex', '-1'));
+  });
+  document.querySelectorAll('#hero .dot').forEach((d, k) => d.setAttribute('aria-current', k === heroIdx));
 }
-window.changeSlide=d=>{currentSlide=(currentSlide+d+currentImgs.length)%currentImgs.length;renderSlide();};
-window.goSlide=i=>{currentSlide=i;renderSlide();};
+function startHero(n) {
+  heroN = n; clearInterval(heroTimer);
+  if (n > 1 && !heroPaused) heroTimer = setInterval(() => { if (!$('#viewHome').hidden && !document.hidden) goHero(heroIdx + 1); }, 6000);
+}
+function setPause(p) {
+  heroPaused = p; startHero(heroN);
+  const b = $('#heroPause'); if (!b) return;
+  b.setAttribute('aria-label', p ? 'Reanudar portada' : 'Pausar portada');
+  b.innerHTML = p ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M2 1l9 5-9 5z"/></svg>' : '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg>';
+}
+$('#hero').addEventListener('click', e => {
+  const d = e.target.closest('[data-slide-to]');
+  if (d) { goHero(+d.dataset.slideTo); startHero(heroN); }
+  if (e.target.closest('#heroPause')) setPause(!heroPaused);
+});
+$('#hero').addEventListener('mouseenter', () => clearInterval(heroTimer));
+$('#hero').addEventListener('mouseleave', () => startHero(heroN));
+let hx = null;
+$('#hero').addEventListener('touchstart', e => hx = e.touches[0].clientX, { passive: true });
+$('#hero').addEventListener('touchend', e => {
+  if (hx === null) return; const dx = e.changedTouches[0].clientX - hx; hx = null;
+  if (Math.abs(dx) > 50) { goHero(heroIdx + (dx < 0 ? 1 : -1)); startHero(heroN); }
+});
 
-function openModal(id){
-  const p=products.find(x=>x.id===id);
-  const mi=document.getElementById('m-img');
-  mi.className=`modal-left ${catBg[p.category]||''}`;
-  currentImgs=Array.isArray(p.img)?p.img:(p.img?[p.img]:[]);
-  currentSlide=0;
-  if(currentImgs.length===0){
-    document.getElementById('carousel-content').innerHTML=`<span style="font-size:90px">${p.emoji}</span>`;
-    document.getElementById('carousel-dots').innerHTML='';
-    document.querySelector('.carousel-prev').style.display='none';
-    document.querySelector('.carousel-next').style.display='none';
-  } else renderSlide();
-  document.getElementById('m-brand').textContent=p.brand;
-  document.getElementById('m-name').textContent=p.name;
-  document.getElementById('m-cat').textContent=p.category;
-  const ms=document.getElementById('m-stock');
-  ms.textContent=p.stock;
-  ms.className='modal-val '+(stockClass[p.stock]||'');
-  document.getElementById('m-wa1').onclick=()=>window.open(`https://wa.me/${WA1}?text=${encodeURIComponent('Hola, me interesa: '+p.name+' de '+p.brand+'. ¿Está disponible?')}`,'_blank');
-  document.getElementById('m-wa2').onclick=()=>window.open(`https://wa.me/${WA2}?text=${encodeURIComponent('Hola, me interesa: '+p.name+' de '+p.brand+'. ¿Está disponible?')}`,'_blank');
-  document.getElementById('modal').classList.add('open');
+/* Fotos en buena resolución (no miniaturas de Google) */
+const isHiRes = p => { const s = imgsOf(p)[0] || ''; return /^https?:/.test(s) && !/encrypted-tbn0/.test(s); };
+
+/* ---------- Catálogo ---------- */
+function filtered(skip) {
+  const words = norm(state.q).trim().split(/\s+/).filter(Boolean);
+  return products.filter(p => {
+    const hay = norm(`${p.name} ${p.brand} ${p.category}`);
+    return words.every(w => hay.includes(w))
+      && (skip === 'cat' || state.cat === 'todo' || p.category === state.cat)
+      && (skip === 'brand' || !state.brands.size || state.brands.has(p.brand))
+      && (skip === 'avail' || !state.avail.size || state.avail.has(p.stock));
+  });
 }
-function closeModal(e){if(e.target.id==='modal')document.getElementById('modal').classList.remove('open');}
-render();
+function renderCatalog() {
+  const searching = !!state.q;
+  const title = searching ? `“${state.q}”` : state.cat === 'todo' ? 'Todo el catálogo' : state.cat;
+  $('#catTitle').textContent = title;
+  $('#catCrumbs').innerHTML = `<a href="#/">Inicio</a> / ${searching ? 'Búsqueda' : esc(state.cat === 'todo' ? 'Todo' : state.cat)}`;
+  $('#subnav').innerHTML = searching ? '' : [`<a href="#/c/todo" ${state.cat === 'todo' ? 'aria-current="page"' : ''}>Todo</a>`, ...CATS.map(c => `<a href="#/c/${c}" ${state.cat === c ? 'aria-current="page"' : ''}>${c}</a>`)].join('');
+
+  let list = filtered();
+  const rank = { 'Disponible': 0, 'Últimas piezas': 1, 'Por pedido': 2 };
+  if (state.sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name));
+  if (state.sort === 'avail') list.sort((a, b) => rank[a.stock] - rank[b.stock]);
+  if (state.sort === 'price-asc') list.sort((a, b) => (a.price ?? 1e9) - (b.price ?? 1e9));
+  if (state.sort === 'price-desc') list.sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
+  $('#catCount').textContent = `${list.length} artículo${list.length === 1 ? '' : 's'}`;
+
+  const n = state.brands.size + state.avail.size;
+  $('#filterN').textContent = n ? `(${n})` : '';
+  const chips = [...state.brands].map(b => `<button class="chip" data-rm-brand="${esc(b)}">${esc(b)} <span aria-hidden="true">✕</span></button>`)
+    .concat([...state.avail].map(a => `<button class="chip" data-rm-avail="${a}">${a} <span aria-hidden="true">✕</span></button>`));
+  if (chips.length) chips.push(`<button class="chip clear" id="chipClear">Quitar todo</button>`);
+  $('#chips').innerHTML = chips.join('');
+  $('#chips').hidden = !chips.length;
+
+  if (!list.length) {
+    const ask = state.q ? `Hola LGCY, ¿consiguen ${state.q}?` : 'Hola LGCY, busco un producto que no vi en el catálogo.';
+    $('#grid').innerHTML = `<div class="empty"><h2>No encontramos resultados</h2>
+      <p>Prueba con otra palabra o quita los filtros. Si buscas un modelo en particular, pregúntanos: muchos los conseguimos por pedido.</p>
+      <div class="row"><a class="u-link" href="#/c/todo" id="resetAll">Ver todo el catálogo</a>
+      <a class="u-link" href="${waLink(CONFIG.whatsapp[0].number, ask)}" target="_blank" rel="noopener">Preguntar por WhatsApp</a></div></div>`;
+    return;
+  }
+  $('#grid').innerHTML = list.map(cardHtml).join('');
+}
+function renderFilterPanel() {
+  const fb = filtered('brand');
+  const brands = [...new Set(products.filter(p => state.cat === 'todo' || p.category === state.cat).map(p => p.brand))].sort((a, b) => a.localeCompare(b));
+  $('#fBrands').innerHTML = brands.map(b => `<label class="check"><input type="checkbox" data-brand="${esc(b)}" ${state.brands.has(b) ? 'checked' : ''}> ${esc(b)} <em>${fb.filter(p => p.brand === b).length}</em></label>`).join('');
+  const fa = filtered('avail');
+  $('#fAvail').innerHTML = AVAIL.map(a => {
+    const c = fa.filter(p => p.stock === a).length;
+    return (c || state.avail.has(a)) ? `<label class="check"><input type="checkbox" data-avail="${a}" ${state.avail.has(a) ? 'checked' : ''}> ${a} <em>${c}</em></label>` : '';
+  }).join('');
+  $('#fApply').textContent = `Ver ${filtered().length}`;
+}
+
+/* ---------- Producto ---------- */
+function waMsg(p) { return `Hola LGCY, me interesa: ${p.name} (${p.brand})${size ? `, talla ${size}` : ''}. ¿Está disponible y cuál es el precio?\n${pageUrl()}#/p/${p.id}`; }
+function updateWa() {
+  $('#pWa').href = waLink(CONFIG.whatsapp[0].number, waMsg(current));
+  const w2 = CONFIG.whatsapp[1];
+  $('#pWa2').hidden = !w2;
+  if (w2) { $('#pWa2').href = waLink(w2.number, waMsg(current)); $('#pWa2').textContent = `Escribir a ${w2.label}`; }
+}
+function renderMedia() {
+  const imgs = imgsOf(current);
+  const thumbs = imgs.length > 1 ? `<div class="thumbs">${imgs.map((s, i) => `<button data-go="${i}" aria-label="Foto ${i + 1}" aria-current="${i === slide}"><img src="${esc(s)}" alt="" referrerpolicy="no-referrer"></button>`).join('')}</div>` : '';
+  $('#pMedia').innerHTML = thumbs + `<div class="pdp-main ${imgs.length > 1 ? '' : 'single'}"><div class="ph">${imgTag(current, imgs[slide], true)}</div></div>`;
+}
+function renderProduct(id) {
+  const p = byId(id);
+  if (!p) { location.replace('#/c/todo'); return; }
+  current = p; slide = 0; size = null;
+  document.title = `${p.name} | LGCY`;
+  $('#pCrumbs').innerHTML = `<a href="#/">Inicio</a> / <a href="#/c/${p.category}">${p.category}</a> / ${esc(p.name)}`;
+  renderMedia();
+  $('#pBrand').textContent = p.brand;
+  $('#pName').textContent = p.name;
+  $('#pPrice').innerHTML = priceHtml(p);
+  $('#pStatus').innerHTML = `<i class="${p.stock === 'Disponible' ? '' : 'order'}"></i>${p.stock}`;
+  const t = p.sizes ? { hint: '', opciones: p.sizes } : CONFIG.tallas[p.category];
+  $('#pSizes').hidden = !t;
+  if (t) {
+    $('#pSizeHint').textContent = t.hint;
+    $('#pSizeGrid').innerHTML = t.opciones.map(s => `<button data-size="${s}" aria-pressed="false">${s}</button>`).join('');
+  }
+  $('#pDetails').innerHTML = `<dt>Marca</dt><dd>${esc(p.brand)}</dd><dt>Categoría</dt><dd>${p.category}</dd><dt>Disponibilidad</dt><dd>${p.stock}</dd>`;
+  $('#pShip').textContent = p.stock === 'Por pedido'
+    ? `${CONFIG.envio} Este modelo se pide especialmente para ti; te decimos el tiempo de entrega al confirmar.`
+    : CONFIG.envio;
+  updateWa();
+  const rel = products.filter(x => x.category === p.category && x.id !== p.id)
+    .sort((a, b) => (b.brand === p.brand) - (a.brand === p.brand)).slice(0, 10);
+  $('#related').innerHTML = rel.map(cardHtml).join('');
+}
+
+/* ---------- Navegación por secciones (#/...) ---------- */
+function show(view) {
+  ['viewHome', 'viewCatalog', 'viewProduct'].forEach(v => $('#' + v).hidden = v !== view);
+}
+function route() {
+  const old = location.hash.match(/^#p-(\d+)$/);
+  if (old) { location.replace(`#/p/${old[1]}`); return; }
+  const [, kind, arg = ''] = location.hash.match(/^#\/?([^/]*)\/?(.*)$/) || [];
+  const val = decodeURIComponent(arg);
+  closeDrawers();
+  document.querySelectorAll('[data-nav]').forEach(a => a.removeAttribute('aria-current'));
+  if (kind === 'p') { show('viewProduct'); renderProduct(+val); }
+  else if (kind === 'c' || kind === 'buscar') {
+    const cat = kind === 'c' ? (CATS.includes(val) ? val : 'todo') : 'todo';
+    if (cat !== state.cat) state.brands.clear();
+    state.cat = cat;
+    state.q = kind === 'buscar' ? val : '';
+    if (kind === 'c') $('#q').value = '';
+    document.title = `${kind === 'buscar' ? 'Búsqueda' : cat === 'todo' ? 'Catálogo' : cat} | LGCY`;
+    const navA = document.querySelector(`[data-nav="${cat}"]`);
+    if (navA && kind === 'c') navA.setAttribute('aria-current', 'page');
+    show('viewCatalog'); renderCatalog();
+  } else { document.title = 'LGCY | Tenis, ropa, gorras y perfumes'; show('viewHome'); }
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', route);
+
+/* ---------- Paneles ---------- */
+let lastFocus = null;
+function openDrawer(el) {
+  lastFocus = document.activeElement;
+  el.hidden = false;
+  requestAnimationFrame(() => { el.classList.add('open'); $('#scrim').classList.add('open'); });
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => el.querySelector('[data-close]').focus(), 50);
+}
+function closeDrawers() {
+  document.querySelectorAll('.drawer.open').forEach(d => { d.classList.remove('open'); setTimeout(() => d.hidden = true, 300); });
+  $('#scrim').classList.remove('open');
+  document.body.style.overflow = '';
+  if (lastFocus) { lastFocus.focus({ preventScroll: true }); lastFocus = null; }
+}
+$('#menuBtn').addEventListener('click', () => openDrawer($('#menuDrawer')));
+$('#filterBtn').addEventListener('click', () => { renderFilterPanel(); openDrawer($('#filterDrawer')); });
+$('#scrim').addEventListener('click', closeDrawers);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrawers(); if (!$('#searchbar').hidden) toggleSearch(false); } });
+
+$('#filterDrawer').addEventListener('change', e => {
+  const b = e.target.dataset.brand, a = e.target.dataset.avail;
+  if (b) e.target.checked ? state.brands.add(b) : state.brands.delete(b);
+  if (a) e.target.checked ? state.avail.add(a) : state.avail.delete(a);
+  renderCatalog(); renderFilterPanel();
+});
+$('#fClear').addEventListener('click', () => { state.brands.clear(); state.avail.clear(); renderCatalog(); renderFilterPanel(); });
+$('#sort').addEventListener('change', e => { state.sort = e.target.value; renderCatalog(); });
+
+/* ---------- Búsqueda ---------- */
+function toggleSearch(force) {
+  const open = force ?? $('#searchbar').hidden;
+  $('#searchbar').hidden = !open;
+  $('#searchBtn').setAttribute('aria-expanded', open);
+  if (open) $('#q').focus();
+}
+$('#searchBtn').addEventListener('click', () => toggleSearch());
+let qt;
+$('#q').addEventListener('input', e => {
+  clearTimeout(qt);
+  qt = setTimeout(() => {
+    const v = e.target.value.trim();
+    if (!v) return;
+    const target = `#/buscar/${encodeURIComponent(v)}`;
+    location.hash.startsWith('#/buscar/') ? location.replace(target) : (location.hash = target);
+  }, 350);
+});
+$('#searchForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = $('#q').value.trim();
+  if (v) location.hash = `#/buscar/${encodeURIComponent(v)}`;
+  $('#q').blur();
+});
+
+/* ---------- Clics ---------- */
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (t.closest('[data-close]')) return closeDrawers();
+  const sz = t.closest('[data-size]');
+  if (sz) {
+    size = size === sz.dataset.size ? null : sz.dataset.size;
+    document.querySelectorAll('#pSizeGrid button').forEach(b => b.setAttribute('aria-pressed', b.dataset.size === size));
+    return updateWa();
+  }
+  const go = t.closest('[data-go]');
+  if (go) { slide = +go.dataset.go; return renderMedia(); }
+  const rb = t.closest('[data-rm-brand]');
+  if (rb) { state.brands.delete(rb.dataset.rmBrand); return renderCatalog(); }
+  const ra = t.closest('[data-rm-avail]');
+  if (ra) { state.avail.delete(ra.dataset.rmAvail); return renderCatalog(); }
+  if (t.closest('#chipClear')) { state.brands.clear(); state.avail.clear(); return renderCatalog(); }
+  if (t.closest('#resetAll')) { state.brands.clear(); state.avail.clear(); }
+});
+
+$('#pShare').addEventListener('click', async () => {
+  const url = `${pageUrl()}#/p/${current.id}`;
+  try {
+    if (navigator.share) await navigator.share({ title: current.name, text: `${current.name} en LGCY`, url });
+    else { await navigator.clipboard.writeText(url); toast('Link copiado'); }
+  } catch (_) {}
+});
+function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
+
+/* Deslizar fotos en celular */
+let tx = null;
+$('#pMedia').addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
+$('#pMedia').addEventListener('touchend', e => {
+  const n = current ? imgsOf(current).length : 0;
+  if (tx === null || n < 2) return;
+  const dx = e.changedTouches[0].clientX - tx; tx = null;
+  if (Math.abs(dx) > 40) { slide = (slide + (dx < 0 ? 1 : -1) + n) % n; renderMedia(); }
+});
+
+buildHome();
+route();
 </script>
 </body>
 </html>
